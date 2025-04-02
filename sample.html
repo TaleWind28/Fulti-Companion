@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabula Ultima Manager - Home</title>
+    <style>
+        /* Reset di base e Stili Generali */
+        :root {
+            --primary-color: #3498DB; /* Blu primario */
+            --secondary-color: #2C3E50; /* Blu scuro testo/logo */
+            --text-color: #34495E; /* Grigio scuro testo */
+            --light-gray: #ECF0F1; /* Grigio chiaro sfondo */
+            --white: #FFFFFF;
+            --footer-bg: #34495E;
+            --footer-text: #BDC3C7;
+            --success-color: #2ECC71; /* Verde check */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font generico */
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.8em;
+        }
+
+        h1 { font-size: 2.8rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.4rem; }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: none; /* Per compatibilità se usato <button> */
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #2980B9; /* Blu leggermente più scuro */
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        /* Header */
+        .main-header {
+            background-color: var(--white);
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-header .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        /* Stile logo/icona: [ICON] Fabula Ultima Manager */
+        .main-header .logo i { margin-right: 8px; color: var(--primary-color); }
+
+
+        .main-header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .main-header nav ul li {
+            margin-left: 20px;
+        }
+
+        .main-header nav ul li a {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+         .main-header nav ul li a:hover {
+             color: var(--primary-color);
+         }
+
+        .header-actions .cta-button {
+             padding: 8px 15px;
+             font-size: 0.9rem;
+        }
+
+
+        /* Hero Section */
+        .hero {
+            /* Immagine di sfondo - USARE UN URL REALE */
+            background: url('https://via.placeholder.com/1600x800/ddeeff/99aabb?text=Immagine+Fantasy+Evocativa') no-repeat center center/cover;
+            color: var(--secondary-color); /* Testo scuro per sfondo chiaro */
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative; /* Per eventuale overlay */
+            padding: 80px 0;
+        }
+
+        /* Overlay leggero opzionale */
+        .hero::before {
+           content: '';
+           position: absolute;
+           top: 0; left: 0;
+           width: 100%; height: 100%;
+           background-color: rgba(255, 255, 255, 0.3); /* Overlay bianco traslucido */
+           z-index: 1;
+        }
+
+        .hero .container {
+            position: relative; /* Per stare sopra l'overlay */
+            z-index: 2;
+            max-width: 800px; /* Limita larghezza testo */
+        }
+
+
+        .hero h1 {
+            margin-bottom: 0.5em;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 1em;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5em;
+        }
+
+        .hero .cta-button {
+            font-size: 1.1rem;
+            padding: 15px 30px;
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--white);
+        }
+
+        .features h2 { text-align: center; }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 colonne su desktop */
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem; /* Placeholder per icona */
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background-color: var(--light-gray);
+        }
+
+         .benefits h2 { text-align: center; }
+
+        .benefits ul {
+            list-style: none;
+            max-width: 700px;
+            margin: 40px auto 0;
+            padding-left: 0;
+        }
+
+        .benefits li {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .benefits li .check-icon {
+            color: var(--success-color);
+            margin-right: 10px;
+            font-weight: bold;
+            margin-top: 2px; /* Allinea meglio con il testo */
+        }
+
+        /* Secondary CTA */
+        .cta-secondary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-secondary h2 {
+            color: var(--white);
+        }
+
+         .cta-secondary p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5em;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+         .cta-secondary .cta-button {
+             background-color: var(--white);
+             color: var(--primary-color);
+             font-size: 1.1rem;
+             padding: 15px 30px;
+         }
+          .cta-secondary .cta-button:hover {
+             background-color: var(--light-gray);
+         }
+
+
+        /* Footer */
+        .main-footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .main-footer .footer-links {
+            margin-top: 10px;
+        }
+
+        .main-footer .footer-links a {
+            color: var(--footer-text);
+            margin: 0 10px;
+        }
+         .main-footer .footer-links a:hover {
+             color: var(--white);
+         }
+
+        /* Media Queries per Responsività (Esempio base) */
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 colonne su tablet */
+            }
+             h1 { font-size: 2.4rem; }
+             h2 { font-size: 1.8rem; }
+        }
+
+        @media (max-width: 768px) {
+             .main-header .container {
+                 flex-direction: column;
+             }
+             .main-header nav { margin: 10px 0; }
+             .main-header nav ul { padding-left: 0; }
+             .main-header nav ul li { margin: 0 10px; }
+             .header-actions { margin-top: 10px; }
+
+             .hero { min-height: 50vh; }
+             .hero h1 { font-size: 2rem; }
+             .hero .subtitle { font-size: 1.1rem; }
+
+             section { padding: 40px 0; }
+        }
+
+
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr; /* 1 colonna su mobile */
+            }
+            .benefits ul { width: 90%; }
+        }
+
+    </style>
+    <!-- Potresti voler linkare FontAwesome o un altro set di icone qui -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <!-- <i class="fas fa-dice-d10"></i> Placeholder Icona --> 🎲 Fabula Ultima Manager
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#!">Le Mie Campagne</a></li>
+                    <li><a href="#!">Guida</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#!" class="cta-button">Accedi / Registrati</a>
+                <!-- Se loggato: <div class="user-profile">[Icona Utente]</div> -->
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Fabula Ultima Manager</h1>
+            <p class="subtitle">Il tuo compagno digitale per avventure indimenticabili in <em>Fabula Ultima</em>.</p>
+            <p>Gestisci campagne, personaggi, combattimenti e sessioni in modo semplice e collaborativo. Concentrati sul gioco, al resto pensiamo noi. Anche offline!</p>
+            <a href="#!" class="cta-button">Inizia Ora (Gratuito)</a>
+            <!-- Se loggato: <a href="#!" class="cta-button">Vai alle Tue Campagne</a> -->
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>Tutto ciò che ti serve, in un unico posto</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">📜</div> <!-- Placeholder Icona -->
+                    <h3>Schede Personaggio Digitali</h3>
+                    <p>Creazione guidata, calcoli automatici (PF/PM), equipaggiamento e note. Sempre disponibili, anche offline.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🐉</div> <!-- Placeholder Icona -->
+                    <h3>Bestiario Integrato</h3>
+                    <p>Consulta rapidamente mostri e PNG, filtra per livello o tipo. Accessibile offline durante le sessioni.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🗺️</div> <!-- Placeholder Icona -->
+                    <h3>Gestione Campagne & Wiki</h3>
+                    <p>Organizza le tue campagne, invita giocatori e costruite insieme una Wiki condivisa per lore e appunti.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🎲</div> <!-- Placeholder Icona -->
+                    <h3>Dice Roller Avanzato</h3>
+                    <p>Tira dadi personalizzati (d4-d20+) con un click. Log storico dei tiri per non perdere nulla.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⚔️</div> <!-- Placeholder Icona -->
+                    <h3>Combat Helper & Sessioni Live</h3>
+                    <p>Il Master crea combattimenti, i giocatori interagiscono in tempo reale. Gestione turni e status semplificata.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">☁️/🔌</div> <!-- Placeholder Icona -->
+                    <h3>Offline & Cloud Sync</h3>
+                    <p>Lavora offline senza problemi, i tuoi dati si sincronizzeranno automaticamente appena torni online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <div class="container">
+            <h2>Semplifica le tue sessioni di <em>Fabula Ultima</em></h2>
+            <ul>
+                <li><span class="check-icon">✓</span> <strong>Concentrati sulla Narrazione:</strong> Meno tempo perso su calcoli e gestione, più tempo per giocare.</li>
+                <li><span class="check-icon">✓</span> <strong>Collaborazione Facile:</strong> Master e giocatori sempre allineati, con strumenti condivisi in tempo reale.</li>
+                <li><span class="check-icon">✓</span> <strong>Accesso Ovunque:</strong> Usa la PWA su qualsiasi dispositivo (desktop, tablet, mobile), con o senza connessione.</li>
+                <li><span class="check-icon">✓</span> <strong>Tutto Integrato:</strong> Schede, dadi, bestiario e gestione sessione in un unico strumento.</li>
+                <li><span class="check-icon">✓</span> <strong>Promemoria Intelligenti:</strong> Ricevi notifiche per le prossime sessioni (via FCM).</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cta-secondary">
+        <div class="container">
+            <h2>Pronto a portare le tue campagne di <em>Fabula Ultima</em> al livello successivo?</h2>
+            <p>Unisciti a Master e Giocatori che già usano Fabula Ultima Manager.</p>
+            <a href="#!" class="cta-button">Crea il tuo Account Gratuito</a>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p class="copyright">© 2025 Fabula Ultima Manager - Un progetto di Martini Matteo (Università di Pisa)</p>
+            <div class="footer-links">
+                <a href="#!">Privacy Policy</a> |
+                <a href="#!">Termini di Servizio</a> |
+                <a href="#!">Contatti</a> |
+                <a href="#!">Segnala un Bug</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
