@@ -15,29 +15,33 @@
 </script>
 
 {#if page.url.pathname !== loginPage}
-  <header class="bg-teal-800 text-white shadow-md py-4">
+  <header class="bg-teal-800 text-white shadow-md py-4 max-w-5xl h-10 flex items-center">
     <div class="container mx-auto px-4 flex items-center justify-between">
-          <span class="flex-none">
-              {#if logoUrl}
-                  <a href={homeUrl}> <img src={logoUrl} alt={appTitle} class="flex items-start h-15" /></a>
-              {/if} 
-          </span>
 
-          <span class="flex space-x-6 justify-center">
-            <a href={campaignPage}>Campagne</a>
-            <a href={playerSheetPage}>Schede Personaggio</a>
-            <a href={manualLinkPage}>Manuali</a>
-            <a href={objectGeneratorPage}>Generatore di Oggetti</a>
-          </span>
-          {#if page.url.pathname !== loginPage}
-            <span class="text-xl font-bold flex-none">
-              {#if loginStatus}
-                {username}
-              {:else}
-                <a href={pages[0]}> Accedi/Registrati</a>
-              {/if}
-            </span>
+      <span class="flex-none">
+        {#if logoUrl && page.url.pathname !== homeUrl}
+              <a href={homeUrl}> <img src={logoUrl} alt={appTitle} class="flex items-start h-10" /></a>
+        {/if} 
+      </span>
+
+      <span class="flex space-x-6 justify-center">
+        <a href={campaignPage}>Campagne</a>
+        <a href={playerSheetPage}>Schede Personaggio</a>
+        <a href={manualLinkPage}>Manuali</a>
+        <a href={objectGeneratorPage}>Generatore di Oggetti</a>
+      </span>
+
+      {#if page.url.pathname !== loginPage}
+        <span class="font-bold flex-none">
+          {#if loginStatus}
+            {username}
+          {:else}
+            <a href={pages[0]} class="rounded bg-emerald-400"> Accedi/Registrati</a>
           {/if}
+
+        </span>
+
+      {/if}
     </div>
   </header>
 {/if}
