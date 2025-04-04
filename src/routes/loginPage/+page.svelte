@@ -2,6 +2,7 @@
     let username = "";
     let password = "";
 </script>
+
 <div class="flex h-screen">
     <div class=" bg-teal-800 flex items-center justify-center text-white text-2xl w-full">
         <a href="/"><img src="src/images/Logo3.png" alt="pino" class="h-70 w-full"></a>

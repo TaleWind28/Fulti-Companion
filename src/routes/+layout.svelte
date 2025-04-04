@@ -1,9 +1,12 @@
 <script lang="ts">
 	import '../app.css';
 	import Header from '../components/header.svelte'
-	let logo = "../images/Logo3.png";
+	let logo = "src/images/Logo3.png";
+	let headerPages = ["/loginPage"];
 	let { children } = $props();
 </script>
 
-<Header></Header>
+<Header logoUrl= {logo} pages={headerPages}>
+	
+</Header>
 {@render children()}

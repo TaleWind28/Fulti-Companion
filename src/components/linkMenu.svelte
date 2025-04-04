@@ -7,7 +7,7 @@
     export let menuItems:menuItem[] = [];
 </script>
 
-<nav >
+<nav>
     <ul class="flex space-x-6">
       {#each menuItems as item}
         <li>
