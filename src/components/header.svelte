@@ -13,6 +13,7 @@
   
   let username = "provvisorio, implementare a modo";
 </script>
+
 {#if page.url.pathname !== loginPage}
   <header class="bg-teal-800 text-white shadow-md py-4">
     <div class="container mx-auto px-4 flex items-center justify-between">

@@ -13,5 +13,10 @@
             <input id="Username" type="text" bind:value={username} placeholder="username" class="px-4 py-2 border rounded w-64">
             <input id="Username" type="password" bind:value={password} placeholder="password" class="px-4 py-2 border rounded w-64">
         </div>
+        
+        <button>
+            Accedi
+        </button>
     </div>
+
 </div>
