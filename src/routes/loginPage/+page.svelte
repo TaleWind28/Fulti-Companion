@@ -3,6 +3,7 @@
     import { registerUser, login} from '$lib/authUtility';
     import {updateProfile } from "firebase/auth";
     import CustomButton from '../../components/customButton.svelte';
+    import { error } from '@sveltejs/kit';
 
     let email = "";
     let password = "";
@@ -23,16 +24,21 @@
                 alert("Inserisci la password")
             ;
 
-        login(email,password).then(
+        login(email,password)
+        .then(
         (userCredentials) => {
             const user = userCredentials.user;
             
             goto(userHome);
         })
+        .catch(
+            (error)=> {
+                alert(error);
+            }
+        )
     }
 
     async function handleRegister(){
-       
         try {
             if(username===""){
                 alert("Inserisci il nome utente");
@@ -69,23 +75,15 @@
         <a href="/"><img src="src/images/Logo3.png" alt="pino" class="h-70 w-full"></a>
     </div>
     <div class="flex justify-center items-center gap-4 flex-col w-full">
-        
-        <div class="flex flex-col gap-4 items-center w-full">
+        <form on:submit={boolRegister ? handleRegister : handleLogin} class="flex flex-col gap-4 items-center w-full">
             {#if boolRegister}
                 <input id="username" type="text" bind:value={username} placeholder="username" class="px-4 py-2 rounded w-64">
             {/if}
             <input id="email" type="text" bind:value={email} placeholder="email" class="px-4 py-2 rounded w-64"> 
             <input id="password" type="password" bind:value={password} placeholder="password" class="px-4 py-2 rounded w-64">
-        </div>    
-        
-        {#if !boolRegister}
-            <CustomButton text="Accedi" type= button btnFun={handleLogin}/>
-            <button on:click={showRegistration} class="underline">non possiedi un account? Registrati</button>
-        {:else}
-            <CustomButton text="Registrati" type= button btnFun={handleRegister}/>
-            <button on:click={showRegistration} class="underline">Possiedi un account? Accedi</button>    
-        {/if}
-
+            <CustomButton text={boolRegister ? "Registrati" : "Accedi"} type=submit />
+            <CustomButton text={boolRegister ? "Possiedi un account?Accedi" : "Non possiedi un account?Registrati"} style = "underline" dimensions= "" btnFun={showRegistration}/>
+        </form>
         
     </div>
 

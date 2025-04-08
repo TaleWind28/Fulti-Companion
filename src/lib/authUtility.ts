@@ -6,7 +6,7 @@ import {updateProfile } from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyC3TKMg8Vk7dXxm150_lqnaxSUF4WlXMQ0",
   authDomain: "fulti-companion.firebaseapp.com",
   projectId: "fulti-companion",
