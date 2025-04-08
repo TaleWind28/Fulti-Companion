@@ -3,7 +3,7 @@
 </script> 
  
 <div class="grid grid-cols-[30%_70%] bg-blue-900"><!--container principale -->
-    <div class=" bg-amber-300"><!-- tab laterale sx -->
+    <div class=" bg-amber-300"><!-- tab con propic ed informazioni utente -->
         <div class="flex col-auto">
             <!-- immagine utente-->
             <img src="src/images/sora_avatar_test.jpg" class=" w-auto h-100" alt="sora">
