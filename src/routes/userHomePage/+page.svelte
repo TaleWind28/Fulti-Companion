@@ -23,9 +23,7 @@
     <!-- tab laterale dx -->
     <div class=" bg-red-500">
         <div class=" bg-orange-100"><!-- news tab--> 
-            <ShowRelatedNews>
-
-            </ShowRelatedNews>
+            <ShowRelatedNews/>
         </div>
         <div class=" bg-fuchsia-800"><!-- attività recenti-->
             
