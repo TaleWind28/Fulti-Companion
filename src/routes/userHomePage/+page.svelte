@@ -1,5 +1,5 @@
 <script>
-    // import UserProfile from '../components/userProfile.svelte'
+    import ShowRelatedNews from "../../components/showRelatedNews.svelte";
 </script> 
  
 <div class="grid grid-cols-[30%_70%] bg-blue-900"><!--container principale -->
@@ -22,11 +22,13 @@
     </div>
     <!-- tab laterale dx -->
     <div class=" bg-red-500">
-        <div class=" bg-amber-950"><!-- news tab--> 
-            michele
+        <div class=" bg-orange-100"><!-- news tab--> 
+            <ShowRelatedNews>
+
+            </ShowRelatedNews>
         </div>
         <div class=" bg-fuchsia-800"><!-- attività recenti-->
-            nino
+            
         </div>
     </div>
 

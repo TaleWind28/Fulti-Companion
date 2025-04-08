@@ -3,8 +3,7 @@
   import {user, loading} from '../stores/authStore';
   import {logout} from '$lib/authUtility';
   import Fa from 'svelte-fa'
-  import type { icon, IconDefinition } from '@fortawesome/fontawesome-svg-core';
-  import {faDiceD20,faCloud, faKhanda, faScroll, faBookSkull, faBookBookmark, faRightFromBracket} from '@fortawesome/free-solid-svg-icons';  
+  import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons';  
     import { goto } from "$app/navigation";
 
   export let appTitle = "F-Ulti Companion";
