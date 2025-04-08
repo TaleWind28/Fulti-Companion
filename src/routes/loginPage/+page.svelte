@@ -1,6 +1,43 @@
 <script>
-    let username = "";
+    import { goto } from '$app/navigation';
+    import { registerUser, login} from '$lib/authUtility';
+    import {updateProfile } from "firebase/auth";
+    let email = "";
     let password = "";
+    let userHome = "/userHomePage";
+    let boolRegister = false;
+    let username = "";
+    function showRegistration(){
+        if(boolRegister)boolRegister = false;
+        else boolRegister = true;
+    }
+
+    function handleLogin(){
+        login(email,password).then(
+        (userCredentials) => {
+            const user = userCredentials.user;
+            
+            goto(userHome);
+        })
+    }
+
+    async function handleRegister(){
+       
+        try {
+            // Registra l'utente con email e password
+            const userCred = await registerUser(email,password,username);
+
+            // Aggiorna il profilo con l'username
+            if (userCred && userCred.user) {
+
+                // Reindirizza l'utente alla home page
+                goto("/userHomePage");
+            }
+        } catch (error) {
+            alert("Errore durante la registrazione: ");
+        }
+    }
+
 </script>
 
 <div class="flex h-screen">
@@ -8,15 +45,26 @@
         <a href="/"><img src="src/images/Logo3.png" alt="pino" class="h-70 w-full"></a>
     </div>
     <div class="flex justify-center items-center gap-4 flex-col w-full">
-        non so se inserire del testo qui
-        <div class="flex flex-col gap-4 items-center w-full">
-            <input id="Username" type="text" bind:value={username} placeholder="username" class="px-4 py-2 border rounded w-64">
-            <input id="Username" type="password" bind:value={password} placeholder="password" class="px-4 py-2 border rounded w-64">
-        </div>
         
-        <button>
-            Accedi
-        </button>
+        <div class="flex flex-col gap-4 items-center w-full">
+            <input id="username" type="texts" bind:value={username} placeholder="username" class="px-4 py-2 rounded w-64">
+            <input id="email" type="text" bind:value={email} placeholder="email" class="px-4 py-2 rounded w-64">
+            <input id="password" type="password" bind:value={password} placeholder="password" class="px-4 py-2 rounded w-64">
+        </div>    
+        
+        {#if !boolRegister}
+            <button on:click={handleLogin} class=" bg-blue-500 w-24 h-8 cursor-pointer rounded text-white">
+                Accedi
+            </button>
+            <button on:click={showRegistration} class="underline">non possiedi un account? Registrati</button>
+        {:else}
+            <button on:click={handleRegister}>
+                Registrati
+            </button>
+            <button on:click={showRegistration}>Possiedi un account? Accedi</button>    
+        {/if}
+
+        
     </div>
 
 </div>

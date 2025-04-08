@@ -10,4 +10,5 @@
 <Header logoUrl= {logo} pages={headerPages}></Header>
 	
 {@render children()}
+
 <Footer></Footer>

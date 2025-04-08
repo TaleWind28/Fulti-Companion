@@ -4,9 +4,8 @@
 
 
 {#if page.url.pathname !== "/loginPage"}
-    <br><br><br>
     <footer class="bg-teal-800 text-white shadow-md py-4">
+        <br><br><br>
         definire footer
-    
     </footer>
 {/if}
