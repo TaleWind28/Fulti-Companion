@@ -6,12 +6,12 @@
     export let style = "bg-blue-500 cursor-pointer rounded text-white"
     export let dimensions = "w-24 h-8";
     export let type:'button' | 'submit' | 'reset' = 'button';
-    export let icon:IconDefinition;
+    export let icon:IconDefinition | undefined = undefined;
 
 </script>
 
 <button {type} on:click class="{dimensions} {style}">
-{#if icon===null}
+{#if icon===undefined}
     {text}
 {:else}
     <Fa icon={icon}/>
