@@ -1,0 +1,47 @@
+<script lang="ts">
+    import { uploadImages } from "$lib/utility";
+    import CustomButton from "./customButton.svelte";
+    import { user } from "../stores/authStore";
+    import { getAuth } from "firebase/auth";
+    let file:File|null = null;
+    let previewUrl = '';
+    let selectedFile:File|null = null; 
+    let uploadError = '';
+    
+    function handleFileSelect(event){
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            selectedFile = file;
+            previewUrl = URL.createObjectURL(file);
+        } else {
+            uploadError = 'Seleziona un file immagine valido';
+        }
+
+    }
+    async function handleUpload(){
+        if(!selectedFile)return;
+        const user = getAuth().currentUser;
+        if(!user)throw new Error("Utente non autenticato");
+        
+        await uploadImages(user.uid,selectedFile);
+       
+    }
+</script>
+
+
+{#if !selectedFile}
+    <label class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 transition-colors">
+        <input type="file" accept="image/*" class="hidden" on:change={handleFileSelect} bind:value={file}/>
+        Seleziona un'immagine
+        {$user?.displayName}
+        {$user?.uid}
+    </label>
+{:else}
+    <div class="space-y-4">
+        <div class="flex justify-center">
+            <img src={previewUrl} alt="Anteprima" class="max-h-64 rounded-md object-contain border border-gray-200" />
+        </div>
+    </div>
+{/if}
+
+<CustomButton text="upload" on:click={handleUpload}/>

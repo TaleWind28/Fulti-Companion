@@ -1,7 +1,7 @@
 import { getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-
+export const storage = getStorage();
 export async function uploadImage(file:File, path:string){
     const storage = getStorage();
     const storageRef = ref(storage,path);
@@ -30,7 +30,6 @@ export async function publishNews(news:News){
     const newsToPublish = {...news,timestamp:Timestamp.fromDate(news.timestamp)} 
 
     try{
-        alert(user.uid);
         await addDoc(collection(db,'users',user.uid,'news'),newsToPublish);
     }
     catch(error){
@@ -38,6 +37,38 @@ export async function publishNews(news:News){
     }
 }
 
+export interface Image{
+    name:string;
+    url:string;
+    uploadTimestamp:Date;
+    path:string;
+    size:number;
+    contentType:string;
+}
+
+export async function uploadImages(userId:string,file:File){
+    try {
+        // const storageRef = ref(storage,`users/${userId}/images`);
+        //  // 2. Carica il file su Cloud Storage
+        // const snapshot = await uploadBytes(storageRef, file);
+        
+        //const downloadURL = getDownloadURL(snapshot.ref);
+        const uploadedImage = {
+            name:file.name,
+            //url:downloadURL,
+            uploadTimstamp: new Date(),
+            //path:snapshot.ref.fullPath,
+            size:file.size,
+            contentType:file.type
+        }
+        const docRef = await addDoc(collection(db,'users',userId,'images'),uploadedImage);
+        alert("immagine caricata con successo ");
+        //return {downloadURL, docId: docRef.id };
+    } catch (error) {
+        console.error("Errore nel caricamento:", error);
+        throw error;
+    }
+}
 
 export async function getNewsPerUtente(){
     const user = getAuth().currentUser;

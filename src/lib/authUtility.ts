@@ -3,9 +3,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import {updateProfile } from "firebase/auth";
+import {type Auth, type User } from 'firebase/auth';
+import { getStorage, ref, uploadBytes, getDownloadURL, type StorageReference, type UploadResult } from 'firebase/storage';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
   apiKey: "AIzaSyC3TKMg8Vk7dXxm150_lqnaxSUF4WlXMQ0",
   authDomain: "fulti-companion.firebaseapp.com",
@@ -19,6 +19,7 @@ export const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+const storage = getStorage(app);
 
 export async function login(email:string, password:string){
   return signInWithEmailAndPassword(auth, email,password);
@@ -50,3 +51,4 @@ export async function logout() {
       throw error;
   }
 }
+
