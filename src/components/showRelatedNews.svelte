@@ -3,6 +3,7 @@
   import { type News, getNewsPerUtente } from '$lib/utility';
   import Fa from 'svelte-fa';
   import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons'; 
+  import CustomButton from './customButton.svelte';
 
   let news: News[] = [];
   let loading = true;
@@ -50,8 +51,8 @@
 		};
 	});
 
-  
   function scrollContent(direction: 'left' | 'right') {
+    
     if (!scrollContainerElement) {
       console.warn("Scroll container not found!");
       return; // Esce se l'elemento non è ancora stato bindato
@@ -69,14 +70,8 @@
 </script>
 
 <div class="p-4">
-  <button on:click={()=> scrollContent('left')}>
-    <Fa icon={faArrowLeft}/>
-  </button>
-  
-  <button  on:click={() => scrollContent('right')}>
-    <Fa icon={faArrowRight}/>
-  </button>
-
+  <CustomButton icon={faArrowLeft} on:click={()=>scrollContent('left')} style="cursor-pointer" dimensions="" text=""/>
+  <CustomButton icon={faArrowRight} on:click={()=>scrollContent('right')} style="cursor-pointer" dimensions="" text=""/>
   <!-- carico le news-->
   {#if loading}
     <p class="text-center text-gray-500">Caricamento...</p>
