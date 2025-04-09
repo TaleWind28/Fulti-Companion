@@ -1,7 +1,7 @@
 <script lang="ts">
+  
   import { onMount } from 'svelte';
   import { type News, getNewsPerUtente } from '$lib/utility';
-  import Fa from 'svelte-fa';
   import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons'; 
   import CustomButton from './customButton.svelte';
 
@@ -52,7 +52,7 @@
 	});
 
   function scrollContent(direction: 'left' | 'right') {
-    
+
     if (!scrollContainerElement) {
       console.warn("Scroll container not found!");
       return; // Esce se l'elemento non è ancora stato bindato
