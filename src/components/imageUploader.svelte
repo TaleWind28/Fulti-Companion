@@ -1,15 +1,15 @@
 <script lang="ts">
     import { uploadImages } from "$lib/utility";
     import CustomButton from "./customButton.svelte";
-    import { user } from "../stores/authStore";
     import { getAuth } from "firebase/auth";
-    let file:File|null = null;
     let previewUrl = '';
     let selectedFile:File|null = null; 
     let uploadError = '';
     
-    function handleFileSelect(event){
-        selectedFile = event.target.files[0];
+    function handleFileSelect(event:Event){
+        const target = event.target as HTMLInputElement;
+        selectedFile = target.files?.[0] || null;
+
         if (selectedFile && selectedFile.type.startsWith('image/')) {
             //selectedFile = file;
             if(selectedFile)previewUrl = URL.createObjectURL(selectedFile);
@@ -39,7 +39,6 @@
     <div class="space-y-4">
         <div class="flex justify-center">
             <img src={previewUrl} alt="Anteprima" class="max-h-64 rounded-md object-contain border border-gray-200" />
-            {selectedFile.name}
         </div>
     </div>
 {/if}

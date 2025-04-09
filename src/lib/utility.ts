@@ -10,7 +10,7 @@ export async function uploadImage(file:File, path:string){
 }
 
 import { initializeApp } from 'firebase/app';
-    import { addDoc, collection, getFirestore, Timestamp, getDocs, query, where } from 'firebase/firestore';
+    import { addDoc, collection, getFirestore, Timestamp, getDocs, query, where, type DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
     import {firebaseConfig} from '$lib/authUtility';
     import { getAuth } from 'firebase/auth';
     
@@ -37,7 +37,7 @@ export async function publishNews(news:News){
     }
 }
 
-export interface Image{
+export interface Image extends DocumentData{
     name:string;
     url:string;
     uploadTimestamp:Date;
@@ -81,7 +81,7 @@ export async function uploadImages(userId:string,file:File, usedIn:string){
     }
 }
 
-export async function getUserAvatar(userId:string) {
+export async function getUserAvatar(userId: string): Promise<Image | null> {
     try {
       // Crea una query sulla collezione images dell'utente
       const imagesRef = collection(db, 'users', userId, 'images');
@@ -97,13 +97,13 @@ export async function getUserAvatar(userId:string) {
       }
       
       // Prendi il primo documento che corrisponde (dovrebbe essercene solo uno)
-      const avatarDoc = querySnapshot.docs[0];
+      const avatarDoc: QueryDocumentSnapshot<DocumentData> = querySnapshot.docs[0];
       
       // Restituisci i dati dell'immagine con l'ID del documento
       return {
-        id: avatarDoc.id,
-        ...avatarDoc.data()
-      };
+          id: avatarDoc.id,
+          ...avatarDoc.data()
+      } as unknown as Image;
     } catch (error) {
       console.error("Errore nella ricerca dell'avatar:", error);
       throw error;
