@@ -10,7 +10,7 @@ export async function uploadImage(file:File, path:string){
 }
 
 import { initializeApp } from 'firebase/app';
-    import { addDoc, collection, getFirestore, Timestamp, getDocs } from 'firebase/firestore';
+    import { addDoc, collection, getFirestore, Timestamp, getDocs, query, where } from 'firebase/firestore';
     import {firebaseConfig} from '$lib/authUtility';
     import { getAuth } from 'firebase/auth';
     
@@ -44,24 +44,35 @@ export interface Image{
     path:string;
     size:number;
     contentType:string;
+    usedIn:string;
 }
 
-export async function uploadImages(userId:string,file:File){
+export async function uploadImages(userId:string,file:File, usedIn:string){
     try {
-        // const storageRef = ref(storage,`users/${userId}/images`);
-        //  // 2. Carica il file su Cloud Storage
-        // const snapshot = await uploadBytes(storageRef, file);
+        // 1. Crea un riferimento a Storage
+        const storageRef = ref(storage, `users/${userId}/images/${file.name}`);
         
-        //const downloadURL = getDownloadURL(snapshot.ref);
+        // Converti il file in una stringa Base64
+        const reader = new FileReader();
+        
+        const base64Promise = new Promise((resolve, reject) => {
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+        });
+
+        reader.readAsDataURL(file);
+        
+        const base64String = await base64Promise;
+        
         const uploadedImage = {
             name:file.name,
-            //url:downloadURL,
+            data:base64String,
             uploadTimstamp: new Date(),
-            //path:snapshot.ref.fullPath,
             size:file.size,
-            contentType:file.type
+            contentType:file.type,
+            usedIn:usedIn
         }
-        const docRef = await addDoc(collection(db,'users',userId,'images'),uploadedImage);
+        await addDoc(collection(db,'users',userId,'images'),uploadedImage);
         alert("immagine caricata con successo ");
         //return {downloadURL, docId: docRef.id };
     } catch (error) {
@@ -69,6 +80,35 @@ export async function uploadImages(userId:string,file:File){
         throw error;
     }
 }
+
+export async function getUserAvatar(userId:string) {
+    try {
+      // Crea una query sulla collezione images dell'utente
+      const imagesRef = collection(db, 'users', userId, 'images');
+      const q = query(imagesRef, where("usedIn", "==", "avatar"));
+      
+      // Esegue la query
+      const querySnapshot = await getDocs(q);
+      
+      // Se non ci sono risultati, restituisce null
+      if (querySnapshot.empty) {
+        console.log("Nessun avatar trovato per questo utente");
+        return null;
+      }
+      
+      // Prendi il primo documento che corrisponde (dovrebbe essercene solo uno)
+      const avatarDoc = querySnapshot.docs[0];
+      
+      // Restituisci i dati dell'immagine con l'ID del documento
+      return {
+        id: avatarDoc.id,
+        ...avatarDoc.data()
+      };
+    } catch (error) {
+      console.error("Errore nella ricerca dell'avatar:", error);
+      throw error;
+    }
+  }
 
 export async function getNewsPerUtente(){
     const user = getAuth().currentUser;
