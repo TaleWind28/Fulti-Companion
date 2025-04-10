@@ -10,7 +10,7 @@ export async function uploadImage(file:File, path:string){
 }
 
 import { initializeApp } from 'firebase/app';
-    import { addDoc, collection, getFirestore, Timestamp, getDocs, query, where, type DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
+    import { addDoc, collection, getFirestore, Timestamp, getDocs, query, where, type DocumentData, QueryDocumentSnapshot, updateDoc } from 'firebase/firestore';
     import {firebaseConfig} from '$lib/authUtility';
     import { getAuth } from 'firebase/auth';
     
@@ -72,8 +72,34 @@ export async function uploadImages(userId:string,file:File, usedIn:string){
             contentType:file.type,
             usedIn:usedIn
         }
-        await addDoc(collection(db,'users',userId,'images'),uploadedImage);
-        alert("immagine caricata con successo ");
+
+        
+        
+    // Se usedIn è "avatar", cerca documenti esistenti con usedIn === "avatar"
+    if (usedIn === "avatar") {
+        // Cerca documenti esistenti con usedIn === "avatar"
+        const avatarQuery = query(
+          collection(db, 'users', userId, 'images'),
+          where('usedIn', '==', 'avatar')
+        );
+        
+        const querySnapshot = await getDocs(avatarQuery);
+        
+        if (!querySnapshot.empty) {
+          // Se esiste già un avatar, aggiorna il primo documento trovato
+          const docToUpdate = querySnapshot.docs[0];
+          await updateDoc(docToUpdate.ref, uploadedImage);
+          alert("Avatar aggiornato con successo");
+        } else {
+          // Se non esiste un avatar, crea un nuovo documento
+          await addDoc(collection(db, 'users', userId, 'images'), uploadedImage);
+          alert("Avatar caricato con successo");
+        }
+      } else {
+        // Per altri tipi di immagini, aggiungi semplicemente un nuovo documento
+        await addDoc(collection(db, 'users', userId, 'images'), uploadedImage);
+        alert("Immagine caricata con successo");
+      }
         //return {downloadURL, docId: docRef.id };
     } catch (error) {
         console.error("Errore nel caricamento:", error);

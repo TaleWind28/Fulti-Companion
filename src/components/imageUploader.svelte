@@ -5,7 +5,10 @@
     let previewUrl = '';
     let selectedFile:File|null = null; 
     let uploadError = '';
-    
+    export let use = '';
+    export let text = '';
+    export let fileSelectionText = '';
+    export let hidePreview = false;
     function handleFileSelect(event:Event){
         const target = event.target as HTMLInputElement;
         selectedFile = target.files?.[0] || null;
@@ -24,7 +27,8 @@
         const user = getAuth().currentUser;
         if(!user)throw new Error("Utente non autenticato");
         
-        await uploadImages(user.uid,selectedFile,"avatar");
+        await uploadImages(user.uid,selectedFile,use);
+        selectedFile = null;
        
     }
 </script>
@@ -33,14 +37,15 @@
 {#if !selectedFile}
     <label class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 transition-colors">
         <input type="file" accept="image/*" class="hidden" on:change={handleFileSelect}/>
-        Seleziona un'immagine
+        {fileSelectionText}
     </label>
-{:else}
+{:else if !hidePreview}
     <div class="space-y-4">
         <div class="flex justify-center">
             <img src={previewUrl} alt="Anteprima" class="max-h-64 rounded-md object-contain border border-gray-200" />
         </div>
     </div>
 {/if}
-
-<CustomButton text="upload" on:click={handleUpload}/>
+{#if selectedFile}
+    <CustomButton text={text} on:click={handleUpload}/>
+{/if}
