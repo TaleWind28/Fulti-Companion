@@ -90,11 +90,13 @@
   }
 
 </script>
+
 <div class="flex items-center justify-center flex-col gap-2">
     <div>
         {#if !loading} 
             {#if avatar !==  null}
-                <img src={avatar.data} alt="not yet loaded" class="w-auto h-auto max-w-120 max-h-120 aspect-square"/>
+              <br>
+                <img src={avatar.data} alt="not yet loaded" class="w-auto h-auto max-w-100 max-h-100 aspect-square border-2"/>
             {:else}
                 <img src="src/images/default-avatar.jpeg" alt="placeholder" class="aspect-square"/> 
             {/if}

@@ -4,10 +4,9 @@
     import { user } from "../stores/authStore";
     import { onMount } from "svelte";
     let recentActivities:RecentActivity[] = [];
-    let intervalId = null;
-    let REFRESH_INTERVAL = 5000;
     let loading = true;
-    
+    let intervalId: NodeJS.Timeout |null = null;
+    const REFRESH_INTERVAL = 5000; // 5 secondi
     // Funzione per caricare le attività recenti
     async function loadRecentActivities() {
         if ($user && $user.uid) {
@@ -25,6 +24,7 @@
     // Carica le attività quando il componente viene montato
     onMount(() => {
         loadRecentActivities();
+        intervalId = setInterval(loadRecentActivities,REFRESH_INTERVAL);
     });
     
     // Ricarica quando cambia l'utente
@@ -34,9 +34,9 @@
 </script>
 
 
-<div class="border border-orange-300 rounded-lg overflow-hidden">
+<div class="border border-orange-300 overflow-hidden">
     <!-- Intestazione a colonna singola -->
-    <div class="bg-orange-300 p-4 font-semibold text-center border-b border-gray-200">
+    <div class="bg-orange-300 p-4 font-semibold text-center ">
         Attività Recenti
     </div>
     

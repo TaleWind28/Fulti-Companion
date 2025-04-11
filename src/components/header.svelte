@@ -7,7 +7,7 @@
   import { goto } from "$app/navigation";
 
   export let appTitle = "F-Ulti Companion";
-  export const logoUrl:string = "src/images/Logo6.png";
+  export const logoUrl:string = "src/images/Logo5.1.png";
   export let homeUrl = "/"; 
   export let pages:string[];
   const loginPage = pages[0];
@@ -30,11 +30,11 @@
 </script>
 
 {#if page.url.pathname !== loginPage}
-  <header class="bg-teal-800 text-white shadow-md py-4 max-w-auto h-10 flex items-center">
+  <header class="bg-teal-800 text-white shadow-md py-4 max-w-auto h-12 flex items-center">
     <div class="container mx-auto px-4 flex items-center justify-between">
       <span class="flex-none">
         {#if logoUrl && page.url.pathname !== homeUrl}
-          <a href={homeUrl}> <img src={logoUrl} alt={appTitle} class="flex items-start  w-auto h-10" /></a>
+          <a href={homeUrl}> <img src={logoUrl} alt={appTitle} class="flex items-start  w- h-12" /></a>
         {/if}
 
       </span>
