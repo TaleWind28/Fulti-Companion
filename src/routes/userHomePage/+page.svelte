@@ -9,7 +9,7 @@
  
 <div class="grid grid-cols-[30%_70%]"><!--container principale -->
     <div class=" bg-orange-200 gap-4"><!-- tab con propic ed informazioni utente -->
-        <div class=" gap-4">
+        <div>
             <UserProfile/><!-- propic-->
         </div>
         <br>

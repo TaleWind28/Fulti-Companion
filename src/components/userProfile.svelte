@@ -94,7 +94,7 @@
     <div>
         {#if !loading} 
             {#if avatar !==  null}
-                <img src={avatar.data} alt="not yet loaded" class="w-auto h-100 aspect-square"/>
+                <img src={avatar.data} alt="not yet loaded" class="w-auto h-auto max-w-120 max-h-120 aspect-square"/>
             {:else}
                 <img src="src/images/default-avatar.jpeg" alt="placeholder" class="aspect-square"/> 
             {/if}
