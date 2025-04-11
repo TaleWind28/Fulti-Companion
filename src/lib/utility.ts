@@ -10,7 +10,7 @@ export async function uploadImage(file:File, path:string){
 }
 
 import { initializeApp } from 'firebase/app';
-    import { addDoc, collection, getFirestore, Timestamp, getDocs, query, where, type DocumentData, QueryDocumentSnapshot, updateDoc } from 'firebase/firestore';
+    import { addDoc, collection, getFirestore, Timestamp, getDocs, query, where, type DocumentData, QueryDocumentSnapshot, updateDoc, orderBy } from 'firebase/firestore';
     import {firebaseConfig} from '$lib/authUtility';
     import { getAuth } from 'firebase/auth';
     
@@ -146,3 +146,95 @@ export async function getNewsPerUtente(){
         timestamp: doc.data().timestamp.toDate(), // conversione inversa
     })) as unknown as News[];
 }
+
+export interface RecentActivity{
+    name:string
+    path:string
+    timestamp: Date
+}
+
+export async function manageRecentActivities(userId: string, newActivity: any) {
+    try {
+      // Riferimento alla collezione delle attività recenti dell'utente
+      const activitiesRef = collection(db, 'users', userId, 'recentactivities');
+      
+      // Ottiene tutte le attività recenti ordinate per timestamp (dal meno recente al più recente)
+      const activitiesQuery = query(
+        activitiesRef,
+        orderBy('timestamp', 'asc')
+      );
+      
+      const querySnapshot = await getDocs(activitiesQuery);
+      const activities = querySnapshot.docs;
+      
+      // Aggiunge un timestamp alla nuova attività se non presente
+      const activityToAdd = {
+        ...newActivity,
+        timestamp: newActivity.timestamp || new Date()
+      };
+      
+      // Se ci sono già 8 o più attività, sovrascrive la meno recente
+      if (activities.length >= 8) {
+        // La prima attività è la meno recente a causa dell'ordinamento 'asc'
+        const oldestActivityRef = activities[0].ref;
+        
+        // Aggiorna il documento più vecchio con i nuovi dati
+        await updateDoc(oldestActivityRef, activityToAdd);
+        
+        console.log("Attività meno recente sovrascritta con successo");
+      } else {
+        // Altrimenti, aggiunge semplicemente una nuova attività
+        await addDoc(activitiesRef, activityToAdd);
+        
+        console.log("Nuova attività aggiunta con successo");
+      }
+      
+      return true;
+    } catch (error) {
+      console.error("Errore nella gestione delle attività recenti:", error);
+      throw error;
+    }
+  }
+  
+  /**
+   * Recupera tutte le attività recenti di un utente
+   * @param userId ID dell'utente
+   * @returns Array di attività recenti ordinate dalla più recente alla meno recente
+   */
+  export async function getRecentActivities(userId: string): Promise<RecentActivity[]> {
+    try {
+      // Riferimento alla collezione delle attività recenti dell'utente
+      const activitiesRef = collection(db, 'users', userId, 'recentactivities');
+      
+      // Ottiene tutte le attività recenti ordinate per timestamp (dal più recente al meno recente)
+      const activitiesQuery = query(
+        activitiesRef,
+        orderBy('timestamp', 'desc')
+      );
+      
+      const querySnapshot = await getDocs(activitiesQuery);
+      
+      // Converte i documenti in un array di oggetti RecentActivity
+      const activities: RecentActivity[] = querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        
+        // Assicurati che il timestamp sia un oggetto Date
+        const timestamp = data.timestamp instanceof Date 
+          ? data.timestamp 
+          : data.timestamp?.toDate?.() // Converte Firestore Timestamp in Date se necessario
+          || new Date(data.timestamp); // Fallback se è una stringa o un numero
+        
+        return {
+          id: doc.id,
+          name: data.name || '',
+          path: data.path || '',
+          timestamp: timestamp
+        };
+      });
+      
+      return activities;
+    } catch (error) {
+      console.error("Errore nel recupero delle attività recenti:", error);
+      throw error;
+    }
+  }
