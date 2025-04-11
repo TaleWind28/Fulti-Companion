@@ -47,5 +47,5 @@
     </div>
 {/if}
 {#if selectedFile}
-    <CustomButton text={text} on:click={handleUpload}/>
+    <CustomButton text={text} additionalStyle="hover:bg-blue-600 transition-colors" on:click={handleUpload}/>
 {/if}
