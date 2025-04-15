@@ -70,8 +70,8 @@
 </script>
 
 <div class="p-4">
-  <CustomButton icon={faArrowLeft} on:click={()=>scrollContent('left')} style="cursor-pointer" dimensions="" text=""/>
-  <CustomButton icon={faArrowRight} on:click={()=>scrollContent('right')} style="cursor-pointer" dimensions="" text=""/>
+  <CustomButton icon={faArrowLeft} on:click={()=>scrollContent('left')} style="cursor-pointer" dimensions="" text="" color=""/>
+  <CustomButton icon={faArrowRight} on:click={()=>scrollContent('right')} style="cursor-pointer" dimensions="" text="" color=""/>
   <!-- carico le news-->
   {#if loading}
     <p class="text-center text-gray-500">Caricamento...</p>

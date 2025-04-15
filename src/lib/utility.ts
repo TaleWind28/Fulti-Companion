@@ -243,7 +243,8 @@ export interface Character{
   name:string;
   level:number;
   stats:number[];
+  traits:string[];
   statuses:boolean[];
-  elementalAffinity:boolean[]
+  elementalAffinity:number[]
   pic:string
 }
