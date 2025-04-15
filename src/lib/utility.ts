@@ -248,3 +248,7 @@ export interface Character{
   elementalAffinity:number[]
   pic:string
 }
+
+export function addCharacter(character:Character[],personaggio:Character):void {
+  character.push(personaggio);
+}

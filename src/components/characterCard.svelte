@@ -8,34 +8,7 @@
     export let dimensions ="";
     export let padding = "";
     //script typescript per importare i personaggi dal database
-    export let caracters:Character[] = [{
-        name:"Landon McCoy",
-        stats:[
-            12,
-            8,
-            8,
-            6
-        ],
-        traits:["Duellante Spavaldo e Speranzoso","Giustizia","Diez Coronas"],
-        elementalAffinity:[0,1,2,0,1,2,0,1,2],
-        statuses:[false],
-        level:25,
-        pic:"src/images/Logo5.1.png"
-    },{
-        name:"Chroma Celsius",
-        stats:[
-            8,
-            8,
-            8,
-            8
-        ],
-        traits:["Duellante Spavaldo e Speranzoso","Giustizia","Diez Coronas"],
-        elementalAffinity:[0,1,2,0,1,2,0,1,2],
-        statuses:[false],
-        level:20,
-        pic:"src/images/Logo5.1.png"
-    }
-    ];
+    export let caracters:Character[] = [];
 
     export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
     export let elemenColor = ["text-gray-400","text-green-500","text-yellow-500","","text-amber-900","text-red-500","text-blue-500","text-cafe_noir-800","text-purple-700"]
