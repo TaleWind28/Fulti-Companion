@@ -238,3 +238,12 @@ export async function manageRecentActivities(userId: string, newActivity: any) {
       throw error;
     }
   }
+
+export interface Character{
+  name:string;
+  level:number;
+  stats:number[];
+  statuses:boolean[];
+  elementalAffinity:boolean[]
+  pic:string
+}

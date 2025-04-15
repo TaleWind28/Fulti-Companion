@@ -8,7 +8,7 @@
 </script> 
  
 <div class="grid grid-cols-[30%_70%] "><!--container principale -->
-    <div class=" bg-orange-200 gap-4 border-2 border-white "><!-- tab con propic ed informazioni utente -->
+    <div class=" bg-cafe_noir-600 gap-4 border-2 border-white "><!-- tab con propic ed informazioni utente -->
         <div>
             <UserProfile/><!-- propic-->
         </div>
@@ -20,12 +20,12 @@
         <br>
     </div>
     <!-- tab laterale dx -->
-    <div class=" bg-orange-300 border-2 border-white">
-        <div class=" bg-orange-100 "><!-- news tab--> 
+    <div class="border-2 border-white">
+        <div class="  bg-orange-200  "><!-- news tab--> 
             <ShowRelatedNews/>
         </div>
         {#if hideCalendar}
-            <div class=" bg-orange-100 "><!-- attività recenti-->
+            <div class=" bg-cafe_noir-700  *:00 "><!-- attività recenti-->
                 <RecentActivityTable/>
             </div>
         {:else}

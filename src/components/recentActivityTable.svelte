@@ -36,7 +36,7 @@
 
 <div class="border border-orange-300 overflow-hidden">
     <!-- Intestazione a colonna singola -->
-    <div class="bg-orange-300 p-4 font-semibold text-center ">
+    <div class="bg-orange-200  p-4 font-semibold text-center ">
         Attività Recenti
     </div>
     

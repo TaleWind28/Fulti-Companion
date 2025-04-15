@@ -1,3 +1,65 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
+/* @plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography'; */
+
+@theme {
+        /* Caribbean Current */
+    --color-caribbean_current: #115e59;
+    --color-caribbean_current-100: #031312;
+    --color-caribbean_current-200: #072624;
+    --color-caribbean_current-300: #0a3936;
+    --color-caribbean_current-400: #0e4c48;
+    --color-caribbean_current-500: #115e59; /* Note: Same as DEFAULT */
+    --color-caribbean_current-600: #1ea299;
+    --color-caribbean_current-700: #35dacf;
+    --color-caribbean_current-800: #79e6df;
+    --color-caribbean_current-900: #bcf3ef;
+    
+        /* Lavender Blush */
+    --color-lavender_blush: #ffeaee;
+    --color-lavender_blush-100: #620012;
+    --color-lavender_blush-200: #c40024;
+    --color-lavender_blush-300: #ff274e;
+    --color-lavender_blush-400: #ff899e;
+    --color-lavender_blush-500: #ffeaee; /* Note: Same as DEFAULT */
+    --color-lavender_blush-600: #ffeff2;
+    --color-lavender_blush-700: #fff3f5;
+    --color-lavender_blush-800: #fff7f8;
+    --color-lavender_blush-900: #fffbfc;
+    
+        /* Lion */
+    --color-lion: #af9164;
+    --color-lion-100: #241d13;
+    --color-lion-200: #493b25;
+    --color-lion-300: #6d5838;
+    --color-lion-400: #91754b;
+    --color-lion-500: #af9164; /* Note: Same as DEFAULT */
+    --color-lion-600: #bfa783;
+    --color-lion-700: #cfbda2;
+    --color-lion-800: #dfd3c1;
+    --color-lion-900: #efe9e0;
+    
+        /* Cafe Noir */
+    --color-cafe_noir: #56351e;
+    --color-cafe_noir-100: #110b06;
+    --color-cafe_noir-200: #23160c;
+    --color-cafe_noir-300: #342012;
+    --color-cafe_noir-400: #452b18;
+    --color-cafe_noir-500: #56351e; /* Note: Same as DEFAULT */
+    --color-cafe_noir-600: #915a33;
+    --color-cafe_noir-700: #c28051;
+    --color-cafe_noir-800: #d6aa8b;
+    --color-cafe_noir-900: #ebd5c5;
+    
+        /* Tekhelet */
+    --color-tekhelet: #3d348b;
+    --color-tekhelet-100: #0c0a1c;
+    --color-tekhelet-200: #181437;
+    --color-tekhelet-300: #241f53;
+    --color-tekhelet-400: #30296e;
+    --color-tekhelet-500: #3d348b; /* Note: Same as DEFAULT */
+    --color-tekhelet-600: #5044b9;
+    --color-tekhelet-700: #7b72cb;
+    --color-tekhelet-800: #a7a1dc;
+    --color-tekhelet-900: #d3d0ee;
+}

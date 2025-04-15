@@ -30,7 +30,7 @@
 </script>
 
 {#if page.url.pathname !== loginPage}
-  <header class="bg-teal-800 text-white shadow-md py-4 max-w-auto h-12 flex items-center">
+  <header class="bg-caribbean_current text-white shadow-md py-4 max-w-auto h-12 flex items-center">
     <div class="container mx-auto px-4 flex items-center justify-between">
       <span class="flex-none">
         {#if logoUrl && page.url.pathname !== homeUrl}
