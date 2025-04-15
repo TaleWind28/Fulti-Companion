@@ -51,7 +51,8 @@
 
             <!-- Character Info-->
             <div class="flex flex-row rounded gap-2">
-                <div class="bg-amber-500 flex-col"> <!-- lato sx-->
+                <!-- lato sx-->
+                <div class="bg-amber-500 flex-col"> 
                     <img src={car.pic} alt="character pic" class="w-full">
                     <div>   
                         healtbar
@@ -64,27 +65,27 @@
                     </div>
                 </div>
 
-
                 <!-- lato dx-->
-                <div class="bg-white px-4">
+                <div class="bg-white px-4 gap-4">
                     <br>
                     <!-- tratti -->
-                    <div class="border rounded flex items-center ">
-                        <p class="bg-cafe_noir text-white  px-1 py-1 whitespace-nowrap rotate-270 origin-center rounded flex-shrink-0">
+                    <div class="border rounded flex ">
+                        <p class="bg-cafe_noir text-white  px-1 py-1 rounded flex-shrink-0 [writing-mode:vertical-lr] rotate-180 text-center">
                             TRATTI
                         </p>
-                        <div class="grow">
+                        <div class="flex items-center justify-around px-2">
                             {@render traits(car.traits)}
                         </div>
-                        </div>
+                    </div>
+                    <br>
                     <!-- stats -->
-                    <span class="flex items-center justify-around px-4">
+                    <div class="flex items-center justify-around px-4">
                         <p>Des: d{car.stats[0]}</p>
                         <p>Int: d{car.stats[1]}</p>
                         <p>Vig: d{car.stats[2]}</p>
                         <p>Vol: d{car.stats[3]}</p>
-                    </span>
-                    <br><br>
+                    </div>
+                    <br>
                     <!-- statistiche difensive-->
                     <span class=" flex items-center justify-between px-4">
                         {@render derivedStats("DEF",car.stats[0],faShield, faKhanda)}
