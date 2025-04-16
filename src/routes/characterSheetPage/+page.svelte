@@ -1,11 +1,14 @@
 <script lang="ts">
     import CustomButton from "../../components/customButton.svelte";
     import CharacterCard from "../../components/characterCard.svelte";
-    import { addCharacter, type Character } from "$lib/utility";
+    import { addCharacter, addUserCharacter, type Character } from "$lib/utility";
     import { personaggiStore } from "../../stores/characterStore";
+    import { onDestroy, onMount } from "svelte";
+    import { retrieveUserCharacters } from "$lib/utility";
+    import { onAuthStateChanged } from "firebase/auth";
+    import { auth } from "$lib/authUtility";
 
     function createCharacter(){
-        alert("pino");
         let char:Character = {
             name: "",
             level: 5,
@@ -13,48 +16,102 @@
             traits:["","",""],
             statuses:[false],
             elementalAffinity:[0,0,0,0,0,0,0,0,0,],
-            pic:""
+            pic:"",
+            id:""
         }
-        personaggiStore.aggiungiPersonaggio(char);
-        console.log(characters);
+        
+        handleAdd(char).then(() => {
+            personaggiStore.aggiungiPersonaggio(char);
+            console.log("character successfully added");
+        })
+        .catch( () => {
+            console.log("character couldn't be added");
+        }
+       
+        );
+        
+
     }   
     
-    function upload(){
-
+    function removeCharacter(name:string){
+        personaggiStore.removeCharacter(name);
     }
-
-    export let characters = [{
-        name:"Landon McCoy",
-        stats:[
-            12,
-            8,
-            8,
-            6
-        ],
-        traits:["Duellante Spavaldo e Speranzoso","Giustizia","Diez Coronas"],
-        elementalAffinity:[0,1,2,0,1,2,0,1,2],
-        statuses:[false],
-        level:25,
-        pic:"src/images/Logo5.1.png"
-    },{
-        name:"Chroma Celsius",
-        stats:[
-            8,
-            8,
-            8,
-            8
-        ],
-        traits:["Duellante Spavaldo e Speranzoso","Giustizia","Diez Coronas"],
-        elementalAffinity:[0,1,2,0,1,2,0,1,2],
-        statuses:[false],
-        level:20,
-        pic:"src/images/Logo5.1.png"
+    export let characters: Character[] = [];
+    // export let characters = [{
+    //     name:"Landon McCoy",
+    //     stats:[
+    //         12,
+    //         8,
+    //         8,
+    //         6
+    //     ],
+    //     traits:["Duellante Spavaldo e Speranzoso","Giustizia","Diez Coronas"],
+    //     elementalAffinity:[0,1,2,0,1,2,0,1,2],
+    //     statuses:[false],
+    //     level:25,
+    //     pic:"src/images/Logo5.1.png"
+    // },{
+    //     name:"Chroma Celsius",
+    //     stats:[
+    //         8,
+    //         8,
+    //         8,
+    //         8
+    //     ],
+    //     traits:["FareVhin","Dovere","Diez Coronas"],
+    //     elementalAffinity:[0,1,2,0,1,2,0,1,2],
+    //     statuses:[false],
+    //     level:20,
+    //     pic:"src/images/Logo5.1.png"
+    // },
+    
+    // ];
+    const handleAdd = async (character:Character) => {
+        await addUserCharacter(character);
     }
-    ];
+    const handleRetrieval = async () => {
+        try{
+            characters = await retrieveUserCharacters();
+        }
+        catch(e){
+            console.log(e);
+        }
+        
+    }
+    onMount(() => {
+		console.log('component mounted. Starting initial fetch.');
+        
+	});
 
-    for(let i =0;i<characters.length;i++){
+    onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // L'utente è loggato
+        console.log("Utente loggato:", user.uid);
+        handleRetrieval().then( () =>{
+            console.log(characters.length)
+            for(let i =0;i<characters.length;i++){
             personaggiStore.aggiungiPersonaggio(characters[i]);
+            }
+            console.log("characters loaded successfully",);
+        })
+        .catch(() =>{
+            console.log("characters loading failed");
+            }
+        )
+    } else {
+        // L'utente non è loggato
+        console.log("Nessun utente loggato");
     }
+});
+    onDestroy(()=>{
+        console.log("component destroyed. Starting cleanup");
+        personaggiStore.reset();
+        console.log("store reset");
+        console.log("-------------------------------");
+    })
+
+    
+
 </script>
 <div class="bg-cafe_noir-900">
     <br><br><br>
@@ -63,7 +120,7 @@
         <CustomButton text="Crea Personaggio" color="bg-cafe_noir-600" dimensions="w-35 h-10" on:click={createCharacter}/>
         <CustomButton text="importa da Json" color="bg-cafe_noir-600" dimensions="w-35 h-10" on:click{upload}/>
     </div>
-    <CharacterCard dimensions="w-auto h-auto" padding = "px-8" caracters = {$personaggiStore} />
+    <CharacterCard dimensions="w-auto h-auto" padding = "px-8" caracters = {$personaggiStore}/>
     
     <br><br><br>
 </div>

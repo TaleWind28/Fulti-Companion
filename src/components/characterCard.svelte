@@ -1,24 +1,46 @@
 <script lang="ts">
-    import { type Character } from "$lib/utility";
+    import { removeUserCharacter, type Character } from "$lib/utility";
     import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-    import { faBoltLightning, faFire, faHillRockslide, faHorse, faKhanda, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
+    import { faBoltLightning, faFileExport, faFire, faHillRockslide, faHorse, faKhanda, faMagicWandSparkles, faPencil, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faTrashCan, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
     import Fa from "svelte-fa";
+    import CustomButton from "./customButton.svelte";
 
+    import { personaggiStore } from "../stores/characterStore";
+    import { goto } from "$app/navigation";
+    
     export let dimensions ="";
     export let padding = "";
+    const icons = [faShield,faShield,faRunning];
+    const innerIcons = [faKhanda,faMagicWandSparkles,null];
+    const statNames = ["Des","Int","Vig","Vol"];
+    const defensiveNames = ["DEF","MDEF","INIT"];
     //script typescript per importare i personaggi dal database
     export let caracters:Character[] = [];
-
     export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
     export let elemenColor = ["text-gray-400","text-green-500","text-yellow-500","","text-amber-900","text-red-500","text-blue-500","text-cafe_noir-800","text-purple-700"]
+    const awaitRemoval = async (id:string)=>{
+        await removeUserCharacter(id);
+    } 
+    function handleRemove(id:string){
+        awaitRemoval(id).then( () => {
+            personaggiStore.removeCharacter(id);
+        })
+        
+    }
+
+    function handleModify(id:string){
+    }
+    
+    function handleExport(id:string){
+
+    }
 </script>
 
 <br>
 <div class="{dimensions} {padding} flex grid-cols-2 gap-4">
     {#each caracters as car}    
         <div class= "bg-white rounded">
-
             <!--nome e livello-->
             <header class="bg-cafe_noir-600 flex items-center justify-around text-white text-2xl" >
                 <div>{car.name}</div>
@@ -60,17 +82,27 @@
                     <br>
                     <!-- stats -->
                     <div class="flex items-center justify-around px-4 text-2xl">
-                        <p>Des: d{car.stats[0]}</p>
-                        <p>Int: d{car.stats[1]}</p>
-                        <p>Vig: d{car.stats[2]}</p>
-                        <p>Vol: d{car.stats[3]}</p>
+                        <div>
+                            <p>Des</p>
+                            d{car.stats[0]}
+                        </div>
+                        <div>
+                            <p>Int</p>
+                            d{car.stats[1]}
+                        </div>
+                        <div>
+                            <p>Vig</p>
+                            d{car.stats[2]}
+                        </div>
+                        <div>
+                            <p>Vol</p>
+                            d{car.stats[3]}
+                        </div>
                     </div>
                     <br>
                     <!-- statistiche difensive-->
                     <span class=" flex items-center justify-between px-4">
-                        {@render derivedStats("DEF",car.stats[0],faShield, faKhanda)}
-                        {@render derivedStats("MDEF",car.stats[1],faShield, faWandMagicSparkles)}
-                        {@render derivedStats("INIT",0,faRunning, null)}
+                        {@render derivedStats(car.stats)}
                     </span>
                     <br>
                     <!-- affinità elementale-->
@@ -79,6 +111,12 @@
                     </footer>
                 </div>
             </div>
+            <!-- footer con interazione scheda -->
+            <footer class="flex justify-start items-center">
+                <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
+                <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleRemove(car.id)}/>
+                <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
+            </footer>
         </div>
     {/each}
 </div>
@@ -103,15 +141,20 @@
 {/snippet}
 
 {#snippet traits(traits:string[])}
-    <div>
-        <div>
-            Identità:{traits[0]}
-        </div>
-        <div class="flex items-center justify-evenly">
-            <p>Tema:{traits[1]}</p>
-            <p>Origine:{traits[2]}</p>
-        </div>
+<div class="flex flex-col w-full">
+    <div class="flex">
+        <p class="font-bold">Identità: </p>{ traits[0]}
     </div>
+    <div class="flex">
+        <p class="font-bold">Tema: </p>{traits[1]}
+    </div>
+    <div class="flex">
+        <p class="font-bold">Origine:</p> 
+        {traits[2]}
+
+    </div>
+
+</div>
 {/snippet}
 
 {#snippet iconComposer(icon1:IconDefinition, icon2:IconDefinition | null)}
@@ -123,12 +166,25 @@
     </span>
 {/snippet}
 
+{#snippet derivedStats(stat:number[])}
+    
+    {#each stat as stats, i}
+        <div>
+            {@render iconComposer(icons[i], innerIcons[i])}
+            {#if i == 2}
+                <p>{defensiveNames[i]}: 0</p>
+            {:else if i<2}    
+                <p>{defensiveNames[i]}: {stats}</p>
+            {/if}
+        </div>
+    {/each}
+{/snippet}
+<!-- 
 {#snippet derivedStats(statName:string, stat:number, icon:IconDefinition, innerIcon:IconDefinition | null)}
     <div>
         {@render iconComposer(icon, innerIcon)}
         <p>{statName}: {stat}</p>
-    </div>
-{/snippet}
+    </div> -->
 
 {#snippet progressiveBar(color:string, actual:number, fixed:number)}
     <div class="{color} w-70 flex items-center justify-center">

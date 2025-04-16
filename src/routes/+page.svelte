@@ -40,6 +40,7 @@
       title: "Offline Availability",
       description: "Lavora offline senza problemi, i tuoi dati si sincronizzeranno automaticamente appena torni online."
     }];
+    
 </script> 
 
 <div class="flex flex-col items-center justify-center bg-orange-100">

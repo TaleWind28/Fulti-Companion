@@ -10,7 +10,7 @@ export async function uploadImage(file:File, path:string){
 }
 
 import { initializeApp } from 'firebase/app';
-    import { addDoc, collection, getFirestore, Timestamp, getDocs, query, where, type DocumentData, QueryDocumentSnapshot, updateDoc, orderBy } from 'firebase/firestore';
+    import { addDoc, collection, getFirestore, Timestamp, getDocs, query, where, type DocumentData, QueryDocumentSnapshot, updateDoc, orderBy, deleteDoc, doc } from 'firebase/firestore';
     import {firebaseConfig} from '$lib/authUtility';
     import { getAuth } from 'firebase/auth';
     
@@ -196,11 +196,6 @@ export async function manageRecentActivities(userId: string, newActivity: any) {
     }
   }
   
-  /**
-   * Recupera tutte le attività recenti di un utente
-   * @param userId ID dell'utente
-   * @returns Array di attività recenti ordinate dalla più recente alla meno recente
-   */
   export async function getRecentActivities(userId: string): Promise<RecentActivity[]> {
     try {
       // Riferimento alla collezione delle attività recenti dell'utente
@@ -247,8 +242,48 @@ export interface Character{
   statuses:boolean[];
   elementalAffinity:number[]
   pic:string
+  id:string
 }
 
 export function addCharacter(character:Character[],personaggio:Character):void {
   character.push(personaggio);
+}
+
+export async function retrieveUserCharacters(){
+  const user = getAuth().currentUser;
+  if(!user)return [];
+  const snapshot = await getDocs(collection(db,'users',user.uid,'characters'));
+  return snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as unknown as Character[];
+
+}
+
+export async function addUserCharacter(character:Character){
+  const user = getAuth().currentUser;
+  if(!user)throw new Error("Utente non autenticato");
+  const characterToAdd = {...character,} 
+
+  try{
+      const docRef = await addDoc(collection(db,'users',user.uid,'characters'),characterToAdd);
+      // Poi aggiorna il documento includendo il suo ID
+      await updateDoc(docRef, { id: docRef.id });
+      character.id = docRef.id;
+  }
+  catch(error){
+      alert("Something went wrong..."+error);
+  }
+}
+
+export async function removeUserCharacter(characterId: string) {
+  const user = getAuth().currentUser;
+  if (!user) throw new Error("Utente non autenticato");
+  
+  try {
+    await deleteDoc(doc(db, 'users', user.uid, 'characters', characterId));
+    console.log("Personaggio eliminato con successo");
+  } catch (error) {
+    alert("Si è verificato un errore durante l'eliminazione: " + error);
+  }
 }

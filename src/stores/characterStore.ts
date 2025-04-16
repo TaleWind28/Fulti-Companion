@@ -14,8 +14,9 @@ function createCharacterStore(){
             }
         },
         //rimuovo un personaggio 
-        removeCharacter:(name:string) =>{
-            update(characters =>characters.filter(p=> p.name!== name));
+        removeCharacter:(id:string) =>{
+            
+            update(characters =>characters.filter(p=> p.id!== id));
         },
         // Function to reset the store
         reset: () => set([])
