@@ -1,4 +1,4 @@
-import { type Character } from "$lib/utility";
+import { type Character } from "$lib/characterUtils";
 import { writable } from "svelte/store";
 
 function createCharacterStore(){

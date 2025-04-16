@@ -1,13 +1,25 @@
 <script lang="ts">
     import CustomButton from "../../components/customButton.svelte";
     import CharacterCard from "../../components/characterCard.svelte";
-    import { addCharacter, addUserCharacter, type Character } from "$lib/utility";
+    import { addUserCharacter, type Character ,retrieveUserCharacters } from "$lib/characterUtils";
     import { personaggiStore } from "../../stores/characterStore";
     import { onDestroy, onMount } from "svelte";
-    import { retrieveUserCharacters } from "$lib/utility";
     import { onAuthStateChanged } from "firebase/auth";
     import { auth } from "$lib/authUtility";
+    import { afterNavigate, beforeNavigate } from "$app/navigation";
 
+      // Esegui prima della navigazione
+    beforeNavigate(({ to, from, cancel }) => {
+        // Cancella i dati qui
+        console.log('Sto per navigare da', from?.url.pathname, 'a', to?.url.pathname);
+        personaggiStore.reset();
+    });
+
+    afterNavigate(({ to, from }) => {
+        // Cancella i dati qui
+        console.log('Sto per navigare da', from?.url.pathname, 'a', to?.url.pathname);
+        personaggiStore.reset();
+    });
     function createCharacter(){
         let char:Character = {
             name: "",

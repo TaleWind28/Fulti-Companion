@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { removeUserCharacter, type Character } from "$lib/utility";
+    import { removeUserCharacter, type Character } from "$lib/characterUtils";
     import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
     import { faBoltLightning, faFileExport, faFire, faHillRockslide, faHorse, faKhanda, faMagicWandSparkles, faPencil, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faTrashCan, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
@@ -11,10 +11,6 @@
     
     export let dimensions ="";
     export let padding = "";
-    const icons = [faShield,faShield,faRunning];
-    const innerIcons = [faKhanda,faMagicWandSparkles,null];
-    const statNames = ["Des","Int","Vig","Vol"];
-    const defensiveNames = ["DEF","MDEF","INIT"];
     //script typescript per importare i personaggi dal database
     export let caracters:Character[] = [];
     export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
@@ -81,28 +77,16 @@
                     </div>
                     <br>
                     <!-- stats -->
-                    <div class="flex items-center justify-around px-4 text-2xl">
-                        <div>
-                            <p>Des</p>
-                            d{car.stats[0]}
-                        </div>
-                        <div>
-                            <p>Int</p>
-                            d{car.stats[1]}
-                        </div>
-                        <div>
-                            <p>Vig</p>
-                            d{car.stats[2]}
-                        </div>
-                        <div>
-                            <p>Vol</p>
-                            d{car.stats[3]}
-                        </div>
+                    <div class="items-center justify-around px-4">
+                        {@render characterStats([car.stats[0],car.stats[2]],["Des","Vig"])}
+                        {@render characterStats([car.stats[1],car.stats[3]],["Int","Vol"])}
                     </div>
                     <br>
                     <!-- statistiche difensive-->
                     <span class=" flex items-center justify-between px-4">
-                        {@render derivedStats(car.stats)}
+                        {@render derivedStats("DEF",car.stats[0],faShield,faKhanda)}
+                        {@render derivedStats("M.DEF",car.stats[1],faShield,faMagicWandSparkles)}
+                        {@render derivedStats("INIT",0,faRunning,null)}
                     </span>
                     <br>
                     <!-- affinità elementale-->
@@ -122,7 +106,6 @@
 </div>
 
 {#snippet affinityTable(character:Character, elements:IconDefinition[], elementsColour:string[])}
-    
     <div class="grid grid-cols-9 border">
         {#each character.elementalAffinity as elem, i }
             <div class="border flex flex-row justify-around">
@@ -137,57 +120,64 @@
             </div>
         {/each}
     </div>
-
 {/snippet}
 
 {#snippet traits(traits:string[])}
-<div class="flex flex-col w-full">
-    <div class="flex">
-        <p class="font-bold">Identità: </p>{ traits[0]}
+    <div class="flex flex-col w-full">
+        <div class="flex">
+            <p class="font-bold">Identità: </p>{ traits[0]}
+        </div>
+        <div class="flex">
+            <p class="font-bold">Tema: </p>{traits[1]}
+        </div>
+        <div class="flex">
+            <p class="font-bold">Origine:</p> 
+            {traits[2]}
+        </div>
     </div>
-    <div class="flex">
-        <p class="font-bold">Tema: </p>{traits[1]}
-    </div>
-    <div class="flex">
-        <p class="font-bold">Origine:</p> 
-        {traits[2]}
-
-    </div>
-
-</div>
 {/snippet}
 
-{#snippet iconComposer(icon1:IconDefinition, icon2:IconDefinition | null)}
-    <span class="relative inline-block">    
-        <Fa icon={icon1} class="text-4xl " />
-        {#if icon2 !== null}
-            <Fa icon={icon2} class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl text-white" />
+{#snippet iconComposer(icon1:IconDefinition|null, icon2:IconDefinition | null)}
+    <span class="relative inline-block">
+        {#if icon1!=null}
+            <Fa icon={icon1} class="text-4xl " />
+            {#if icon2 !== null}
+                <Fa icon={icon2} class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl text-white" />
+            {/if}
         {/if}
     </span>
 {/snippet}
 
-{#snippet derivedStats(stat:number[])}
-    
-    {#each stat as stats, i}
+
+{#snippet derivedStats(statName:string|null, stat:number|null, icon:IconDefinition|null, innerIcon:IconDefinition | null)}
+    {#if stat!=null}
         <div>
-            {@render iconComposer(icons[i], innerIcons[i])}
-            {#if i == 2}
-                <p>{defensiveNames[i]}: 0</p>
-            {:else if i<2}    
-                <p>{defensiveNames[i]}: {stats}</p>
-            {/if}
+            {@render iconComposer(icon, innerIcon)}
+            <p>{statName}: {stat}</p>
         </div>
-    {/each}
+    {:else}
+        <div>
+
+        </div>
+    {/if}
+
 {/snippet}
-<!-- 
-{#snippet derivedStats(statName:string, stat:number, icon:IconDefinition, innerIcon:IconDefinition | null)}
-    <div>
-        {@render iconComposer(icon, innerIcon)}
-        <p>{statName}: {stat}</p>
-    </div> -->
 
 {#snippet progressiveBar(color:string, actual:number, fixed:number)}
     <div class="{color} w-70 flex items-center justify-center">
         {actual}/{fixed}
     </div>
 {/snippet}  
+
+{#snippet characterStats(stats:number[],statNames:string[])}
+    <div class="flex justify-between">
+        <div class="flex px-2 text-2xl font-semi-bold">
+            <p>{statNames[0]}</p>:
+            d{stats[0]}
+        </div>
+        <div class="flex px-2 text-2xl font-semi-bold">
+            <p>{statNames[1]}</p>:
+            d{stats[1]}
+        </div>
+    </div>
+{/snippet}
