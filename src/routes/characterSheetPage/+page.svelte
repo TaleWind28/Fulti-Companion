@@ -48,6 +48,7 @@
     function removeCharacter(name:string){
         personaggiStore.removeCharacter(name);
     }
+    
     export let characters: Character[] = [];
     // export let characters = [{
     //     name:"Landon McCoy",
@@ -110,9 +111,6 @@
             console.log("characters loading failed");
             }
         )
-    } else {
-        // L'utente non è loggato
-        console.log("Nessun utente loggato");
     }
 });
     onDestroy(()=>{

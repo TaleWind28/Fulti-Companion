@@ -8,6 +8,7 @@
 
     import { personaggiStore } from "../stores/characterStore";
     import { goto } from "$app/navigation";
+    import ConfirmationModal from "./confirmationModal.svelte";
     
     export let dimensions ="";
     export let padding = "";
@@ -16,6 +17,7 @@
     export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
     export let elemenColor = ["text-gray-400","text-green-500","text-yellow-500","","text-amber-900","text-red-500","text-blue-500","text-cafe_noir-800","text-purple-700"]
     const awaitRemoval = async (id:string)=>{
+
         await removeUserCharacter(id);
     } 
     function handleRemove(id:string){
@@ -30,6 +32,41 @@
     
     function handleExport(id:string){
 
+    }
+
+
+    let showConfirmModal = false;
+    let characterIdToRemove: string | null = null;
+    let isDeleting = false; // Stato per feedback visivo durante l'eliminazione
+    //chiedo conferma all'utente della rimozione
+    function requestRemoveConfirmation(id: string) {
+        characterIdToRemove = id;
+        showConfirmModal = true;
+        isDeleting = false; // Resetta lo stato di eliminazione
+    }
+
+    //se l'utente conferma rimuovo
+    async function confirmRemove() {
+        if (!characterIdToRemove) return;
+
+        isDeleting = true;
+
+        try {
+            await awaitRemoval(characterIdToRemove);
+            personaggiStore.removeCharacter(characterIdToRemove);
+            console.log('Personaggio rimosso con successo!');
+        } catch (error) {
+            console.error("Errore durante la rimozione:", error);
+        } finally {
+            closeModal();
+        }
+    }
+
+    // 3. Funzione per chiudere/annullare
+    function closeModal() {
+        showConfirmModal = false;
+        characterIdToRemove = null;
+        isDeleting = false;
     }
 </script>
 
@@ -98,12 +135,25 @@
             <!-- footer con interazione scheda -->
             <footer class="flex justify-start items-center">
                 <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
-                <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleRemove(car.id)}/>
+                <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
                 <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
             </footer>
         </div>
     {/each}
 </div>
+
+
+<!-- Il nostro Modale di Conferma -->
+{#if showConfirmModal}
+    <ConfirmationModal title="Conferma Eliminazione"
+        message="Sei sicuro di voler eliminare questo personaggio? L'azione è irreversibile."
+        confirmButtonText="Elimina"
+        cancelButtonText="Annulla"
+        isProcessing={isDeleting}
+        on:confirm={confirmRemove}
+        on:cancel={closeModal}
+    />
+{/if}
 
 {#snippet affinityTable(character:Character, elements:IconDefinition[], elementsColour:string[])}
     <div class="grid grid-cols-9 border">
@@ -181,3 +231,5 @@
         </div>
     </div>
 {/snippet}
+
+

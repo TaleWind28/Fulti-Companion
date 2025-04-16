@@ -1,0 +1,445 @@
+{
+    "uid": "local",
+    "name": "Landon \"Lone Star\" McKoy",
+    "lvl": 25,
+    "info": {
+      "pronouns": "",
+      "identity": "Duellante Spavaldo e speranzoso",
+      "theme": "Justice",
+      "origin": "Diez Coronas",
+      "bonds": [],
+      "description": "",
+      "fabulapoints": 3,
+      "exp": 0,
+      "zenit": 2500,
+      "imgurl": "https://i.pinimg.com/564x/01/f4/c0/01f4c0fc73f5a8711ab0c825559ef00e.jpg"
+    },
+    "attributes": {
+      "dexterity": 12,
+      "insight": 8,
+      "might": 8,
+      "willpower": 6
+    },
+    "stats": {
+      "hp": {
+        "max": 70,
+        "current": 70
+      },
+      "mp": {
+        "max": 55,
+        "current": 55
+      },
+      "ip": {
+        "max": 8,
+        "current": 8
+      }
+    },
+    "statuses": {
+      "slow": false,
+      "dazed": false,
+      "enraged": false,
+      "weak": false,
+      "shaken": false,
+      "poisoned": false,
+      "dexUp": false,
+      "insUp": false,
+      "migUp": false,
+      "wlpUp": false
+    },
+    "classes": [
+      {
+        "name": "Sharpshooter",
+        "lvl": 10,
+        "benefits": {
+          "hpplus": 5,
+          "mpplus": 0,
+          "ipplus": 0,
+          "rituals": {
+            "ritualism": false,
+            "arcanism": false,
+            "elementalism": false
+          },
+          "martials": {
+            "armor": false,
+            "shields": true,
+            "melee": false,
+            "ranged": true
+          },
+          "custom": [],
+          "spellClasses": []
+        },
+        "skills": [
+          {
+            "skillName": "Barrage",
+            "currentLvl": 1,
+            "maxLvl": 1,
+            "description": "Barrage_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "Crossfire",
+            "currentLvl": 1,
+            "maxLvl": 1,
+            "description": "Crossfire_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "Hawkeye",
+            "currentLvl": 3,
+            "maxLvl": 5,
+            "description": "Hawkeye_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "Ranged Weapon Mastery",
+            "currentLvl": 4,
+            "maxLvl": 4,
+            "description": "RangedWeaponMastery_desc",
+            "specialSkill": "Ranged Weapon Mastery"
+          },
+          {
+            "skillName": "Warning Shot",
+            "currentLvl": 1,
+            "maxLvl": 4,
+            "description": "WarningShot_desc",
+            "specialSkill": ""
+          }
+        ],
+        "heroic": {
+          "name": "Trappola Esca",
+          "description": "Quando usi l’Abilità **Occhio di Falco** e scegli la **prima opzione**, se non c’è una **trappola esca** nella scena, puoi spendere 10 Punti Mente. Se lo fai, crei una **trappola esca** con Punti Vita pari a【 **metà del tuo livello + (il tuo LA in Occhio di Falco moltiplicato per 5)**】.\nQuando un nemico in grado di vedere la tua **trappola esca** infligge danno a una o più creature, la tua **trappola esca** subisce automaticamente danno al posto di una di quelle creature, scelta in modo casuale (la tua trappola esca non ha Affinità e non può ottenerne).\nQuando un nemico riduce la tua **trappola esca** a 0 PV, essa viene automaticamente distrutta e tu tiri **1d10**: se il numero ottenuto è pari o inferiore a【**3 + il tuo LA in Occhio di Falco**】, puoi immediatamente eseguire un **attacco gratuito** con un’arma della Categoria **arco o da fuoco** equipaggiata. Questo attacco può bersagliare **soltanto** quel nemico, riceve un bonus al Test di Precisione pari a【**il tuo LA in Occhio di Falco**】 e tutto il danno che infligge ignora Immunità e Resistenze.\nLa tua **trappola esca** non può recuperare Punti Vita in alcun modo e svanisce automaticamente al termine della scena. Ricordati di descrivere che aspetto ha!"
+        },
+        "spells": [],
+        "isHomebrew": false
+      },
+      {
+        "name": "Rogue",
+        "lvl": 10,
+        "benefits": {
+          "hpplus": 0,
+          "mpplus": 0,
+          "ipplus": 2,
+          "isCustomBenefit": false,
+          "martials": {
+            "armor": false,
+            "shields": false,
+            "melee": false,
+            "ranged": false
+          },
+          "rituals": {
+            "ritualism": false
+          },
+          "spellClasses": []
+        },
+        "skills": [
+          {
+            "skillName": "Cheap Shot",
+            "currentLvl": 5,
+            "maxLvl": 5,
+            "description": "CheapShot_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "Dodge",
+            "currentLvl": 3,
+            "maxLvl": 3,
+            "description": "Dodge_desc",
+            "specialSkill": "Dodge"
+          },
+          {
+            "skillName": "High Speed",
+            "currentLvl": 1,
+            "maxLvl": 3,
+            "description": "HighSpeed_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "See You Later",
+            "currentLvl": 1,
+            "maxLvl": 1,
+            "description": "SeeYouLater_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "Soul Steal",
+            "currentLvl": 0,
+            "maxLvl": 5,
+            "description": "SoulSteal_desc",
+            "specialSkill": ""
+          }
+        ],
+        "heroic": {
+          "name": "Stile dell'arma Nascosta",
+          "description": "Scegli uno status tra **confuso**, **debole**, **lento** e **scosso**.\nDopo che uno o più nemici a te visibili perdono Punti Vita a causa del danno inflitto da uno dei tuoi alleati, se almeno uno di loro era **Vulnerabile** al danno inflitto da quell'alleato, puoi scegliere uno di quei nemici. Se lo fai, quel nemico perde un ammontare di Punti Vita pari a【**metà del tuo livello + (il doppio del tuo Livello Abilità in Colpo Basso)**】 e subisce lo status che hai scelto.\nSe utilizzi questa Abilità durante un conflitto, non puoi usarla nuovamente fino all'inizio del tuo prossimo turno"
+        },
+        "spells": [],
+        "isHomebrew": false
+      },
+      {
+        "name": "Tinkerer",
+        "lvl": 10,
+        "benefits": {
+          "hpplus": 0,
+          "mpplus": 0,
+          "ipplus": 0,
+          "rituals": {
+            "ritualism": false,
+            "arcanism": false,
+            "elementalism": false
+          },
+          "martials": {
+            "armor": false,
+            "shields": false,
+            "melee": false,
+            "ranged": false
+          },
+          "custom": [],
+          "spellClasses": [
+            "tinkerer-alchemy",
+            "tinkerer-infusion",
+            "tinkerer-magitech",
+            "arcanist",
+            "arcanist-rework",
+            "default"
+          ]
+        },
+        "skills": [
+          {
+            "skillName": "Emergency Item",
+            "currentLvl": 1,
+            "maxLvl": 1,
+            "description": "EmergencyItem_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "Gadgets",
+            "currentLvl": 3,
+            "maxLvl": 5,
+            "description": "Gadgets_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "Potion Rain",
+            "currentLvl": 1,
+            "maxLvl": 2,
+            "description": "PotionRain_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "Secret Formula",
+            "currentLvl": 0,
+            "maxLvl": 5,
+            "description": "SecretFormula_desc",
+            "specialSkill": ""
+          },
+          {
+            "skillName": "Visionary",
+            "currentLvl": 0,
+            "maxLvl": 5,
+            "description": "Visionary_desc",
+            "specialSkill": ""
+          }
+        ],
+        "heroic": {
+          "name": "Svanire",
+          "description": "Quando colpisci una o più creature con un attacco, puoi spendere 1 Punto Fabula. Se lo fai, ciascuna di quelle creature non può eseguire azioni che richiedono di poterti vedere fino all’inizio del tuo prossimo turno."
+        },
+        "spells": [
+          {
+            "spellType": "default",
+            "name": "Guarigione",
+            "mp": 10,
+            "maxTargets": 3,
+            "targetDesc": "Up to three creatures",
+            "duration": "Instantaneous",
+            "description": "Infondi vigore nei tuoi compagni, lenendone il dolore e la stanchezza. Ciscun bersaglio recupera 40 PV, oppure 50 se sei di livello 20 o superiore, oppure 60 se sei di livello 40 o superiore.",
+            "isOffensive": false,
+            "attr1": "dexterity",
+            "attr2": "dexterity",
+            "showInPlayerSheet": true,
+            "index": 0
+          },
+          {
+            "spellType": "default",
+            "name": "Accelerazione",
+            "mp": 20,
+            "maxTargets": 1,
+            "targetDesc": "One creature",
+            "duration": "Scene",
+            "description": "Pieghi il tessuto del tempo. Fino al termine di questo incantesimo, il bersaglio può eseguire un'azione aggiuntiva durante ciascuno dei suoi turno. Dopo aver eseguito 2 azioni aggiuntive l'effetto termina.",
+            "isOffensive": false,
+            "attr1": "dexterity",
+            "attr2": "dexterity",
+            "showInPlayerSheet": true,
+            "index": 1
+          },
+          {
+            "spellType": "tinkerer-infusion",
+            "showInPlayerSheet": true,
+            "rank": 3,
+            "effects": [
+              {
+                "infusionRank": 1,
+                "name": "Cryo",
+                "effect": "The attack deals 5 extra damage, and its damage becomes **ice**."
+              },
+              {
+                "infusionRank": 1,
+                "name": "Pyro",
+                "effect": "The attack deals 5 extra damage, and its damage becomes **fire**."
+              },
+              {
+                "infusionRank": 1,
+                "name": "Volt",
+                "effect": "The attack deals 5 extra damage, and its damage becomes **bolt**."
+              },
+              {
+                "infusionRank": 2,
+                "name": "Cyclone",
+                "effect": "The attack deals 5 extra damage, and its damage becomes **air**."
+              },
+              {
+                "infusionRank": 2,
+                "name": "Exorcism",
+                "effect": "The attack deals 5 extra damage, and its damage becomes **light**."
+              },
+              {
+                "infusionRank": 2,
+                "name": "Seismic",
+                "effect": "The attack deals 5 extra damage, and its damage becomes **earth**."
+              },
+              {
+                "infusionRank": 2,
+                "name": "Shadow",
+                "effect": "The attack deals 5 extra damage, and its damage becomes **dark**."
+              },
+              {
+                "infusionRank": 3,
+                "name": "Vampire",
+                "effect": "Choose one option: you recover an amount of HP equal to half the HP loss suffered by the target of the attack; **or** you recover an amount of MP equal to half the HP loss suffered by the target of the attack. This infusion can only be used if the attack targeted **a single** creature."
+              },
+              {
+                "infusionRank": 3,
+                "name": "Venom",
+                "effect": "The attack deals 5 extra damage, its damage becomes **poison**, and each creature hit by the attack suffers **poisoned**."
+              }
+            ],
+            "index": 2
+          }
+        ],
+        "isHomebrew": false
+      }
+    ],
+    "weapons": [
+      {
+        "base": {
+          "category": "Firearm",
+          "name": "Pistol",
+          "cost": 250,
+          "att1": "dexterity",
+          "att2": "insight",
+          "prec": 0,
+          "damage": 8,
+          "type": "physical",
+          "hands": 1,
+          "ranged": true,
+          "martial": true
+        },
+        "name": "Vulcan Tonante",
+        "category": "Firearm",
+        "melee": false,
+        "ranged": true,
+        "type": "physical",
+        "hands": 2,
+        "att1": "dexterity",
+        "att2": "insight",
+        "martial": true,
+        "damageBonus": false,
+        "damageReworkBonus": false,
+        "precBonus": false,
+        "rework": true,
+        "quality": "Se attacchi per la prima volta nel turno puoi scegliere di eseguire 3 attacchi, anche contro bersagli differenti, e seguono le regole per combattere con 2 armi.",
+        "qualityCost": 0,
+        "totalBonus": 0,
+        "selectedQuality": "",
+        "cost": 250,
+        "damage": 16,
+        "prec": 1,
+        "damageModifier": 4,
+        "precModifier": 1,
+        "defModifier": 0,
+        "mDefModifier": 0,
+        "isEquipped": true
+      }
+    ],
+    "armor": [
+      {
+        "base": {
+          "category": "Armor",
+          "name": "Sage Robe",
+          "cost": 200,
+          "def": 1,
+          "mdef": 2,
+          "armor": true,
+          "martial": false,
+          "init": -2
+        },
+        "name": "Armatura Oricalco",
+        "quality": "",
+        "martial": false,
+        "qualityCost": 0,
+        "selectedQuality": "",
+        "init": -2,
+        "rework": false,
+        "isEquipped": true,
+        "cost": 200,
+        "category": "Armor",
+        "def": 1,
+        "mdef": 2,
+        "defModifier": -1,
+        "mDefModifier": -2,
+        "initModifier": 0,
+        "magicModifier": 0,
+        "precModifier": 0,
+        "damageMeleeModifier": 0,
+        "damageRangedModifier": 0
+      }
+    ],
+    "notes": [
+      {
+        "name": "Peculiarità",
+        "description": "Una volta per scena di conflitto, se devi spendere Punti Inventario, puoi invece ignorare quel costo.\nPuoi avviare i Progetti. Se un Progetto richiede un ingrediente o materiale speciale, puoi spendere 1 Punto Fabula per dichiarare che lo hai con te; se lo hai, l’invenzione deve avere un terribile difetto (vedi Manuale Base, pag. 134).",
+        "clocks": []
+      }
+    ],
+    "modifiers": {
+      "hp": 0,
+      "mp": 0,
+      "ip": 0,
+      "def": 0,
+      "mdef": 0,
+      "init": 0,
+      "meleePrec": 0,
+      "rangedPrec": 0,
+      "magicPrec": 0
+    },
+    "id": 1,
+    "accessories": [
+      {
+        "name": "Ricombinatore Portatile",
+        "quality": "Una volta per scena, quando devi pagare un costo in Punti Inventario puoi scegliere di dimezzare quel costo.",
+        "qualityCost": 0,
+        "selectedQuality": "",
+        "cost": 0,
+        "isEquipped": true,
+        "defModifier": 0,
+        "mDefModifier": 0,
+        "initModifier": 0,
+        "magicModifier": 0,
+        "precModifier": 0,
+        "damageMeleeModifier": 0,
+        "damageRangedModifier": 0
+      }
+    ],
+    "dataType": "pc"
+  }
