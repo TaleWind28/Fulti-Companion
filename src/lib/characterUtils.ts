@@ -287,7 +287,7 @@ export async function retrieveUserCharacters(){
   export let elemGlams:AffinityGlams = {
     poison: {
       icon: faSkullCrossbones,
-      color: 'text-green-500', // Esempio di classe Tailwind per il colore
+      color: 'text-purple-500', // Esempio di classe Tailwind per il colore
     },
     light: {
       icon: faSun,
