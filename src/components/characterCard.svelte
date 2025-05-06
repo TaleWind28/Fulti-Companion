@@ -89,13 +89,13 @@
                     <!-- Information Bars-->
                     <div class="flex  flex-col justify-start items-start">
                         <div>   
-                            {@render progressiveBar("bg-red-500",60,60)}
+                            {@render progressiveBar("bg-red-500",car.stats[4],60)}
                         </div>
                         <div>   
-                            {@render progressiveBar("bg-blue-500",60,60)}
+                            {@render progressiveBar("bg-blue-500",car.stats[4],60)}
                         </div>
                         <div>   
-                            {@render progressiveBar("bg-gray-500",60,60)}
+                            {@render progressiveBar("bg-gray-500",car.stats[4],60)}
                         </div>
                     </div>
                 </div>

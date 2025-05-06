@@ -1,13 +1,18 @@
 <script lang="ts">
     import CustomButton from "../../components/customButton.svelte";
     import CharacterCard from "../../components/characterCard.svelte";
-    import { addUserCharacter, type Character ,retrieveUserCharacters } from "$lib/characterUtils";
+    import CustomInput from "../../components/customInput.svelte";
+    import { addUserCharacter, type Character ,convertToCharacterFormat,importCharacterToFirestore,retrieveUserCharacters ,processSelectedFile, type FultimatorJson} from "$lib/characterUtils";
     import { personaggiStore } from "../../stores/characterStore";
     import { onDestroy, onMount } from "svelte";
     import { onAuthStateChanged } from "firebase/auth";
     import { auth } from "$lib/authUtility";
     import { afterNavigate, beforeNavigate } from "$app/navigation";
+    import { json } from "@sveltejs/kit";
 
+    let selectedFile:File|null = null; 
+    let previewUrl = '';
+    let uploadError = '';
       // Esegui prima della navigazione
     beforeNavigate(({ to, from, cancel }) => {
         // Cancella i dati qui
@@ -48,7 +53,22 @@
     function removeCharacter(name:string){
         personaggiStore.removeCharacter(name);
     }
-    
+
+    async function handleFileSelect(event:Event){
+        const target = event.target as HTMLInputElement;
+        selectedFile = target.files?.[0] || null;
+        if(selectedFile == null)return;
+        if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json'))return;
+        
+        const jsonImport = await processSelectedFile(selectedFile);
+        
+        const jsonCharacter = convertToCharacterFormat(jsonImport);
+        // addUserCharacter(jsonCharacter);
+        handleAdd(jsonCharacter).then(()=>{
+            personaggiStore.aggiungiPersonaggio(jsonCharacter);
+        })
+    }
+
     export let characters: Character[] = [];
     // export let characters = [{
     //     name:"Landon McCoy",
@@ -82,6 +102,7 @@
     const handleAdd = async (character:Character) => {
         await addUserCharacter(character);
     }
+    
     const handleRetrieval = async () => {
         try{
             characters = await retrieveUserCharacters();
@@ -128,7 +149,8 @@
     <div class=" flex items-center justify-center gap-6 bg-white w-fit mx-auto h-20 px-8 rounded">
         <input placeholder="ricerca con il nome personaggio" class=" bg-cafe_noir-600 text-white rounded"/>
         <CustomButton text="Crea Personaggio" color="bg-cafe_noir-600" dimensions="w-35 h-10" on:click={createCharacter}/>
-        <CustomButton text="importa da Json" color="bg-cafe_noir-600" dimensions="w-35 h-10" on:click{upload}/>
+        <CustomInput type="file" name="jsonImporter" on:change= {handleFileSelect}/>
+        <CustomButton text="importa da Json" color="bg-cafe_noir-600" dimensions="w-35 h-10"/>
     </div>
     <CharacterCard dimensions="w-auto h-auto" padding = "px-8" caracters = {$personaggiStore}/>
     
