@@ -15,8 +15,7 @@
         else boolRegister = true;
     }
     
-
-    function handleLogin(){
+   function handleLogin(){
         if(email==="")
                 alert("Inserisci l'email")
             ;
@@ -78,12 +77,12 @@
     <div class="flex justify-center items-center gap-4 flex-col w-full">
         <form on:submit={boolRegister ? handleRegister : handleLogin} class="flex flex-col gap-4 items-center w-full">
             {#if boolRegister}
-                <input id="username" type="text" bind:value={username} placeholder="username" class="px-4 py-2 rounded w-64">
+                <input id="username" type="text" bind:value={username} placeholder="username" class="px-4 border border-black py-2 rounded w-64">
             {/if}
-            <input id="email" type="text" bind:value={email} placeholder="email" class="px-4 py-2 rounded w-64"> 
-            <input id="password" type="password" bind:value={password} placeholder="password" class="px-4 py-2 rounded w-64">
-            <CustomButton text={boolRegister ? "Registrati" : "Accedi"} type=submit />
-            <CustomButton text={boolRegister ? "Possiedi un account?Accedi" : "Non possiedi un account?Registrati"} style = "underline" dimensions= "" color="" on:click={showRegistration}/>
+            <input id="email" type="text" bind:value={email} placeholder="email" class="px-4 py-2 rounded w-64 border border-black"> 
+            <input id="password" type="password" bind:value={password} placeholder="password" class="px-4 py-2 rounded w-64 border border-black">
+            <CustomButton text={boolRegister ? "Registrati" : "Accedi"} type=submit/>
+            <CustomButton text={boolRegister ? "Possiedi un account?Accedi" : "Non possiedi un account?Registrati"} style = "underline cursor-pointer" dimensions= "" color="" on:click={showRegistration}/>
         </form>
         
     </div>
