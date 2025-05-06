@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { elementalAffinityGlams, removeUserCharacter, ElemGlams, type Affinities, type AffinityGlams, type Character, type ElementType } from "$lib/characterUtils";
+    import { removeUserCharacter, elemGlams, type Affinities, type AffinityGlams, type Character, type ElementType } from "$lib/characterUtils";
     import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
     import { faBoltLightning, faFileExport, faFire, faHillRockslide, faHorse, faKhanda, faMagicWandSparkles, faPencil, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faTrashCan, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
@@ -39,8 +39,6 @@
     let showConfirmModal = false;
     let characterIdToRemove: string | null = null;
     let isDeleting = false; // Stato per feedback visivo durante l'eliminazione
-    function convertAffinities(Affinity:Affinities,character:Character){
-    }
 
     //chiedo conferma all'utente della rimozione
     function requestRemoveConfirmation(id: string) {
@@ -132,7 +130,7 @@
                     <br>
                     <!-- affinità elementale-->
                     <footer class="flex justify-end items-end">
-                        {@render affinityTable(car, elementalAffinityGlams)}
+                        {@render affinityTable(car, elemGlams)}
                     </footer>
                 </div>
             </div>
@@ -160,12 +158,13 @@
 {/if}
 
 {#snippet affinityTable(character:Character,glam:AffinityGlams)}
-    <div class="grid grid-cols-9 border">
+    <div class="grid grid-cols-18 border">
         {#each Object.entries(character.elementalAffinity) as [element,affinity]}
-        <div>
-            <Fa icon= {glam[element as ElementType].icon} class={glam[element as ElementType].color}/>
-        </div>    
-        {#if element!=null}
+            {#if affinity!="nu"}
+                <Fa icon= {glam[element as ElementType].icon} class={glam[element as ElementType].color}/>
+                {affinity}
+            {:else}
+                <Fa icon= {glam[element as ElementType].icon} class="text-gray-500"/>
                 {affinity}
             {/if}
         {/each}

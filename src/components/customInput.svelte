@@ -9,9 +9,10 @@
     export let name: string = "";
     export let id: string = "";
     export let required: boolean = false;
+    export let hidden = "false";
     
     // Stili
-    export let style = "rounded border focus:outline-none focus:ring-2 focus:ring-blue-500";
+    export let style = "rounded focus:outline-none focus:ring-2 focus:ring-blue-500";
     export let additionalStyle = "";
     export let color = "bg-white border-gray-300";
     export let dimensions = "w-full h-10 px-3";
@@ -43,7 +44,7 @@
         on:keyup
         on:keypress
         on:change
-        class="{style} {color} {icon && iconPosition === 'left' ? 'pl-10' : ''} {icon && iconPosition === 'right' ? 'pr-10' : ''}"
+        class="{hidden} {style} {color} {icon && iconPosition === 'left' ? 'pl-10' : ''} {icon && iconPosition === 'right' ? 'pr-10' : ''}"
     />
     
     {#if icon && iconPosition === 'right'}

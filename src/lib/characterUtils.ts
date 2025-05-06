@@ -185,10 +185,21 @@ export async function retrieveUserCharacters(){
       original.stats.ip.current,
       original.stats.ip.max,
     ]
-    let elementalAffinityArray:Affinities = {};
+    let rawAffinity:Affinities = {
+      poison: "nu",
+      light: "nu",
+      dark: "nu",
+      ice:"nu",
+      fire: "nu",
+      earth: "nu",
+      wind: "nu",
+      bolt: "nu",
+      physical: "nu",
+    };
+    if(original.affinities)rawAffinity = updateAffinities(rawAffinity,original.affinities);
+    //if(original.affinities)rawAffinity = original.affinities;
+    const elementalAffinity = createObjectWithKeysInReversedOrder(rawAffinity);
     
-
-    if(original.affinities)elementalAffinityArray = original.affinities;
     // Creiamo un array di traits basato sui dati disponibili
     const traitsArray = [];
     if (original.info.identity) traitsArray.push(original.info.identity);
@@ -202,7 +213,7 @@ export async function retrieveUserCharacters(){
       stats: statsArray,
       traits: traitsArray,
       statuses: statusesArray,
-      elementalAffinity: elementalAffinityArray,
+      elementalAffinity: elementalAffinity,
       pic: original.info.imgurl || "",
       id: original.id.toString() // Converti id da numero a stringa
     };
@@ -272,46 +283,8 @@ export async function retrieveUserCharacters(){
       reader.readAsText(file); // Legge il file come testo
     });
   }
-  export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
-  export const elementalAffinityGlams: AffinityGlams = {
-    poison: {
-      icon: faSkullCrossbones,
-      color: 'text-green-500', // Esempio di classe Tailwind per il colore
-    },
-    light: {
-      icon: faSun,
-      color: 'text-yellow-300',
-    },
-    dark: {
-      icon: faMoon,
-      color: 'text-indigo-500',
-    },
-    ice: {
-      icon: faSnowflake,
-      color: 'text-blue-300',
-    },
-    fire: {
-      icon: faFire,
-      color: 'text-red-500',
-    },
-    earth: {
-      icon: faMountain,  // o faGlobeEurope, faSeedling
-      color: 'text-yellow-700', // o 'text-lime-700'
-    },
-    wind: {
-      icon: faWind,
-      color: 'text-teal-400',
-    },
-    bolt: {
-      icon: faBoltLightning,
-      color: 'text-yellow-400',
-    },
-    physical: {
-      icon: faKhanda, // o faShieldAlt, faFistRaised
-      color: 'text-gray-500',
-    },
-  };
-  export let ElemGlams:AffinityGlams = {
+
+  export let elemGlams:AffinityGlams = {
     poison: {
       icon: faSkullCrossbones,
       color: 'text-green-500', // Esempio di classe Tailwind per il colore
@@ -349,3 +322,41 @@ export async function retrieveUserCharacters(){
       color: 'text-gray-500',
     },
   }
+
+  function createObjectWithKeysInReversedOrder<T extends Record<string, any>>(
+    originalObject: T
+  ): T {
+    const keys = Object.keys(originalObject) as (keyof T)[];
+    const reversedKeys = keys.reverse(); // Inverte l'array delle chiavi
+  
+    const newObject = {} as T;
+    for (const key of reversedKeys) {
+      newObject[key] = originalObject[key];
+    }
+    return newObject;
+  }
+
+  // Funzione per eseguire l'aggiornamento
+function updateAffinities(defaultAffinities: Affinities, newAffinitiesSource?: Affinities): Affinities {
+  // Creiamo una copia superficiale dell'oggetto di default per non modificarlo direttamente
+  const updatedAffinities: Affinities = { ...defaultAffinities };
+
+  if (newAffinitiesSource) {
+    // Iteriamo sulle chiavi dell'oggetto newAffinitiesSource
+    for (const key in newAffinitiesSource) {
+      if (Object.prototype.hasOwnProperty.call(newAffinitiesSource, key)) {
+        // TypeScript ha bisogno di un aiuto qui per sapere che 'key' è una chiave valida per Affinities
+        const affinityKey = key as keyof Affinities;
+        const newValue = newAffinitiesSource[affinityKey];
+
+        // Controlliamo se il nuovo valore esiste ed è diverso da "nu"
+        if (newValue !== undefined && newValue !== "nu") {
+          if (affinityKey in updatedAffinities) {
+            updatedAffinities[affinityKey] = newValue;
+          }
+        }
+      }
+    }
+  }
+  return updatedAffinities;
+}

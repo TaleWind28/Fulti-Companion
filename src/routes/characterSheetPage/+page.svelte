@@ -68,6 +68,7 @@
         handleAdd(jsonCharacter).then(()=>{
             personaggiStore.aggiungiPersonaggio(jsonCharacter);
         })
+        selectedFile = null;
     }
 
     export let characters: Character[] = [];
@@ -150,8 +151,8 @@
     <div class=" flex items-center justify-center gap-6 bg-white w-fit mx-auto h-20 px-8 rounded">
         <input placeholder="ricerca con il nome personaggio" class=" bg-cafe_noir-600 text-white rounded"/>
         <CustomButton text="Crea Personaggio" color="bg-cafe_noir-600" dimensions="w-35 h-10" on:click={createCharacter}/>
-        <CustomInput type="file" name="jsonImporter" on:change= {handleFileSelect}/>
-        <CustomButton text="importa da Json" color="bg-cafe_noir-600" dimensions="w-35 h-10"/>
+        <CustomInput type="file" name="jsonImporter" hidden="true" color="bg-cafe_noir-600" on:change= {handleFileSelect}/>
+        <!-- <CustomButton text="importa da Json" color="bg-cafe_noir-600" dimensions="w-35 h-10"/> -->
     </div>
     <CharacterCard dimensions="w-auto h-auto" padding = "px-8" caracters = {$personaggiStore}/>
     
