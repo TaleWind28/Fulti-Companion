@@ -3,17 +3,55 @@ import { getAuth } from "firebase/auth";
 import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, setDoc, updateDoc } from "firebase/firestore";
 import { storage } from "./utility";
 import { db } from "../stores/authStore";
+import { faBoltLightning, faFileExport, faFire, faHillRockslide, faHorse, faKhanda, faMagicWandSparkles, faMoon, faMountain, faPencil, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faTrashCan, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
+
+import type { Icon, IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 export interface Character{
     name:string;
     level:number;
     stats:number[];
+    characteristics:number[];
     traits:string[];
     statuses:boolean[];
-    elementalAffinity:number[]
+    elementalAffinity:Affinities;
     pic:string
     id:string
   }
+
+  export type Affinity = "im" | "rs" | "ab" | "wk" | "nu"; // Immunità, Resistenza, Assorbimento, Debolezza, Normale
+  
+  export type Affinities = {
+    poison?: Affinity;
+    light?: Affinity;
+    dark?: Affinity;
+    ice?:Affinity;
+    fire?: Affinity;
+    earth?: Affinity;
+    wind?: Affinity;
+    bolt?: Affinity;
+    physical?: Affinity;
+    // Puoi aggiungere altri tipi di affinità se necessario
+  };
+  export type Glam = {
+    icon:IconDefinition,
+    color:String,
+  }
+  export type ElementType =
+  | 'poison'
+  | 'light'
+  | 'dark'
+  | 'ice'
+  | 'fire'
+  | 'earth'
+  | 'wind'
+  | 'bolt'
+  | 'physical';
+
+  export type AffinityGlams = Record<ElementType,{
+    icon:IconDefinition,
+    color: string;
+  }>
 
   export interface FultimatorJson{
     uid: string;
@@ -70,7 +108,7 @@ export interface Character{
       magicPrec: number;
     };
     id: number;
-    affinities:any[]|null;
+    affinities:Affinities|null;
     shields:any[]|null;
     dataType: string;
   }
@@ -130,11 +168,14 @@ export async function retrieveUserCharacters(){
     ];
     
     // Estrai gli attributi come array di numeri
-    const statsArray = [
+    const characteristicsArray = [
       original.attributes.dexterity,
       original.attributes.insight,
       original.attributes.might,
       original.attributes.willpower,
+    ];
+
+    const statsArray = [
       original.stats.hp.current,
       original.stats.hp.max,
       
@@ -143,15 +184,11 @@ export async function retrieveUserCharacters(){
       
       original.stats.ip.current,
       original.stats.ip.max,
-      
-    ];
+    ]
+    let elementalAffinityArray:Affinities = {};
+    
 
-    
-    
-    // Per elementalAffinity, poiché non è presente nel JSON originale,
-    // possiamo creare un array vuoto o con valori di default
-    const elementalAffinityArray = [0, 0, 0, 0]; // Esempio con 4 elementi a 0
-    
+    if(original.affinities)elementalAffinityArray = original.affinities;
     // Creiamo un array di traits basato sui dati disponibili
     const traitsArray = [];
     if (original.info.identity) traitsArray.push(original.info.identity);
@@ -161,6 +198,7 @@ export async function retrieveUserCharacters(){
     return {
       name: original.name || "-",
       level: original.lvl,
+      characteristics: characteristicsArray,
       stats: statsArray,
       traits: traitsArray,
       statuses: statusesArray,
@@ -220,7 +258,7 @@ export async function retrieveUserCharacters(){
               reject(new Error("Il file JSON non ha la struttura attesa per FultimatorJson (mancano uid o name)."));
               return;
           }
-  
+          console.log(fultimatorData.affinities);
           resolve(fultimatorData);
         } catch (e) {
           reject(new Error(`Errore durante il parsing del JSON:`));
@@ -233,4 +271,81 @@ export async function retrieveUserCharacters(){
   
       reader.readAsText(file); // Legge il file come testo
     });
+  }
+  export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
+  export const elementalAffinityGlams: AffinityGlams = {
+    poison: {
+      icon: faSkullCrossbones,
+      color: 'text-green-500', // Esempio di classe Tailwind per il colore
+    },
+    light: {
+      icon: faSun,
+      color: 'text-yellow-300',
+    },
+    dark: {
+      icon: faMoon,
+      color: 'text-indigo-500',
+    },
+    ice: {
+      icon: faSnowflake,
+      color: 'text-blue-300',
+    },
+    fire: {
+      icon: faFire,
+      color: 'text-red-500',
+    },
+    earth: {
+      icon: faMountain,  // o faGlobeEurope, faSeedling
+      color: 'text-yellow-700', // o 'text-lime-700'
+    },
+    wind: {
+      icon: faWind,
+      color: 'text-teal-400',
+    },
+    bolt: {
+      icon: faBoltLightning,
+      color: 'text-yellow-400',
+    },
+    physical: {
+      icon: faKhanda, // o faShieldAlt, faFistRaised
+      color: 'text-gray-500',
+    },
+  };
+  export let ElemGlams:AffinityGlams = {
+    poison: {
+      icon: faSkullCrossbones,
+      color: 'text-green-500', // Esempio di classe Tailwind per il colore
+    },
+    light: {
+      icon: faSun,
+      color: 'text-yellow-300',
+    },
+    dark: {
+      icon: faMoon,
+      color: 'text-indigo-500',
+    },
+    ice: {
+      icon: faSnowflake,
+      color: 'text-blue-300',
+    },
+    fire: {
+      icon: faFire,
+      color: 'text-red-500',
+    },
+    earth: {
+      icon: faMountain,  // o faGlobeEurope, faSeedling
+      color: 'text-yellow-700', // o 'text-lime-700'
+    },
+    wind: {
+      icon: faWind,
+      color: 'text-teal-400',
+    },
+    bolt: {
+      icon: faBoltLightning,
+      color: 'text-yellow-400',
+    },
+    physical: {
+      icon: faKhanda, // o faShieldAlt, faFistRaised
+      color: 'text-gray-500',
+    },
   }

@@ -29,10 +29,11 @@
         let char:Character = {
             name: "",
             level: 5,
-            stats:[6,6,6,6],
+            stats:[60,60,60,60,60,60],
+            characteristics:[6,6,6,6],
             traits:["","",""],
             statuses:[false],
-            elementalAffinity:[0,0,0,0,0,0,0,0,0,],
+            elementalAffinity:{},
             pic:"",
             id:""
         }
@@ -61,7 +62,7 @@
         if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json'))return;
         
         const jsonImport = await processSelectedFile(selectedFile);
-        
+
         const jsonCharacter = convertToCharacterFormat(jsonImport);
         // addUserCharacter(jsonCharacter);
         handleAdd(jsonCharacter).then(()=>{

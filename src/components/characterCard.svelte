@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { removeUserCharacter, type Character } from "$lib/characterUtils";
+    import { elementalAffinityGlams, removeUserCharacter, ElemGlams, type Affinities, type AffinityGlams, type Character, type ElementType } from "$lib/characterUtils";
     import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
     import { faBoltLightning, faFileExport, faFire, faHillRockslide, faHorse, faKhanda, faMagicWandSparkles, faPencil, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faTrashCan, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
@@ -14,8 +14,10 @@
     export let padding = "";
     //script typescript per importare i personaggi dal database
     export let caracters:Character[] = [];
-    export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
-    export let elemenColor = ["text-gray-400","text-green-500","text-yellow-500","","text-amber-900","text-red-500","text-blue-500","text-cafe_noir-800","text-purple-700"]
+     
+    //export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
+    //export let elemenColor = ["text-gray-400","text-green-500","text-yellow-500","","text-amber-900","text-red-500","text-blue-500","text-cafe_noir-800","text-purple-700"]
+
     const awaitRemoval = async (id:string)=>{
 
         await removeUserCharacter(id);
@@ -34,10 +36,12 @@
 
     }
 
-
     let showConfirmModal = false;
     let characterIdToRemove: string | null = null;
     let isDeleting = false; // Stato per feedback visivo durante l'eliminazione
+    function convertAffinities(Affinity:Affinities,character:Character){
+    }
+
     //chiedo conferma all'utente della rimozione
     function requestRemoveConfirmation(id: string) {
         characterIdToRemove = id;
@@ -89,13 +93,13 @@
                     <!-- Information Bars-->
                     <div class="flex  flex-col justify-start items-start">
                         <div>   
-                            {@render progressiveBar("bg-red-500",car.stats[4],60)}
+                            {@render progressiveBar("bg-red-500",car.stats[0],car.stats[1])}
                         </div>
                         <div>   
-                            {@render progressiveBar("bg-blue-500",car.stats[4],60)}
+                            {@render progressiveBar("bg-blue-500",car.stats[2],car.stats[3])}
                         </div>
                         <div>   
-                            {@render progressiveBar("bg-gray-500",car.stats[4],60)}
+                            {@render progressiveBar("bg-gray-500",car.stats[4],car.stats[5])}
                         </div>
                     </div>
                 </div>
@@ -115,20 +119,20 @@
                     <br>
                     <!-- stats -->
                     <div class="items-center justify-around px-4">
-                        {@render characterStats([car.stats[0],car.stats[2]],["Des","Vig"])}
-                        {@render characterStats([car.stats[1],car.stats[3]],["Int","Vol"])}
+                        {@render characterStats([car.characteristics[0],car.characteristics[2]],["Des","Vig"])}
+                        {@render characterStats([car.characteristics[1],car.characteristics[3]],["Int","Vol"])}
                     </div>
                     <br>
                     <!-- statistiche difensive-->
                     <span class=" flex items-center justify-between px-4">
-                        {@render derivedStats("DEF",car.stats[0],faShield,faKhanda)}
-                        {@render derivedStats("M.DEF",car.stats[1],faShield,faMagicWandSparkles)}
+                        {@render derivedStats("DEF",car.characteristics[0],faShield,faKhanda)}
+                        {@render derivedStats("M.DEF",car.characteristics[1],faShield,faMagicWandSparkles)}
                         {@render derivedStats("INIT",0,faRunning,null)}
                     </span>
                     <br>
                     <!-- affinità elementale-->
                     <footer class="flex justify-end items-end">
-                        {@render affinityTable(car, elementalIcons, elemenColor)}
+                        {@render affinityTable(car, elementalAffinityGlams)}
                     </footer>
                 </div>
             </div>
@@ -155,19 +159,15 @@
     />
 {/if}
 
-{#snippet affinityTable(character:Character, elements:IconDefinition[], elementsColour:string[])}
+{#snippet affinityTable(character:Character,glam:AffinityGlams)}
     <div class="grid grid-cols-9 border">
-        {#each character.elementalAffinity as elem, i }
-            <div class="border flex flex-row justify-around">
-                <Fa icon= {elements[i]} class={elementsColour[i]}/>
-            <div>
-                {#if elem == 1}
-                    res
-                {:else if elem ==2}
-                    im
-                {/if}
-            </div>
-            </div>
+        {#each Object.entries(character.elementalAffinity) as [element,affinity]}
+        <div>
+            <Fa icon= {glam[element as ElementType].icon} class={glam[element as ElementType].color}/>
+        </div>    
+        {#if element!=null}
+                {affinity}
+            {/if}
         {/each}
     </div>
 {/snippet}
