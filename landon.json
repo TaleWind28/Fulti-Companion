@@ -23,7 +23,7 @@
     "stats": {
       "hp": {
         "max": 70,
-        "current": 70
+        "current": 20
       },
       "mp": {
         "max": 55,

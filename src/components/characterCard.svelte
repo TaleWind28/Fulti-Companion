@@ -1,10 +1,12 @@
 <script lang="ts">
-    import { removeUserCharacter, elemGlams, type Affinities, type AffinityGlams, type Character, type ElementType } from "$lib/characterUtils";
+    import { removeUserCharacter, elemGlams, type Affinities, type AffinityGlams, type Character, type ElementType, type FultimatorJson, convertToFultimatorJson, downloadFile } from "$lib/characterUtils";
     import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
     import { faBoltLightning, faFileExport, faFire, faHillRockslide, faHorse, faKhanda, faMagicWandSparkles, faPencil, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faTrashCan, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
     import Fa from "svelte-fa";
     import CustomButton from "./customButton.svelte";
+
+    import ProgressiveBar from "./progressiveBar.svelte";
 
     import { personaggiStore } from "../stores/characterStore";
     import { goto } from "$app/navigation";
@@ -30,12 +32,26 @@
     }
 
     function handleModify(id:string){
+
     }
     
     function handleExport(id:string){
-
+        console.log("entro con id: ",id);
+        const character = personaggiStore.searchCharacter(id);
+        if(!character){
+            console.log("Nessun personaggio trovato");
+            return;
+        } 
+        const fultimatorObject = convertToFultimatorJson(character);
+        if (!fultimatorObject) {
+            console.error("Nessun dato Fultimator da scaricare.");
+            return;
+        }    
+        const jsonData = JSON.stringify(fultimatorObject, null, 2); // null, 2 per formattare il JSON
+        const fileName = `${character.name.replace(/\s+/g, '_') || 'personaggio'}_fultimator.json`; // Es. "Nome_Personaggio_fultimator.json"
+        console.log("bella");
+        downloadFile(jsonData, fileName, 'application/json');
     }
-
     let showConfirmModal = false;
     let characterIdToRemove: string | null = null;
     let isDeleting = false; // Stato per feedback visivo durante l'eliminazione
@@ -70,7 +86,7 @@
         characterIdToRemove = null;
         isDeleting = false;
     }
-    
+
 </script>
 
 <br>
@@ -91,15 +107,11 @@
                     <img src={car.pic} alt="character pic" class=" border border-white w-70 h-70">
                     <!-- Information Bars-->
                     <div class="flex  flex-col justify-start items-start">
-                        <div>   
-                            {@render progressiveBar("bg-red-500",car.stats[0],car.stats[1])}
-                        </div>
-                        <div>   
-                            {@render progressiveBar("bg-blue-500",car.stats[2],car.stats[3])}
-                        </div>
-                        <div>   
-                            {@render progressiveBar("bg-gray-500",car.stats[4],car.stats[5])}
-                        </div>
+                        <ProgressiveBar bgColor="carribean_current-600" color="bg-red-500" max={car.stats[1]} actual={car.stats[0]}/>
+
+                        <ProgressiveBar bgColor="carribean_current-600" color="bg-blue-500" max={car.stats[3]} actual={car.stats[2]}/>
+                        
+                        <ProgressiveBar bgColor="carribean_current-600" color="bg-lion-700" max={car.stats[5]} actual={car.stats[4]}/>
                     </div>
                 </div>
 
@@ -135,12 +147,20 @@
                     </footer>
                 </div>
             </div>
+
             <!-- footer con interazione scheda -->
             <footer class="flex justify-start items-center">
-                <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
-                <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
-                <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
+                <a href={`/full-sheet?id=${car.id}`} >
+                    <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
+                </a>
+                <p>
+                    <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
+                </p>
+                <p>
+                    <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
+                </p>
             </footer>
+            
         </div>
     {/each}
 </div>
@@ -162,12 +182,14 @@
     <div class="grid grid-cols-9 border">
         {#each Object.entries(character.elementalAffinity) as [element,affinity]}
             <div class="flex items-center border-l pl-2">
-                {#if affinity!="NU"}
+                {#if affinity!="nu"}
                     <Fa icon= {glam[element as ElementType].icon} class={glam[element as ElementType].color}/>
                     {affinity}
                 {:else}
-                    <Fa icon= {glam[element as ElementType].icon} class="text-gray-500"/>
-                    <div></div>
+                
+                <span class="flex items-center justify-start w-12"> 
+                    <Fa icon={glam[element as ElementType].icon} class="text-gray-500" />
+                </span>
                 {/if}
             </div>
         {/each}
@@ -214,12 +236,15 @@
     {/if}
 
 {/snippet}
-
+<!-- 
 {#snippet progressiveBar(color:string, actual:number, fixed:number)}
-    <div class="{color} w-70 flex items-center justify-center">
+    
+    <div class="{color} w-70 flex items-center justify-center" 
+    style="background-image: {`linear-gradient(to right, transparent ${(fixed > 0) ? Math.min(100, Math.max(0, (actual / fixed) * 100)) : 0}$, gray-200 ${(fixed > 0) ? Math.min(100, Math.max(0, (actual / fixed) * 100)) : 0}$)`}
+        background-size: 100% 100%; background-repeat: no-repeat;">
         {actual}/{fixed}
     </div>
-{/snippet}  
+{/snippet}   -->
 
 {#snippet characterStats(stats:number[],statNames:string[])}
     <div class="flex justify-between">

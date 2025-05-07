@@ -19,7 +19,7 @@ export interface Character{
     id:string
   }
 
-  export type Affinity = "IM" | "RS" | "AB" | "WK" | "NU"; // Immunità, Resistenza, Assorbimento, Debolezza, Normale
+  export type Affinity = "im" | "rs" | "ab" | "wk" | "nu"; // Immunità, Resistenza, Assorbimento, Debolezza, Normale
   
   export type Affinities = {
     poison?: Affinity;
@@ -186,15 +186,15 @@ export async function retrieveUserCharacters(){
       original.stats.ip.max,
     ]
     let rawAffinity:Affinities = {
-      poison: "NU",
-      light: "NU",
-      dark: "NU",
-      ice:"NU",
-      fire: "NU",
-      earth: "NU",
-      wind: "NU",
-      bolt: "NU",
-      physical: "NU",
+      poison: "nu",
+      light: "nu",
+      dark: "nu",
+      ice:"nu",
+      fire: "nu",
+      earth: "nu",
+      wind: "nu",
+      bolt: "nu",
+      physical: "nu",
     };
     if(original.affinities)rawAffinity = updateAffinities(rawAffinity,original.affinities);
     //if(original.affinities)rawAffinity = original.affinities;
@@ -349,8 +349,8 @@ function updateAffinities(defaultAffinities: Affinities, newAffinitiesSource?: A
         const affinityKey = key as keyof Affinities;
         const newValue = newAffinitiesSource[affinityKey];
 
-        // Controlliamo se il nuovo valore esiste ed è diverso da "NU"
-        if (newValue !== undefined && newValue !== "NU") {
+        // Controlliamo se il nuovo valore esiste ed è diverso da "nu"
+        if (newValue !== undefined && newValue !== "nu") {
           if (affinityKey in updatedAffinities) {
             updatedAffinities[affinityKey] = newValue;
           }
@@ -359,4 +359,145 @@ function updateAffinities(defaultAffinities: Affinities, newAffinitiesSource?: A
     }
   }
   return updatedAffinities;
+}
+
+
+// Interfaccia Character, basata sull'output della tua funzione convertToCharacterFormat originale.
+// Nota: elementalAffinity in Character avrà tutte le chiavi definite,
+// a causa dell'inizializzazione con rawAffinity nella funzione originale.
+type CharacterElementalAffinitiesStrict = {
+  poison: Affinity;
+  light: Affinity;
+  dark: Affinity;
+  ice: Affinity;
+  fire: Affinity;
+  earth: Affinity;
+  wind: Affinity;
+  bolt: Affinity;
+  physical: Affinity;
+};
+
+// // Funzione helper usata nella tua funzione originale per invertire l'ordine delle chiavi.
+// // Assumiamo che questa funzione inverta l'ordine delle chiavi come restituito da Object.keys().
+// function createObjectWithKeysInReversedOrder<T extends Record<string, any>>(obj: T): T {
+//   const newObj = {} as T;
+//   const keys = Object.keys(obj).reverse() as (keyof T)[];
+//   for (const key of keys) {
+//     if (Object.prototype.hasOwnProperty.call(obj, key)) {
+//       newObj[key] = obj[key];
+//     }
+//   }
+//   return newObj;
+// }
+
+export function downloadFile(data:any, filename:string, mimeType = 'application/octet-stream') {
+  // 1. Crea un Blob se i dati sono una stringa
+  const blob = (data instanceof Blob) ? data : new Blob([data], { type: mimeType });
+
+  // 2. Crea un Object URL per il Blob
+  const url = URL.createObjectURL(blob);
+
+  // 3. Crea un elemento <a> temporaneo
+  const a = document.createElement('a');
+
+  // 4. Imposta gli attributi del link
+  a.href = url;
+  a.download = filename;
+
+  // 5. Aggiungi il link al documento (necessario per Firefox in alcuni casi),
+  //    simula il click e rimuovilo.
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  // 6. Revoca l'Object URL per liberare risorse
+  URL.revokeObjectURL(url);
+}
+
+
+// La funzione inversa
+export function convertToFultimatorJson(character: Character): FultimatorJson {
+  // Ricostruisci l'oggetto statuses
+  const fultimatorStatuses = {
+    slow: character.statuses[0],
+    dazed: character.statuses[1],
+    enraged: character.statuses[2],
+    weak: character.statuses[3],
+    shaken: character.statuses[4],
+    poisoned: character.statuses[5],
+    dexUp: character.statuses[6],
+    insUp: character.statuses[7],
+    migUp: character.statuses[8],
+    wlpUp: character.statuses[9],
+  };
+
+  // Ricostruisci l'oggetto attributes
+  const fultimatorAttributes = {
+    dexterity: character.characteristics[0],
+    insight: character.characteristics[1],
+    might: character.characteristics[2],
+    willpower: character.characteristics[3],
+  };
+
+  // Ricostruisci l'oggetto stats
+  const fultimatorStats = {
+    hp: { current: character.stats[0], max: character.stats[1] },
+    mp: { current: character.stats[2], max: character.stats[3] },
+    ip: { current: character.stats[4], max: character.stats[5] },
+  };
+
+  // Ricostruisci affinities.
+  // Applichiamo di nuovo createObjectWithKeysInReversedOrder per ripristinare
+  // l'ordine delle chiavi che si presume avesse rawAffinity nella funzione originale.
+  // Il risultato sarà un oggetto Affinities (non null), poiché Character.elementalAffinity è sempre un oggetto completo.
+  const fultimatorAffinities: Affinities = createObjectWithKeysInReversedOrder(
+    character.elementalAffinity
+  ) as Affinities; // Cast esplicito perché createObjectWithKeysInReversedOrder è generico, ma sappiamo che il risultato è compatibile con Affinities
+
+  // Ricostruisci l'oggetto info. Molti campi non sono presenti in Character
+  // e necessitano di valori predefiniti.
+  const fultimatorInfo = {
+    pronouns: "", // Valore predefinito, non presente in Character
+    identity: character.traits[0] || "", // Da Character.traits, default stringa vuota se non presente
+    theme: character.traits[1] || "",    // Da Character.traits, default stringa vuota se non presente
+    origin: character.traits[2] || "",   // Da Character.traits, default stringa vuota se non presente
+    bonds: [], // Valore predefinito, non presente in Character
+    description: "", // Valore predefinito, non presente in Character
+    fabulapoints: 0, // Valore predefinito, non presente in Character
+    exp: 0, // Valore predefinito, non presente in Character
+    zenit: 0, // Valore predefinito, non presente in Character
+    imgurl: character.pic, // Da Character.pic
+  };
+
+  // Ricostruisci l'oggetto modifiers (valori predefiniti)
+  const fultimatorModifiers = {
+    hp: 0,
+    mp: 0,
+    ip: 0,
+    def: 0,
+    mdef: 0,
+    init: 0,
+    meleePrec: 0,
+    rangedPrec: 0,
+    magicPrec: 0,
+  };
+
+  return {
+    uid: `uid_placeholder_${character.id}`, // Valore predefinito/placeholder, non presente in Character
+    name: character.name, // character.name è string; se era "-", rimane "-"
+    lvl: character.level,
+    info: fultimatorInfo,
+    attributes: fultimatorAttributes,
+    stats: fultimatorStats,
+    statuses: fultimatorStatuses,
+    classes: [], // Valore predefinito, non presente in Character
+    weapons: [], // Valore predefinito, non presente in Character
+    armor: [], // Valore predefinito, non presente in Character
+    notes: [], // Valore predefinito, non presente in Character
+    modifiers: fultimatorModifiers,
+    id: parseInt(character.id, 10), // Converti string id da Character a number
+    affinities: fultimatorAffinities, // Sarà un oggetto Affinities, non null
+    shields: null, // Valore predefinito (come da tipo any[] | null), non presente in Character
+    dataType: "FultimatorCharacterSheet", // Valore predefinito/placeholder, non presente in Character
+  };
 }
