@@ -35,5 +35,3 @@ function createCharacterStore(){
 }
 
 export const personaggiStore = createCharacterStore();
-
- 

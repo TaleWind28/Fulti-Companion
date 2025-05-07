@@ -2,13 +2,12 @@
     import CustomButton from "../../components/customButton.svelte";
     import CharacterCard from "../../components/characterCard.svelte";
     import CustomInput from "../../components/customInput.svelte";
-    import { addUserCharacter, type Character ,convertToCharacterFormat,importCharacterToFirestore,retrieveUserCharacters ,processSelectedFile, type FultimatorJson} from "$lib/characterUtils";
+    import { addUserCharacter, type Character ,convertToCharacterFormat,retrieveUserCharacters ,processSelectedFile} from "$lib/characterUtils";
     import { personaggiStore } from "../../stores/characterStore";
     import { onDestroy, onMount } from "svelte";
     import { onAuthStateChanged } from "firebase/auth";
     import { auth } from "$lib/authUtility";
     import { afterNavigate, beforeNavigate } from "$app/navigation";
-    import { json } from "@sveltejs/kit";
 
     let selectedFile:File|null = null; 
     let previewUrl = '';
@@ -17,13 +16,13 @@
     beforeNavigate(({ to, from, cancel }) => {
         // Cancella i dati qui
         console.log('Sto per navigare da', from?.url.pathname, 'a', to?.url.pathname);
-        personaggiStore.reset();
+        //personaggiStore.reset();
     });
 
     afterNavigate(({ to, from }) => {
         // Cancella i dati qui
-        console.log('Sto per navigare da', from?.url.pathname, 'a', to?.url.pathname);
-        personaggiStore.reset();
+        console.log('ho navigato da', from?.url.pathname, 'a', to?.url.pathname);
+
     });
     function createCharacter(){
         let char:Character = {
@@ -86,9 +85,10 @@
         }
         
     }
+
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
-        
+
 	});
 
     onAuthStateChanged(auth, (user) => {
@@ -130,7 +130,12 @@ function handleSearch(){
         <CustomInput text="Importa da Json" type="file" name="jsonImporter" hidden={true} color="bg-cafe_noir-600" on:change= {handleFileSelect}/>
     </div>
 
-    <CharacterCard dimensions="w-auto h-auto" padding = "px-8" caracters = {$personaggiStore}/>
+    <div class="w-auto h-auto px-8 flex grid-cols-2 gap-4">
+        {#each $personaggiStore as car}    
+            <CharacterCard/>
+        {/each}
+    </div>
+    <!-- <CharacterCard dimensions= padding = "px-8" caracters = {$personaggiStore}/> -->
     
     <br><br><br>
 </div>

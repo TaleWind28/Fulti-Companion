@@ -32,7 +32,8 @@
     }
 
     function handleModify(id:string){
-
+        
+        goto(`/fullSheet?id=${id}`);
     }
     
     function handleExport(id:string){
@@ -150,9 +151,9 @@
 
             <!-- footer con interazione scheda -->
             <footer class="flex justify-start items-center">
-                <a href={`/fullSheet?id=${car.id}`} >
+                <p>
                     <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
-                </a>
+                </p>
                 <p>
                     <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
                 </p>
