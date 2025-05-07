@@ -150,7 +150,7 @@
 
             <!-- footer con interazione scheda -->
             <footer class="flex justify-start items-center">
-                <a href={`/full-sheet?id=${car.id}`} >
+                <a href={`/fullSheet?id=${car.id}`} >
                     <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
                 </a>
                 <p>
