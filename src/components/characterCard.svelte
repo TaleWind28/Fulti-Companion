@@ -93,7 +93,7 @@
 
         <div class= "bg-white rounded w-min-140 w-max-140">
             <!--nome e livello-->
-            <header class="bg-cafe_noir-600 flex items-center justify-around text-white text-2xl" >
+            <header class="bg-cafe_noir-600 flex items-center justify-around text-white text-2xl">
                 <div>{car.name}</div>
                 <div>LV {car.level}</div>
             </header>
@@ -102,8 +102,10 @@
             <div class="flex flex-row gap-2">
                 <!-- lato sx-->
                 <div class="bg-white flex-col">
+                    
                     <!-- Avatar --> 
                     <img src={car.pic} alt="character pic" class=" border border-white w-70 h-70">
+                    
                     <!-- Information Bars-->
                     <div class="flex  flex-col justify-start items-start">
                         <ProgressiveBar bgColor="carribean_current-600" color="bg-red-500" max={car.stats[1]} actual={car.stats[0]}/>
