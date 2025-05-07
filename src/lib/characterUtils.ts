@@ -19,7 +19,7 @@ export interface Character{
     id:string
   }
 
-  export type Affinity = "im" | "rs" | "ab" | "wk" | "nu"; // Immunità, Resistenza, Assorbimento, Debolezza, Normale
+  export type Affinity = "IM" | "RS" | "AB" | "WK" | "NU"; // Immunità, Resistenza, Assorbimento, Debolezza, Normale
   
   export type Affinities = {
     poison?: Affinity;
@@ -186,15 +186,15 @@ export async function retrieveUserCharacters(){
       original.stats.ip.max,
     ]
     let rawAffinity:Affinities = {
-      poison: "nu",
-      light: "nu",
-      dark: "nu",
-      ice:"nu",
-      fire: "nu",
-      earth: "nu",
-      wind: "nu",
-      bolt: "nu",
-      physical: "nu",
+      poison: "NU",
+      light: "NU",
+      dark: "NU",
+      ice:"NU",
+      fire: "NU",
+      earth: "NU",
+      wind: "NU",
+      bolt: "NU",
+      physical: "NU",
     };
     if(original.affinities)rawAffinity = updateAffinities(rawAffinity,original.affinities);
     //if(original.affinities)rawAffinity = original.affinities;
@@ -349,8 +349,8 @@ function updateAffinities(defaultAffinities: Affinities, newAffinitiesSource?: A
         const affinityKey = key as keyof Affinities;
         const newValue = newAffinitiesSource[affinityKey];
 
-        // Controlliamo se il nuovo valore esiste ed è diverso da "nu"
-        if (newValue !== undefined && newValue !== "nu") {
+        // Controlliamo se il nuovo valore esiste ed è diverso da "NU"
+        if (newValue !== undefined && newValue !== "NU") {
           if (affinityKey in updatedAffinities) {
             updatedAffinities[affinityKey] = newValue;
           }

@@ -70,6 +70,7 @@
         characterIdToRemove = null;
         isDeleting = false;
     }
+    
 </script>
 
 <br>
@@ -158,15 +159,17 @@
 {/if}
 
 {#snippet affinityTable(character:Character,glam:AffinityGlams)}
-    <div class="grid grid-cols-18 border">
+    <div class="grid grid-cols-9 border">
         {#each Object.entries(character.elementalAffinity) as [element,affinity]}
-            {#if affinity!="nu"}
-                <Fa icon= {glam[element as ElementType].icon} class={glam[element as ElementType].color}/>
-                {affinity}
-            {:else}
-                <Fa icon= {glam[element as ElementType].icon} class="text-gray-500"/>
-                {affinity}
-            {/if}
+            <div class="flex items-center border-l pl-2">
+                {#if affinity!="NU"}
+                    <Fa icon= {glam[element as ElementType].icon} class={glam[element as ElementType].color}/>
+                    {affinity}
+                {:else}
+                    <Fa icon= {glam[element as ElementType].icon} class="text-gray-500"/>
+                    <div></div>
+                {/if}
+            </div>
         {/each}
     </div>
 {/snippet}
