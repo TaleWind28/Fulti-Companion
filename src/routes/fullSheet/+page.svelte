@@ -43,7 +43,5 @@ const handleRetrieval = async () => {
     
 </script>
 
-
-<CharacterCard>
-    
-</CharacterCard>
+pippo
+<CharacterCard car ={character}/>

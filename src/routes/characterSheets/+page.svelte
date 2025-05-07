@@ -12,6 +12,7 @@
     let selectedFile:File|null = null; 
     let previewUrl = '';
     let uploadError = '';
+    $: rows = Math.floor($personaggiStore.length);
       // Esegui prima della navigazione
     beforeNavigate(({ to, from, cancel }) => {
         // Cancella i dati qui
@@ -121,7 +122,7 @@ function handleSearch(){
     
 
 </script>
-<div class="bg-cafe_noir-900">
+<div class="bg-cafe_noir-900 gap-5">
     <br><br><br>
     
     <div class=" grid grid-cols-3 items-center justify-center gap-6 bg-white w-fit mx-auto h-20 px-8 rounded">
@@ -129,10 +130,10 @@ function handleSearch(){
         <CustomButton text="Crea Personaggio" color="bg-cafe_noir-600" dimensions="w-50 h-10" on:click={createCharacter}/>
         <CustomInput text="Importa da Json" type="file" name="jsonImporter" hidden={true} color="bg-cafe_noir-600" on:change= {handleFileSelect}/>
     </div>
-
-    <div class="w-auto h-auto px-8 flex grid-cols-2 gap-4">
+    <br><br><br>
+    <div class="w- px-8 grid grid-cols-2 {`grid-rows-${rows}`} gap-4">
         {#each $personaggiStore as car}    
-            <CharacterCard/>
+            <CharacterCard car = {car}/>
         {/each}
     </div>
     <!-- <CharacterCard dimensions= padding = "px-8" caracters = {$personaggiStore}/> -->

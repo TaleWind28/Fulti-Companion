@@ -12,10 +12,7 @@
     import { goto } from "$app/navigation";
     import ConfirmationModal from "./confirmationModal.svelte";
     
-    export let dimensions ="";
-    export let padding = "";
-    //script typescript per importare i personaggi dal database
-    export let caracters:Character[] = [];
+
      
     //export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
     //export let elemenColor = ["text-gray-400","text-green-500","text-yellow-500","","text-amber-900","text-red-500","text-blue-500","text-cafe_noir-800","text-purple-700"]
@@ -56,6 +53,7 @@
     let showConfirmModal = false;
     let characterIdToRemove: string | null = null;
     let isDeleting = false; // Stato per feedback visivo durante l'eliminazione
+    
 
     //chiedo conferma all'utente della rimozione
     function requestRemoveConfirmation(id: string) {
@@ -87,13 +85,13 @@
         characterIdToRemove = null;
         isDeleting = false;
     }
-
+    export let dimensions ="w-140";
+    export let padding = "";
+    export let car:Character;
+    export let hidden = false;
 </script>
 
-<br>
-<div class="{dimensions} {padding} flex grid-cols-2 gap-4">
-    {#each caracters as car}    
-        <div class= "bg-white rounded">
+        <div class= "bg-white rounded w-min-140 w-max-140">
             <!--nome e livello-->
             <header class="bg-cafe_noir-600 flex items-center justify-around text-white text-2xl" >
                 <div>{car.name}</div>
@@ -150,20 +148,19 @@
             </div>
 
             <!-- footer con interazione scheda -->
-            <footer class="flex justify-start items-center">
-                <p>
-                    <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
-                </p>
-                <p>
-                    <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
-                </p>
-                <p>
-                    <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
-                </p>
-            </footer>
-            
-        </div>
-    {/each}
+            {#if !hidden}    
+                <footer class="flex justify-start items-center">
+                    <p>
+                        <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
+                    </p>
+                    <p>
+                        <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
+                    </p>
+                    <p>
+                        <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
+                    </p>
+                </footer>
+            {/if}    
 </div>
 
 
