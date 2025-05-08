@@ -85,8 +85,8 @@
         characterIdToRemove = null;
         isDeleting = false;
     }
-    export let dimensions ="w-140";
-    export let padding = "";
+    // export let dimensions ="w-140";
+    // export let padding = "";
     export let car:Character;
     export let hidden = false;
 </script>

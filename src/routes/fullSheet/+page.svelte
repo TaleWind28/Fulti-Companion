@@ -1,22 +1,66 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
-    import { type Character, retrieveUserCharacter } from "$lib/characterUtils";
+    import { type Affinities, type Character, retrieveUserCharacter } from "$lib/characterUtils";
+    import TabSelector from '../../components/tabSelector.svelte';
+    import type { Tab } from '$lib/utility';
     import { onAuthStateChanged } from 'firebase/auth';
     import { auth } from '$lib/authUtility';
     import CharacterCard from '../../components/characterCard.svelte';
     import CustomButton from '../../components/customButton.svelte';
-    import { faDiceD6, faDiceFive, faDiceSix } from '@fortawesome/free-solid-svg-icons';
+    import { faDiceFive } from '@fortawesome/free-solid-svg-icons';
+    import CustomInput from '../../components/customInput.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     $: id = $page.url.searchParams.get('id');
-   
-    let character:Character;
+    let defaultAffinities:Affinities = {}; 
+    let defaultCharacter:Character = {
+        name:"Shuraigh",
+        level:25,
+        stats:[12,8,8,8],
+        characteristics:[],
+        traits:[],
+        statuses:[],
+        elementalAffinity:defaultAffinities,
+        pic:"",
+        id:""
 
+    }
 
+    // $: character =  id?retrieveUserCharacter(id):defaultCharacter;
+    let character:Character | null = null;
+    
+    let tabs = [{
+        id:1,
+        label:"Informazioni",
+        component: CustomInput,
+    },{
+        id:2,
+        label:"Statistiche",
+        component: CustomInput,
+    }
+    ,{
+        id:3,
+        label:"Classi",
+        component: CustomInput,
+    }
+    ,{
+        id:4,
+        label:"Incantesimi",
+        component: CustomInput,
+    },{
+        id:5,
+        label:"Equipaggiamento",
+        component: CustomInput,
+    },{
+        id:6,
+        label:"Note",
+        component: CustomInput,
+    }];
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
-
+        handleRetrieval();
+        
 	});
 
     onAuthStateChanged(auth, (user) => {
@@ -36,6 +80,16 @@ const handleRetrieval = async () => {
     try{
         if(id){
             character = await retrieveUserCharacter(id);
+            const charachterTab:Tab = {
+                id:0,
+                label:"Scheda Personaggio",
+                component:CharacterCard,
+                props:{
+                    car:character,
+                    hidden:true
+                }
+            } 
+            tabs.unshift(charachterTab);
             }
         }
         catch(e){
@@ -48,8 +102,11 @@ const handleRetrieval = async () => {
 {#if character}
     <div class=" bg-cafe_noir-900 items-center flex flex-col px-28 gap-6 ">
         <br>
-        <div class=" flex items-center justify-center">Infoboard</div>
-        <CharacterCard car ={character} hidden={true}/>
+        <!-- <div class=" flex items-center justify-center">
+            Infoboard
+        </div> -->
+        <TabSelector tabs = {tabs} px="px-0"/>
+        <!-- <CharacterCard car ={character} hidden={true}/> -->
         <div class="flex items-center justify-center gap-4">
             <CustomButton text="Mostra Scheda di Battaglia" dimensions="w-50 h-8" color="bg-cafe_noir-600"/> 
             <CustomButton text="roll" dimensions="w-15 h-8" color="bg-cafe_noir-600" textIcon={true} icon={faDiceFive}/>

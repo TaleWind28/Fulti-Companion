@@ -239,3 +239,9 @@ export function addCharacter(character:Character[],personaggio:Character):void {
   character.push(personaggio);
 }
 
+export type Tab = {
+  id: number;
+  label: string;
+  component: any; // Tipo del componente Svelte
+  props?: Record<string, any>; // Oggetto opzionale per le props
+};
