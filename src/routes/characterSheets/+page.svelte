@@ -133,7 +133,7 @@ function handleSearch(){
     <br><br><br>
     <div class="w- px-8 grid grid-cols-2 {`grid-rows-${rows}`} gap-4">
         {#each $personaggiStore as car}    
-            <CharacterCard car = {car}/>
+            <CharacterCard car = {car} />
         {/each}
     </div>
     <!-- <CharacterCard dimensions= padding = "px-8" caracters = {$personaggiStore}/> -->

@@ -4,8 +4,8 @@
     import Fa from "svelte-fa";
     export let text:string;
 
-    export let style = "cursor-pointer rounded text-white"
-    export let additionalStyle = "";
+    export let style = "cursor-pointer rounded"
+    export let additionalStyle = "text-white";
     export let color = "bg-blue-500";
     export let dimensions = "w-24 h-8";
     export let type:'button' | 'submit' | 'reset' = 'button';

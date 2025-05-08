@@ -10,6 +10,7 @@
     import CustomButton from '../../components/customButton.svelte';
     import { faDiceFive } from '@fortawesome/free-solid-svg-icons';
     import CustomInput from '../../components/customInput.svelte';
+    import CharacterSheet from '../../components/characterSheet.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     $: id = $page.url.searchParams.get('id');
@@ -83,10 +84,9 @@ const handleRetrieval = async () => {
             const charachterTab:Tab = {
                 id:0,
                 label:"Scheda Personaggio",
-                component:CharacterCard,
+                component:CharacterSheet,
                 props:{
-                    car:character,
-                    hidden:true
+                    character:character,
                 }
             } 
             tabs.unshift(charachterTab);
@@ -100,19 +100,8 @@ const handleRetrieval = async () => {
 </script>
 
 {#if character}
-    <div class=" bg-cafe_noir-900 items-center flex flex-col px-28 gap-6 ">
-        <br>
-        <!-- <div class=" flex items-center justify-center">
-            Infoboard
-        </div> -->
+    <div class=" bg-cafe_noir-900 items-center flex  pt-6  flex-col px-28 gap-6 ">
         <TabSelector tabs = {tabs} px="px-0"/>
-        <!-- <CharacterCard car ={character} hidden={true}/> -->
-        <div class="flex items-center justify-center gap-4">
-            <CustomButton text="Mostra Scheda di Battaglia" dimensions="w-50 h-8" color="bg-cafe_noir-600"/> 
-            <CustomButton text="roll" dimensions="w-15 h-8" color="bg-cafe_noir-600" textIcon={true} icon={faDiceFive}/>
-        </div>
-        
-        <div class="flex items-center justify-center">Note</div>
         <br>
     </div>
     

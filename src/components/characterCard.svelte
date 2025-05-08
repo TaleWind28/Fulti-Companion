@@ -153,13 +153,13 @@
             {#if !hidden}    
                 <footer class="flex justify-start items-center">
                     <p>
-                        <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
+                        <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
                     </p>
                     <p>
-                        <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
+                        <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
                     </p>
                     <p>
-                        <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
+                        <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
                     </p>
                 </footer>
             {/if}    
