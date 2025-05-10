@@ -258,6 +258,7 @@ export class Tabs{
   addTab(tab:Tab,index:number = this.tabs.length){
     //se index non è stato fornito aggiunge in fondo
     this.tabs.splice(index,0,tab);
+    this.indexTabs();
     return;    
   }
 

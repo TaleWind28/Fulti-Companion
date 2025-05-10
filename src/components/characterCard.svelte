@@ -30,7 +30,7 @@
 
     function handleModify(id:string){
         
-        goto(`/fullSheet?id=${id}`);
+        goto(`./characterSheets/fullSheet?id=${id}`);
     }
     
     function handleExport(id:string){

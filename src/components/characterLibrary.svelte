@@ -5,8 +5,8 @@
     export let characters;
 </script>
 
-<div class="{dimensions} {padding} flex grid-cols-2 gap-4">
+<!-- <div class="{dimensions} {padding} flex grid-cols-2 gap-4">
     {#each characters as car}    
         <CharacterCard/>
     {/each}
-</div>
+</div> -->

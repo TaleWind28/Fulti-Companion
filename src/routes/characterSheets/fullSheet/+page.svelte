@@ -1,44 +1,44 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { page } from '$app/stores';
-    import { type Affinities, type Character, retrieveUserCharacter } from "$lib/characterUtils";
-    import TabSelector from '../../components/tabSelector.svelte';
+    import { page } from '$app/state';
     import { Tabs, type Tab } from '$lib/utility';
     import { onAuthStateChanged } from 'firebase/auth';
     import { auth } from '$lib/authUtility';
-    import CustomInput from '../../components/customInput.svelte';
-    import CharacterSheet from '../../components/characterSheet.svelte';
+    import { type Character, retrieveUserCharacter } from "$lib/characterUtils";
+    import Traits from '../../../components/traits.svelte';
+    import RunesTab from '../../../components/runesTab.svelte';
+    import CustomInput from '../../../components/customInput.svelte';
+    import CharacterSheet from '../../../components/characterSheet.svelte';
+    
     // Recupera l'ID dell'auto dal parametro di query
-    $: id = $page.url.searchParams.get('id');
+    const id = page.url.searchParams.get('id');
     
     let character:Character | null = null;
     let tabs = new Tabs([{
         id:1,
-        label:"Informazioni",
-        comp: CustomInput,
-        props:{
-
-        }
-    },{
-        id:2,
         label:"Statistiche",
-        comp: CustomInput,
+        comp: Traits,
+        props:{
+            identity:"Michele",
+            theme:"vuole",
+            origin:"morire"
+        }
     }
     ,{
-        id:3,
+        id:2,
         label:"Classi",
         comp: CustomInput,
     }
     ,{
-        id:4,
+        id:3,
         label:"Incantesimi",
         comp: CustomInput,
     },{
-        id:5,
+        id:4,
         label:"Equipaggiamento",
         comp: CustomInput,
     },{
-        id:6,
+        id:5,
         label:"Note",
         comp: CustomInput,
     }]);
@@ -77,6 +77,7 @@
                     }
                 }
                 tabs.addTab(charachterTab,0);
+                console.log(tabs);
                 }
             }
             catch(e){
@@ -89,6 +90,6 @@
 
 {#if character}
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
-        <TabSelector tabs = {tabs.tabs} px="px-0"/>
+        <RunesTab tabs = {tabs.tabs} />
     </div>
 {/if}
