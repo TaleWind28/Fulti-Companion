@@ -13,7 +13,7 @@
     import ConfirmationModal from "./confirmationModal.svelte";
     
 
-     
+    export {traits};
     //export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
     //export let elemenColor = ["text-gray-400","text-green-500","text-yellow-500","","text-amber-900","text-red-500","text-blue-500","text-cafe_noir-800","text-purple-700"]
 

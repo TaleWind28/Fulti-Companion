@@ -3,7 +3,7 @@
 	import Header from '../components/header.svelte';
 	import Footer from '../components/footer.svelte';
 	let logo = "src/images/Logo3.png";
-	let headerPages = ["/loginPage", "/campaign", "/characterSheets","/itemGenerator","/userHomePage","/"];
+	let headerPages = ["/loginPage", "/campaign", "/characterSheets","/itemGenerator","/userHomePage","/combatSimulator"];
 	let { children } = $props();
 </script>
 

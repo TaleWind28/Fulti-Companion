@@ -242,6 +242,29 @@ export function addCharacter(character:Character[],personaggio:Character):void {
 export type Tab = {
   id: number;
   label: string;
-  component: any; // Tipo del componente Svelte
-  props?: Record<string, any>; // Oggetto opzionale per le props
+  comp: any; // Tipo del componente Svelte
+  props?: Object; // Oggetto opzionale per le props
+
 };
+
+export class Tabs{
+  tabs:Tab[];
+
+  constructor(tabs:Tab[] = []){
+    this.tabs = tabs;
+  } 
+
+  //aggiunge una tab all'array
+  addTab(tab:Tab,index:number = this.tabs.length){
+    //se index non è stato fornito aggiunge in fondo
+    this.tabs.splice(index,0,tab);
+    return;    
+  }
+
+  indexTabs(){
+    for(let i =0;i<this.tabs.length;i++){
+      this.tabs[i].id = i;
+    }
+  }
+
+}

@@ -3,106 +3,92 @@
     import { page } from '$app/stores';
     import { type Affinities, type Character, retrieveUserCharacter } from "$lib/characterUtils";
     import TabSelector from '../../components/tabSelector.svelte';
-    import type { Tab } from '$lib/utility';
+    import { Tabs, type Tab } from '$lib/utility';
     import { onAuthStateChanged } from 'firebase/auth';
     import { auth } from '$lib/authUtility';
-    import CharacterCard from '../../components/characterCard.svelte';
-    import CustomButton from '../../components/customButton.svelte';
-    import { faDiceFive } from '@fortawesome/free-solid-svg-icons';
     import CustomInput from '../../components/customInput.svelte';
     import CharacterSheet from '../../components/characterSheet.svelte';
-    
     // Recupera l'ID dell'auto dal parametro di query
     $: id = $page.url.searchParams.get('id');
-    let defaultAffinities:Affinities = {}; 
-    let defaultCharacter:Character = {
-        name:"Shuraigh",
-        level:25,
-        stats:[12,8,8,8],
-        characteristics:[],
-        traits:[],
-        statuses:[],
-        elementalAffinity:defaultAffinities,
-        pic:"",
-        id:""
-
-    }
-
-    // $: character =  id?retrieveUserCharacter(id):defaultCharacter;
-    let character:Character | null = null;
     
-    let tabs = [{
+    let character:Character | null = null;
+    let tabs = new Tabs([{
         id:1,
         label:"Informazioni",
-        component: CustomInput,
+        comp: CustomInput,
+        props:{
+
+        }
     },{
         id:2,
         label:"Statistiche",
-        component: CustomInput,
+        comp: CustomInput,
     }
     ,{
         id:3,
         label:"Classi",
-        component: CustomInput,
+        comp: CustomInput,
     }
     ,{
         id:4,
         label:"Incantesimi",
-        component: CustomInput,
+        comp: CustomInput,
     },{
         id:5,
         label:"Equipaggiamento",
-        component: CustomInput,
+        comp: CustomInput,
     },{
         id:6,
         label:"Note",
-        component: CustomInput,
-    }];
+        comp: CustomInput,
+    }]);
+
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
-        handleRetrieval();
+        //handleRetrieval();
         
 	});
 
     onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // L'utente è loggato
-        console.log("Utente loggato:", user.uid);
-        handleRetrieval().then( () =>{
-            console.log("characters loaded successfully",);
-        })
-        .catch(() =>{
-            console.log("characters loading failed");
-            }
-        )
-    }
-});
-const handleRetrieval = async () => {
-    try{
-        if(id){
-            character = await retrieveUserCharacter(id);
-            const charachterTab:Tab = {
-                id:0,
-                label:"Scheda Personaggio",
-                component:CharacterSheet,
-                props:{
-                    character:character,
+        if (user) {
+            // L'utente è loggato
+            console.log("Utente loggato:", user.uid);
+            handleRetrieval().then( () =>{
+                
+                console.log("characters loaded successfully",);
+            })
+            .catch(() =>{
+                console.log("characters loading failed");
                 }
-            } 
-            tabs.unshift(charachterTab);
+            )
+        }
+    });
+
+    const handleRetrieval = async () => {
+        try{
+            if(id){
+                character = await retrieveUserCharacter(id);
+                const charachterTab:Tab = {
+                    id:0,
+                    label:"Scheda Personaggio",
+                    comp:CharacterSheet,
+                    props:{
+                        character:character,
+                    }
+                }
+                tabs.addTab(charachterTab,0);
+                }
             }
-        }
-        catch(e){
-            console.log(e);
-        }
-} 
-    
+            catch(e){
+                console.log(e);
+            }
+    }
+
 </script>
 
+
 {#if character}
-    <div class=" bg-cafe_noir-900 items-center flex  pt-6  flex-col px-28 gap-6 ">
-        <TabSelector tabs = {tabs} px="px-0"/>
-        <br>
+    <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
+        <TabSelector tabs = {tabs.tabs} px="px-0"/>
     </div>
-    
 {/if}
