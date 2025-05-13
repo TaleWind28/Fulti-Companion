@@ -85,15 +85,13 @@
         characterIdToRemove = null;
         isDeleting = false;
     }
-    // export let dimensions ="w-140";
-    // export let padding = "";
-    // export let car:Character;
+ 
     let {
         car,
         hidden = false
-     } = $props();
-     console.log(car);
-    // export let hidden = false;
+    } = $props();
+    console.log(car);
+
 </script>
 
 <div class= "bg-white rounded w-min-140 w-max-140">
@@ -182,6 +180,8 @@
         on:cancel={closeModal}
     />
 {/if}
+
+
 
 {#snippet affinityTable(character:Character,glam:AffinityGlams)}
     <div class="grid grid-cols-9 border">
