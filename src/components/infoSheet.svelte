@@ -22,7 +22,7 @@
         {#snippet headerName()} STATUS{/snippet}
         <div class=" grid grid-rows-4 grid-cols-2 gap-x-100 mx-20">
             {#each {length:7}, i }
-                <div class="flex">
+                <div class="flex gap-x-4 ">
                     {#if status[i]!=="skip"}
                     <input type="checkbox" bind:checked={statusArray[i]}>
                     <p class="font-bold">{status[i]}</p>
@@ -38,12 +38,13 @@
         {#snippet headerName()} LEGAMI {/snippet}
         <div class="px-8 grid grid-cols-2 {`grid-rows-${Math.floor(bonds.lenght)}`} justify-between items-center gap-4">
             {#each bonds as bond }
-                <span class="flex gap-2"><p class="font-bold">{bond.name}:</p> 
-                {#each bond.bonds as type}
-                    <p class={`${(type === 'Ammirazione' || type === 'Lealtà' || type === 'Affetto') ? 'text-green-800 font-bold' : 'text-red-800 font-bold'}`}>
-                        {type}
-                    </p>
-                {/each}
+                <span class="flex">
+                    <p class="font-bold mx-2">{bond.name}:</p> 
+                    {#each bond.bonds as type}
+                        <p class={`${(type === 'Ammirazione' || type === 'Lealtà' || type === 'Affetto') ? 'text-green-800 font-bold' : 'text-red-800 font-bold'}`}>
+                            {type},
+                        </p>
+                    {/each}
                 </span>
             {/each}
         </div>
