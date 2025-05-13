@@ -7,9 +7,13 @@
   import { goto } from "$app/navigation";
 
   export let appTitle = "F-Ulti Companion";
-  export const logoUrl:string = "src/images/Logo5.1.png";
+
+  import logoImage from "/src/images/Logo5.1.png";
+  
+  export const logoUrl: string = logoImage;
   export let homeUrl = "/"; 
   export let pages:string[];
+  
   const loginPage = pages[0];
   const campaignPage = pages[1];
   const playerSheetPage = pages[2];

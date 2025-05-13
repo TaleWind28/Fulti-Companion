@@ -1,3 +1,6 @@
+<!-- Combat Simulator -->
+
+
 <script lang="ts">
     import {Tabs} from "$lib/utility";
     import RunesTab from "../../components/runesTab.svelte";
