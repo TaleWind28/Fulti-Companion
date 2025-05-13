@@ -78,6 +78,7 @@
                 }
                 tabs.addTab(charachterTab,0);
                 console.log(tabs);
+                console.log(character);
                 }
             }
             catch(e){

@@ -1,14 +1,20 @@
 <script>
-    let {headerName, children} = $props();
+    let {headerName, dimension, background,children} = $props();
 </script>
 
 <article>
-    <h2>
+    <div class="border rounded flex {dimension} {background}">
         {#if headerName}
-            <span>{@render headerName()}</span>
+            <span class="bg-cafe_noir text-white  px-1 py-1 rounded flex-shrink-0 [writing-mode:vertical-lr] rotate-180 text-center h-25">
+                {@render headerName()}
+            </span>
         {:else}
-            <span class="missing">Unknown name</span>
+            <span class="missing">
+                Unknown name
+            </span>
         {/if}
-    </h2>
-    {@render children()}
+        <div class="flex items-center justify-center">
+            {@render children?.()}
+        </div>
+    </div>
 </article>

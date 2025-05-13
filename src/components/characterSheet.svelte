@@ -4,9 +4,12 @@
     import CustomButton from "./customButton.svelte";
     import type { Tab } from "$lib/utility";
     import Traits from "./traits.svelte";
+    import InfoSheet from "./infoSheet.svelte";
+    import type { Component } from "svelte";
     
 
     let {character} = $props();
+    console.log(character,"characterSheet");
     let tabs:Tab[] = [
         {
             id:0,
@@ -14,17 +17,51 @@
             comp:Traits,
             props:{
                 identity: character.traits[0],
-                theme: character.traits[1],
-                origin: character.traits[2]
+                    theme: character.traits[1],
+                    origin: character.traits[2]
             }
         },
         {
             id:1,
             label:"BattleSheet",
-            comp:Traits 
+            comp:CharacterCard,
+            props: {
+                car: character,
+                hidden:false
+            }
         }
     ];
     let index = $state(0);
+    let traits = {
+        identity: character.traits[0],
+        theme: character.traits[1],
+        origin: character.traits[2]
+    }
+
+    let childProp ={
+        traits:{
+             identity: character.traits[0],
+            theme: character.traits[1],
+            origin: character.traits[2]
+        },
+        bonds:[{
+                name:"Vorston",
+                bonds:['Inferiorità','Lealtà','Odio']
+            },
+            {
+                name:"Shuraigh",
+                bonds:['Ammirazione','Sfiducia','Affetto']
+            },
+            {
+                name:"Victor",
+                bonds:['Ammirazione','Sfiducia','Odio'] 
+            }
+        ]
+    }
+    // let selected = $state(0);
+    // let ActiveComponent:any = $derived(tabs[selected].comp);
+    // let activeProps:any = $derived(tabs[selected].props);
+
     let ActiveComponent = $derived(tabs[index].comp);
     let activeProps = $derived(tabs[index].props);
     //let msg = Module '"./characterCard.svelte"' has no exported member 'traits'. Did you mean to use 'import traits from "./characterCard.svelte"' instead
@@ -59,10 +96,15 @@
                 }}/> 
             <CustomButton text="roll" dimensions="w-15 h-8" color="bg-cafe_noir-600" textIcon={true} icon={faDiceFive}/>
         </span>
+
         <div class="flex  justify-center gap-4">
-            <div>
+            <!-- <div>
                 <ActiveComponent {...activeProps}></ActiveComponent>
-            </div>
-    </div>
+            </div> -->
+            <!-- identity = {traits.identity} theme= {traits.theme} origin = {traits.origin} -->
+            <InfoSheet {...childProp}/>
+            
+        </div>
+        <!-- <ActiveComponent {...activeProps}/> -->
 </div>
 

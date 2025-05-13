@@ -50,9 +50,9 @@
         console.log("bella");
         downloadFile(jsonData, fileName, 'application/json');
     }
-    let showConfirmModal = false;
+    let showConfirmModal = $state(false);
     let characterIdToRemove: string | null = null;
-    let isDeleting = false; // Stato per feedback visivo durante l'eliminazione
+    let isDeleting = $state(false); // Stato per feedback visivo durante l'eliminazione
     let elementOrder:ElementType[] = ['poison','light', 'dark', 'ice', 'fire', 'earth', 'wind', 'bolt', 'physical']
     elementOrder.reverse();
     //chiedo conferma all'utente della rimozione
@@ -87,8 +87,13 @@
     }
     // export let dimensions ="w-140";
     // export let padding = "";
-    export let car:Character;
-    export let hidden = false;
+    // export let car:Character;
+    let {
+        car,
+        hidden = false
+     } = $props();
+     console.log(car);
+    // export let hidden = false;
 </script>
 
 <div class= "bg-white rounded w-min-140 w-max-140">
