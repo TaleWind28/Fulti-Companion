@@ -8,9 +8,7 @@
     let ActiveComponent= $derived(tabs[selectedTab].component);
     let activeProps= $derived(tabs[selectedTab].props);
 
-  //   let addSt = `whitespace-nowrap py-3 px-1  font-medium text-sm transition-colors duration-150 ease-in-out{activeTabId === tab.id? ' text-white'
-  // : 'border-transparent text-black hover:bg-cafe_noir-900`;
-  
+
   </script>
 
   <!-- La parte della barra <nav> rimane simile -->
@@ -19,7 +17,7 @@
       {#each tabs as tab}
         <RunesButton clickFun={() => {(selectedTab= tab.id)}} text = {tab.label} color="bg-blue-500" dimensions="w-auto h-auto" additionalStyle = "text-white"/>
       {/each} 
-    </nav>  
+    </nav>
   </div>
 
   <div class="pb-200 justify-center items-center">

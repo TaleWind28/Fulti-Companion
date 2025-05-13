@@ -100,6 +100,7 @@
             console.log(characters.length)
             for(let i =0;i<characters.length;i++){
             personaggiStore.aggiungiPersonaggio(characters[i]);
+            console.log(characters[i].elementalAffinity);
             }
             console.log("characters loaded successfully",);
         })
@@ -136,7 +137,6 @@ function handleSearch(){
             <CharacterCard car = {car} />
         {/each}
     </div>
-    <!-- <CharacterCard dimensions= padding = "px-8" caracters = {$personaggiStore}/> -->
     
     <br><br><br>
 </div>

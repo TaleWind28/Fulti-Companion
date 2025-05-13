@@ -53,8 +53,8 @@
     let showConfirmModal = false;
     let characterIdToRemove: string | null = null;
     let isDeleting = false; // Stato per feedback visivo durante l'eliminazione
-    
-
+    let elementOrder:ElementType[] = ['poison','light', 'dark', 'ice', 'fire', 'earth', 'wind', 'bolt', 'physical']
+    elementOrder.reverse();
     //chiedo conferma all'utente della rimozione
     function requestRemoveConfirmation(id: string) {
         characterIdToRemove = id;
@@ -91,78 +91,78 @@
     export let hidden = false;
 </script>
 
-        <div class= "bg-white rounded w-min-140 w-max-140">
-            <!--nome e livello-->
-            <header class="bg-cafe_noir-600 flex items-center justify-around text-white text-2xl">
-                <div>{car.name}</div>
-                <div>LV {car.level}</div>
-            </header>
+<div class= "bg-white rounded w-min-140 w-max-140">
+    <!--nome e livello-->
+    <header class="bg-cafe_noir-600 flex items-center justify-around text-white text-2xl">
+        <div>{car.name}</div>
+        <div>LV {car.level}</div>
+    </header>
 
-            <!-- Character Info-->
-            <div class="flex flex-row gap-2">
-                <!-- lato sx-->
-                <div class="bg-white flex-col">
-                    
-                    <!-- Avatar --> 
-                    <img src={car.pic} alt="character pic" class=" border border-white w-70 h-70">
-                    
-                    <!-- Information Bars-->
-                    <div class="flex  flex-col justify-start items-start">
-                        <ProgressiveBar bgColor="carribean_current-600" color="bg-red-500" max={car.stats[1]} actual={car.stats[0]}/>
+    <!-- Character Info-->
+    <div class="flex flex-row gap-2">
+        <!-- lato sx-->
+        <div class="bg-white flex-col">
+            
+            <!-- Avatar --> 
+            <img src={car.pic} alt="character pic" class=" border border-white w-70 h-70">
+            
+            <!-- Information Bars-->
+            <div class="flex  flex-col justify-start items-start">
+                <ProgressiveBar bgColor="carribean_current-600" color="bg-red-500" max={car.stats[1]} actual={car.stats[0]}/>
 
-                        <ProgressiveBar bgColor="carribean_current-600" color="bg-blue-500" max={car.stats[3]} actual={car.stats[2]}/>
-                        
-                        <ProgressiveBar bgColor="carribean_current-600" color="bg-lion-700" max={car.stats[5]} actual={car.stats[4]}/>
-                    </div>
-                </div>
+                <ProgressiveBar bgColor="carribean_current-600" color="bg-blue-500" max={car.stats[3]} actual={car.stats[2]}/>
+                
+                <ProgressiveBar bgColor="carribean_current-600" color="bg-lion-700" max={car.stats[5]} actual={car.stats[4]}/>
+            </div>
+        </div>
 
-                <!-- lato dx-->
-                <div class="bg-white px-4 gap-4">
-                    <br>
-                    <!-- tratti -->
-                    <div class="border rounded flex ">
-                        <p class="bg-cafe_noir text-white  px-1 py-1 rounded flex-shrink-0 [writing-mode:vertical-lr] rotate-180 text-center">
-                            TRATTI
-                        </p>
-                        <div class="flex items-center justify-around px-2">
-                            {@render traits(car.traits)}
-                        </div>
-                    </div>
-                    <br>
-                    <!-- stats -->
-                    <div class="items-center justify-around px-4">
-                        {@render characterStats([car.characteristics[0],car.characteristics[2]],["Des","Vig"])}
-                        {@render characterStats([car.characteristics[1],car.characteristics[3]],["Int","Vol"])}
-                    </div>
-                    <br>
-                    <!-- statistiche difensive-->
-                    <span class=" flex items-center justify-between px-4">
-                        {@render derivedStats("DEF",car.characteristics[0],faShield,faKhanda)}
-                        {@render derivedStats("M.DEF",car.characteristics[1],faShield,faMagicWandSparkles)}
-                        {@render derivedStats("INIT",0,faRunning,null)}
-                    </span>
-                    <br>
-                    <!-- affinità elementale-->
-                    <footer class="flex justify-end items-end">
-                        {@render affinityTable(car, elemGlams)}
-                    </footer>
+        <!-- lato dx-->
+        <div class="bg-white px-4 gap-4">
+            <br>
+            <!-- tratti -->
+            <div class="border rounded flex ">
+                <p class="bg-cafe_noir text-white  px-1 py-1 rounded flex-shrink-0 [writing-mode:vertical-lr] rotate-180 text-center">
+                    TRATTI
+                </p>
+                <div class="flex items-center justify-around px-2">
+                    {@render traits(car.traits)}
                 </div>
             </div>
+            <br>
+            <!-- stats -->
+            <div class="items-center justify-around px-4">
+                {@render characterStats([car.characteristics[0],car.characteristics[2]],["Des","Vig"])}
+                {@render characterStats([car.characteristics[1],car.characteristics[3]],["Int","Vol"])}
+            </div>
+            <br>
+            <!-- statistiche difensive-->
+            <span class=" flex items-center justify-between px-4">
+                {@render derivedStats("DEF",car.characteristics[0],faShield,faKhanda)}
+                {@render derivedStats("M.DEF",car.characteristics[1],faShield,faMagicWandSparkles)}
+                {@render derivedStats("INIT",0,faRunning,null)}
+            </span>
+            <br>
+            <!-- affinità elementale-->
+            <footer class="flex justify-end items-end">
+                {@render affinityTable(car, elemGlams)}
+            </footer>
+        </div>
+    </div>
 
-            <!-- footer con interazione scheda -->
-            {#if !hidden}    
-                <footer class="flex justify-start items-center">
-                    <p>
-                        <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
-                    </p>
-                    <p>
-                        <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
-                    </p>
-                    <p>
-                        <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
-                    </p>
-                </footer>
-            {/if}    
+    <!-- footer con interazione scheda -->
+    {#if !hidden}    
+        <footer class="flex justify-start items-center">
+            <p>
+                <CustomButton text="" icon={faPencil} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => handleModify(car.id)}/>
+            </p>
+            <p>
+                <CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
+            </p>
+            <p>
+                <CustomButton text="" icon={faFileExport} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => handleExport(car.id)}/>
+            </p>
+        </footer>
+    {/if}    
 </div>
 
 
@@ -180,16 +180,15 @@
 
 {#snippet affinityTable(character:Character,glam:AffinityGlams)}
     <div class="grid grid-cols-9 border">
-        {#each Object.entries(character.elementalAffinity) as [element,affinity]}
+        {#each elementOrder as element }
             <div class="flex items-center border-l pl-2">
-                {#if affinity!="nu"}
-                    <Fa icon= {glam[element as ElementType].icon} class={glam[element as ElementType].color}/>
-                    {affinity}
+                {#if character.elementalAffinity[element]!="nu"}
+                    <Fa icon={glam[element as ElementType].icon} class={glam[element as ElementType].color} />
+                    {character.elementalAffinity[element]}
                 {:else}
-                
-                <span class="flex items-center justify-start w-12"> 
-                    <Fa icon={glam[element as ElementType].icon} class="text-gray-500" />
-                </span>
+                    <span class="flex items-center justify-start w-12"> 
+                        <Fa icon={glam[element as ElementType].icon} class="text-gray-500" />
+                    </span>
                 {/if}
             </div>
         {/each}
@@ -236,15 +235,6 @@
     {/if}
 
 {/snippet}
-<!-- 
-{#snippet progressiveBar(color:string, actual:number, fixed:number)}
-    
-    <div class="{color} w-70 flex items-center justify-center" 
-    style="background-image: {`linear-gradient(to right, transparent ${(fixed > 0) ? Math.min(100, Math.max(0, (actual / fixed) * 100)) : 0}$, gray-200 ${(fixed > 0) ? Math.min(100, Math.max(0, (actual / fixed) * 100)) : 0}$)`}
-        background-size: 100% 100%; background-repeat: no-repeat;">
-        {actual}/{fixed}
-    </div>
-{/snippet}   -->
 
 {#snippet characterStats(stats:number[],statNames:string[])}
     <div class="flex justify-between">
@@ -258,5 +248,3 @@
         </div>
     </div>
 {/snippet}
-
-
