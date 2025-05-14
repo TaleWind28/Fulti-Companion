@@ -71,7 +71,7 @@
 </script>
 
 <div class="flex h-screen">
-    <div class=" bg-teal-800 flex items-center justify-center text-white text-2xl w-full">
+    <div class=" bg-teal-800 flex items-center justify-center text-white text-2xl  text-black w-full">
         <a href="/"><img src="src/images/Logo3.png" alt="pino" class="h-70 w-full"></a>
     </div>
     <div class="flex justify-center items-center gap-4 flex-col w-full">
@@ -82,7 +82,7 @@
             <input id="email" type="text" bind:value={email} placeholder="email" class="px-4 py-2 rounded w-64 border border-black"> 
             <input id="password" type="password" bind:value={password} placeholder="password" class="px-4 py-2 rounded w-64 border border-black">
             <CustomButton text={boolRegister ? "Registrati" : "Accedi"} type=submit/>
-            <CustomButton text={boolRegister ? "Possiedi un account?Accedi" : "Non possiedi un account?Registrati"} style = "underline cursor-pointer" dimensions= "" color="" on:click={showRegistration}/>
+            <CustomButton text={boolRegister ? "Possiedi un account?Accedi" : "Non possiedi un account?Registrati"} style = "underline cursor-pointer" dimensions= "" color="" textColor="text-black" on:click={showRegistration}/>
         </form>
         
     </div>

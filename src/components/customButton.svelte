@@ -12,11 +12,14 @@
     export let icon:IconDefinition | undefined = undefined;
     export let textIcon = false; 
     export let iconStyle ="";
+    export let textColor = "";
 </script>
 
 <button {type} on:click class="{dimensions} {style} {color} {additionalStyle}">
 {#if !textIcon && icon== undefined}
-    {text}
+    <p class={textColor}>
+        {text}
+    </p>
 {:else if icon!= undefined && !textIcon}
     <Fa class={iconStyle} icon={icon}/>
 {:else if textIcon && icon!= undefined}
