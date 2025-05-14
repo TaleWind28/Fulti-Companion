@@ -4,25 +4,30 @@
     let {
         text = "Default Text",
         style = "cursor-pointer rounded",
-        additionalStyle = "text-white",
+        additionalStyle = "",
         color = "bg-blue-500",
         dimensions = "w-24 h-8",
         icon = undefined,
-        textIcon = "false",
+        textIcon = false,
         iconStyle = "",
-        clickFun
+        clickFun,
+        textColor = "text-white"
     } = $props();
+
+    function click(){
+        clickFun();
+    }
 </script>
 
-<button class="{dimensions} {style} {color} {additionalStyle}" onclick={clickFun}>
+<button class="{dimensions} {style} {color} {additionalStyle}" onclick={click}>
 {#if !textIcon && icon== undefined}
-    {text}
+    <p class={textColor}>{text}</p>
 {:else if icon!= undefined && !textIcon}
     <Fa class={iconStyle} icon={icon}/>
 {:else if textIcon && icon!= undefined}
     <span class="flex items-center justify-center gap-2">
         <Fa class={iconStyle} icon={icon}/>
-        {text}
+        <p class={textColor}>{text}</p>
     </span>
 {/if}
 </button> 

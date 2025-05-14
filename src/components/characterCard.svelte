@@ -12,7 +12,8 @@
     import { goto } from "$app/navigation";
     import ConfirmationModal from "./confirmationModal.svelte";
     
-
+    import Modal from "./modal.svelte";
+    import RunesButton from "./runesButton.svelte";
     export {traits};
     //export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
     //export let elemenColor = ["text-gray-400","text-green-500","text-yellow-500","","text-amber-900","text-red-500","text-blue-500","text-cafe_noir-800","text-purple-700"]
@@ -168,18 +169,24 @@
     {/if}    
 </div>
 
+<Modal bind:showModal={showConfirmModal} modalText ="Chiudi" divStyle={"flex flex-col gap-4"}>
+    
+    <h1 class="font-bold">
+        Conferma Eliminazione
+    </h1>
+    <p>
+        Sei sicuro di voler eliminare questo personaggio? Questa azione è irreversibile.
+    </p>
+    <span class="flex justify-end gap-5">
 
-<!-- Il nostro Modale di Conferma -->
-{#if showConfirmModal}
-    <ConfirmationModal title="Conferma Eliminazione"
-        message="Sei sicuro di voler eliminare questo personaggio? L'azione è irreversibile."
-        confirmButtonText="Elimina"
-        cancelButtonText="Annulla"
-        isProcessing={isDeleting}
-        on:confirm={confirmRemove}
-        on:cancel={closeModal}
-    />
-{/if}
+        <RunesButton text={"Annulla"} clickFun={closeModal} color={"bg-gray-500"}/>
+
+        <RunesButton text={"Elimina"} clickFun={confirmRemove} color={"bg-red-500"}/>
+    </span>
+
+    
+</Modal>
+
 
 
 
