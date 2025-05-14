@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { removeUserCharacter, elemGlams, type Affinities, type AffinityGlams, type Character, type ElementType, type FultimatorJson, convertToFultimatorJson, downloadFile } from "$lib/characterUtils";
+    import { removeUserCharacter, elemGlams, type AffinityGlams, type Character, type ElementType, convertToFultimatorJson, downloadFile } from "$lib/characterUtils";
     import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-    import { faBoltLightning, faFileExport, faFire, faHillRockslide, faHorse, faKhanda, faMagicWandSparkles, faPencil, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faTrashCan, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
+    import {  faFileExport, faKhanda, faMagicWandSparkles, faPencil, faRunning, faShield, faTrashCan } from "@fortawesome/free-solid-svg-icons";
     import Fa from "svelte-fa";
     import CustomButton from "./customButton.svelte";
 
@@ -10,13 +10,11 @@
 
     import { personaggiStore } from "../stores/characterStore";
     import { goto } from "$app/navigation";
-    import ConfirmationModal from "./confirmationModal.svelte";
     
     import Modal from "./modal.svelte";
     import RunesButton from "./runesButton.svelte";
+    
     export {traits};
-    //export let elementalIcons = [ faKhanda,faWind, faBoltLightning, faHorse, faHillRockslide,faFire, faSnowflake,faSun, faSkullCrossbones]
-    //export let elemenColor = ["text-gray-400","text-green-500","text-yellow-500","","text-amber-900","text-red-500","text-blue-500","text-cafe_noir-800","text-purple-700"]
 
     const awaitRemoval = async (id:string)=>{
 
@@ -51,6 +49,7 @@
         console.log("bella");
         downloadFile(jsonData, fileName, 'application/json');
     }
+    
     let showConfirmModal = $state(false);
     let characterIdToRemove: string | null = null;
     let isDeleting = $state(false); // Stato per feedback visivo durante l'eliminazione
