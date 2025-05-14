@@ -1,11 +1,15 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { storage } from "./utility";
 import { db } from "../stores/authStore";
 import { faBoltLightning, faFileExport, faFire, faHillRockslide, faHorse, faKhanda, faMagicWandSparkles, faMoon, faMountain, faPencil, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faTrashCan, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
 
 import type { Icon, IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
+export interface Modifiers{
+
+}
 
 export interface Character{
     name:string;
@@ -14,9 +18,16 @@ export interface Character{
     characteristics:number[];
     traits:string[];
     statuses:boolean[];
+    classes: any[];
+    weapons: any[];
+    armor: any[];
+    notes: any[];
+    modifiers: Modifiers;
     elementalAffinity:Affinities;
     pic:string
     id:string
+    bonds:any[]|null;
+    shields:any[]|null;
   }
 
   export type Affinity = "im" | "rs" | "ab" | "wk" | "nu"; // Immunità, Resistenza, Assorbimento, Debolezza, Normale
@@ -109,6 +120,7 @@ export interface FultimatorJson{
   };
   id: number;
   affinities:Affinities|null;
+  bonds:any[]|null;
   shields:any[]|null;
   dataType: string;
 }
@@ -220,21 +232,57 @@ export function convertToCharacterFormat(original: FultimatorJson): Character {
   if (original.info.origin) traitsArray.push(original.info.origin);
   console.log(original.id);
   let id:string = "00";
-  
   if(original.id)id = original.id.toString();
 
-  
-  return {
-    name: original.name || "-",
-    level: original.lvl,
-    characteristics: characteristicsArray,
-    stats: statsArray,
-    traits: traitsArray,
-    statuses: statusesArray,
-    elementalAffinity: elementalAffinity,
-    pic: original.info.imgurl || "",
-    id: id // Converti id da numero a stringa
-  };
+  // [
+  //                   {
+  //                       name:"Vorston",
+  //                       bonds:['Inferiorità','Lealtà','Odio']
+  //                   },
+  //                   {
+  //                       name:"Shuraigh",
+  //                       bonds:['Ammirazione','Sfiducia','Affetto']
+  //                   },
+  //                   {
+  //                       name:"Victor",
+  //                       bonds:['Ammirazione','Sfiducia','Odio'] 
+  //                   }
+  //               ]
+
+  // let bonds = {
+  //   name: original.info.bonds[0].name,
+  //   bonds:{
+
+
+  //   }
+  // }
+  let bonds = [];
+  for(let i = 0;i<original.info.bonds.length;i++){
+    let bond = {
+      name:original.info.bonds[i].name,
+      bond:{...original.info.bonds[i]}
+    };
+    bonds.push(bond);
+  }
+  console.log("BONDS",bonds);
+ return {
+  name: original.name || "-",
+  level: original.lvl,
+  characteristics: characteristicsArray,
+  stats: statsArray,
+  traits: traitsArray,
+  statuses: statusesArray,
+  elementalAffinity: elementalAffinity,
+  pic: original.info.imgurl || "",
+  id: id, // Converti id da numero a stringa
+  classes: [],
+  weapons: [],
+  armor: [],
+  notes: [],
+  modifiers: [],
+  bonds: bonds,
+  shields: null
+};
 }
 
 export async function importCharacterToFirestore(jsonData: FultimatorJson) {
@@ -379,35 +427,6 @@ function updateAffinities(defaultAffinities: Affinities, newAffinitiesSource?: A
   return updatedAffinities;
 }
 
-
-// Interfaccia Character, basata sull'output della tua funzione convertToCharacterFormat originale.
-// Nota: elementalAffinity in Character avrà tutte le chiavi definite,
-// a causa dell'inizializzazione con rawAffinity nella funzione originale.
-type CharacterElementalAffinitiesStrict = {
-  poison: Affinity;
-  light: Affinity;
-  dark: Affinity;
-  ice: Affinity;
-  fire: Affinity;
-  earth: Affinity;
-  wind: Affinity;
-  bolt: Affinity;
-  physical: Affinity;
-};
-
-// // Funzione helper usata nella tua funzione originale per invertire l'ordine delle chiavi.
-// // Assumiamo che questa funzione inverta l'ordine delle chiavi come restituito da Object.keys().
-// function createObjectWithKeysInReversedOrder<T extends Record<string, any>>(obj: T): T {
-//   const newObj = {} as T;
-//   const keys = Object.keys(obj).reverse() as (keyof T)[];
-//   for (const key of keys) {
-//     if (Object.prototype.hasOwnProperty.call(obj, key)) {
-//       newObj[key] = obj[key];
-//     }
-//   }
-//   return newObj;
-// }
-
 export function downloadFile(data:any, filename:string, mimeType = 'application/octet-stream') {
   // 1. Crea un Blob se i dati sono una stringa
   const blob = (data instanceof Blob) ? data : new Blob([data], { type: mimeType });
@@ -479,7 +498,7 @@ export function convertToFultimatorJson(character: Character): FultimatorJson {
     identity: character.traits[0] || "", // Da Character.traits, default stringa vuota se non presente
     theme: character.traits[1] || "",    // Da Character.traits, default stringa vuota se non presente
     origin: character.traits[2] || "",   // Da Character.traits, default stringa vuota se non presente
-    bonds: [], // Valore predefinito, non presente in Character
+    bonds: character.bonds, // Valore predefinito, non presente in Character
     description: "", // Valore predefinito, non presente in Character
     fabulapoints: 0, // Valore predefinito, non presente in Character
     exp: 0, // Valore predefinito, non presente in Character
@@ -515,6 +534,7 @@ export function convertToFultimatorJson(character: Character): FultimatorJson {
     modifiers: fultimatorModifiers,
     id: parseInt(character.id, 10), // Converti string id da Character a number
     affinities: fultimatorAffinities, // Sarà un oggetto Affinities, non null
+    bonds:character.bonds,
     shields: null, // Valore predefinito (come da tipo any[] | null), non presente in Character
     dataType: "FultimatorCharacterSheet", // Valore predefinito/placeholder, non presente in Character
   };

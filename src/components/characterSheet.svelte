@@ -23,20 +23,7 @@
                     theme: character.traits[1],
                     origin: character.traits[2]
                 },
-                bonds:[
-                    {
-                        name:"Vorston",
-                        bonds:['Inferiorità','Lealtà','Odio']
-                    },
-                    {
-                        name:"Shuraigh",
-                        bonds:['Ammirazione','Sfiducia','Affetto']
-                    },
-                    {
-                        name:"Victor",
-                        bonds:['Ammirazione','Sfiducia','Odio'] 
-                    }
-                ]
+                bonds:character.bonds
             }
         },
         //BattleSheet
@@ -59,6 +46,7 @@
     let index = $state(0);
     let ActiveComponent = $derived(tabs[index].comp);
     let activeProps = $derived(tabs[index].props);
+    console.log(character.bonds);
 
 </script>
 

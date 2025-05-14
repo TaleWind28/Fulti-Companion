@@ -1,7 +1,6 @@
 <script lang="ts">
-    import Traits from "./traits.svelte";
     import InfoBox from "./infoBox.svelte";
-    let { traits, bonds} = $props();
+    let { bonds} = $props();
 
     let slow = $state(false);
     let dazed = $state(false);
@@ -11,7 +10,8 @@
     let poisoned = $state(false);
     let statusArray = $state([false,false,false,false,false,false]);
     let status = ["Lento","Furente","Confuso","skip","Scosso","Avvelenato","Debole"]
-
+    console.log("BONDS FRONTEND",bonds);
+    console.log("bonding",bonds[0].bond);
     
 </script>
 
@@ -40,10 +40,11 @@
             {#each bonds as bond }
                 <span class="flex">
                     <p class="font-bold mx-2">{bond.name}:</p> 
-                    {#each bond.bonds as type}
-                        <p class={`${(type === 'Ammirazione' || type === 'Lealtà' || type === 'Affetto') ? 'text-green-800 font-bold' : 'text-red-800 font-bold'}`}>
-                            {type},
-                        </p>
+                    {#each bond.bond as type}
+                        {type}
+                        <!-- <p class={`${(type === 'Ammirazione' || type === 'Lealtà' || type === 'Affetto') ? 'text-green-800 font-bold' : 'text-red-800 font-bold'}`}>
+                            {type}
+                        </p> -->
                     {/each}
                 </span>
             {/each}

@@ -29,13 +29,21 @@
         let char:Character = {
             name: "",
             level: 5,
-            stats:[60,60,60,60,60,60],
-            characteristics:[6,6,6,6],
-            traits:["","",""],
-            statuses:[false],
-            elementalAffinity:{},
-            pic:"",
-            id:""
+            stats: [60, 60, 60, 60, 60, 60],
+            characteristics: [6, 6, 6, 6],
+            traits: ["", "", ""],
+            statuses: [false],
+            elementalAffinity: {},
+            pic: "",
+
+            id: "",
+            classes: [],
+            weapons: [],
+            armor: [],
+            notes: [],
+            modifiers: [0,0,0,0],
+            bonds: null,
+            shields: null
         }
         
         handleAdd(char).then(() => {
@@ -65,6 +73,7 @@
 
         const jsonCharacter = convertToCharacterFormat(jsonImport);
         // addUserCharacter(jsonCharacter);
+        console.log(jsonCharacter.bonds)
         handleAdd(jsonCharacter).then(()=>{
             personaggiStore.aggiungiPersonaggio(jsonCharacter);
         })
