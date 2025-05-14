@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { faBook, faBookAtlas, faChartLine, faCoins, faDiceFive, faFeather, faStar } from "@fortawesome/free-solid-svg-icons";
+    import { faCoins, faDiceFive, faFeather, faStar } from "@fortawesome/free-solid-svg-icons";
     import CharacterCard from "./characterCard.svelte";
     import CustomButton from "./customButton.svelte";
     import type { Tab } from "$lib/utility";
-    import Traits from "./traits.svelte";
     import InfoSheet from "./infoSheet.svelte";
     import Fa from "svelte-fa";
 

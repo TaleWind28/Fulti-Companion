@@ -218,6 +218,11 @@ export function convertToCharacterFormat(original: FultimatorJson): Character {
   if (original.info.identity) traitsArray.push(original.info.identity);
   if (original.info.theme) traitsArray.push(original.info.theme);
   if (original.info.origin) traitsArray.push(original.info.origin);
+  console.log(original.id);
+  let id:string = "00";
+  
+  if(original.id)id = original.id.toString();
+
   
   return {
     name: original.name || "-",
@@ -228,7 +233,7 @@ export function convertToCharacterFormat(original: FultimatorJson): Character {
     statuses: statusesArray,
     elementalAffinity: elementalAffinity,
     pic: original.info.imgurl || "",
-    id: original.id.toString() // Converti id da numero a stringa
+    id: id // Converti id da numero a stringa
   };
 }
 
