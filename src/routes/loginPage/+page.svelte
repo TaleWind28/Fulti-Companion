@@ -71,7 +71,7 @@
 </script>
 
 <div class="flex h-screen">
-    <div class=" bg-teal-800 flex items-center justify-center text-white text-2xl  text-black w-full">
+    <div class=" bg-teal-800 flex items-center justify-center text-white text-2xl  w-full">
         <a href="/"><img src="src/images/Logo3.png" alt="pino" class="h-70 w-full"></a>
     </div>
     <div class="flex justify-center items-center gap-4 flex-col w-full">
