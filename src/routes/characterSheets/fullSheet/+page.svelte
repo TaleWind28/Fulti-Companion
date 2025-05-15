@@ -12,8 +12,8 @@
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');
-    
-    let character:Character | null = null;
+    let canLoad= $state(false);
+    let character:Character | null = $state(null);
     let tabs = new Tabs([{
         id:1,
         label:"Statistiche",
@@ -45,12 +45,24 @@
 
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
-        //handleRetrieval();
+    
+            // L'utente è loggato
+            handleRetrieval().then( () =>{
+                
+                console.log("characters loaded successfully",);
+            })
+            .catch(() =>{
+                console.log("characters loading failed");
+                }
+            )
+            .finally(() =>{
+                canLoad = true;
+            })
         
 	});
 
     onAuthStateChanged(auth, (user) => {
-        if (user) {
+        if (user &&  canLoad) {
             // L'utente è loggato
             console.log("Utente loggato:", user.uid);
             handleRetrieval().then( () =>{

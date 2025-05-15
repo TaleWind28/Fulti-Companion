@@ -102,23 +102,21 @@
 	});
 
     onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // L'utente è loggato
-        console.log("Utente loggato:", user.uid);
-        handleRetrieval().then( () =>{
-            console.log(characters.length)
-            for(let i =0;i<characters.length;i++){
-            personaggiStore.aggiungiPersonaggio(characters[i]);
-            console.log(characters[i].elementalAffinity);
-            }
-            console.log("characters loaded successfully",);
-        })
-        .catch(() =>{
-            console.log("characters loading failed");
-            }
-        )
-    }
-});
+        if (user) {
+            // L'utente è loggato
+            console.log("Utente loggato:", user.uid);
+            handleRetrieval().then( () =>{
+                for(let i =0;i<characters.length;i++){
+                    personaggiStore.aggiungiPersonaggio(characters[i]);
+                }
+                console.log("characters loaded successfully",);
+            })
+            .catch(() =>{
+                console.log("characters loading failed");
+                }
+            )
+        }
+    });
     onDestroy(()=>{
         console.log("component destroyed. Starting cleanup");
         personaggiStore.reset();

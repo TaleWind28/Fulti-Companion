@@ -18,11 +18,7 @@
             label:"InfoSheet",
             comp:InfoSheet,
             props:{
-                traits:{
-                    identity: character.traits[0],
-                    theme: character.traits[1],
-                    origin: character.traits[2]
-                },
+                statusArray:character.statuses,
                 bonds:character.bonds
             }
         },
@@ -78,7 +74,7 @@
                 case 0: index = 1;break;
                 case 1: index = 0;break;
             }
-            }}/> 
+            }}/>
         <!-- Pulsante Dice Roller -->
         <CustomButton text="roll" dimensions="w-15 h-8" color="bg-cafe_noir-600" textIcon={true} icon={faDiceFive}/>
     </span>

@@ -90,7 +90,6 @@
         car,
         hidden = false
     } = $props();
-    console.log(car);
 
 </script>
 

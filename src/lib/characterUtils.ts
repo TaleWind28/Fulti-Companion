@@ -1,11 +1,10 @@
-import { initializeApp } from "firebase/app";
+
 import { getAuth } from "firebase/auth";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
-import { storage } from "./utility";
 import { db } from "../stores/authStore";
-import { faBoltLightning, faFileExport, faFire, faHillRockslide, faHorse, faKhanda, faMagicWandSparkles, faMoon, faMountain, faPencil, faRunning, faShield, faSkullCrossbones, faSnowflake, faSun, faTrashCan, faWandMagicSparkles, faWind } from "@fortawesome/free-solid-svg-icons";
+import { faBoltLightning, faFire, faKhanda,  faMoon, faMountain, faSkullCrossbones, faSnowflake, faSun,  faWind } from "@fortawesome/free-solid-svg-icons";
 
-import type { Icon, IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import type {  IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 export interface Modifiers{
 
@@ -233,30 +232,8 @@ export function convertToCharacterFormat(original: FultimatorJson): Character {
   console.log(original.id);
   let id:string = "00";
   if(original.id)id = original.id.toString();
-
-  // [
-  //                   {
-  //                       name:"Vorston",
-  //                       bonds:['Inferiorità','Lealtà','Odio']
-  //                   },
-  //                   {
-  //                       name:"Shuraigh",
-  //                       bonds:['Ammirazione','Sfiducia','Affetto']
-  //                   },
-  //                   {
-  //                       name:"Victor",
-  //                       bonds:['Ammirazione','Sfiducia','Odio'] 
-  //                   }
-  //               ]
-
-  // let bonds = {
-  //   name: original.info.bonds[0].name,
-  //   bonds:{
-
-
-  //   }
-  // }
   let bonds = [];
+
   for(let i = 0;i<original.info.bonds.length;i++){
     let bond = {
       name:original.info.bonds[i].name,
@@ -264,8 +241,7 @@ export function convertToCharacterFormat(original: FultimatorJson): Character {
     };
     bonds.push(bond);
   }
-  console.log("BONDS",bonds);
- return {
+  return {
   name: original.name || "-",
   level: original.lvl,
   characteristics: characteristicsArray,
