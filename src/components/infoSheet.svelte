@@ -1,15 +1,9 @@
 <script lang="ts">
     import InfoBox from "./infoBox.svelte";
-    let { statusArray, bonds} = $props();
+    let { statusArray = $bindable(), bonds} = $props();
 
     let status = ["Lento","Furente","Confuso","skip","Scosso","Avvelenato","Debole"]
     
-
-
-    function handleChange(){
-        console.log(statusArray);
-        return undefined;
-    }
 </script>
 
 <div class="flex flex-col gap-y-4 ">
@@ -21,8 +15,8 @@
             {#each {length:7}, i }
                 <div class="flex gap-x-4 ">
                     {#if status[i]!=="skip"}
-                    <input type="checkbox" bind:checked={statusArray[i]} onchange={handleChange()}>
-                    <p class="font-bold">{status[i]}</p>
+                        <input type="checkbox" bind:checked={statusArray[i]} >
+                        <p class="font-bold">{status[i]}</p>
                     {/if}
                 </div>
             {/each}

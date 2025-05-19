@@ -2,7 +2,7 @@
 <script lang="ts">
     import { fade } from "svelte/transition";
 
-	let { showModal = $bindable(), modalText, children, divStyle = "m-auto" } = $props();
+	let { showModal = $bindable(), count = $bindable(),modalText, children, divStyle = "m-auto" } = $props();
 
 	let modalVisible = $derived(showModal);
 

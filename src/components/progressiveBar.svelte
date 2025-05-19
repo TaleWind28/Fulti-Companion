@@ -1,18 +1,3 @@
-<!-- <script>
-    export let color;
-    export let actual;
-    export let max;
-    $: percentage = (max > 0) ? Math.min(100, Math.max(0, (actual / max) * 100)) : 0;
-</script>
-
-
-
-    <div class="h-auto transition-all duration-300 ease-in-out {color}" style="width: {percentage}%;">
-        <p class="text-center font-semibold text-black mt-2">
-             {actual}/{max}
-        </p>
-    </div> -->
-
 
     <script>
         // Props del componente
@@ -41,6 +26,6 @@
         
         <!-- Testo sovrapposto -->
         <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-black font-medium text-sm">
-            {label} {actual}/{max}
+            {actual}/{max} {label}
         </div>
     </div>

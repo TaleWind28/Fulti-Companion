@@ -10,7 +10,6 @@
 
     import { personaggiStore } from "../stores/characterStore";
     import { goto } from "$app/navigation";
-    
     import Modal from "./modal.svelte";
     import RunesButton from "./runesButton.svelte";
     
@@ -87,9 +86,65 @@
     }
  
     let {
-        car,
+        car = $bindable(),
         hidden = false
     } = $props();
+
+    let actualStats:number[] = $derived.by(()=>{
+
+        let des = car.characteristics[0];
+        let int = car.characteristics[1];
+        let vig = car.characteristics[2];
+        let vol = car.characteristics[3];
+        
+        //avvelenato
+        if(car.statuses[5] == true){ vig -= 2;vol -= 2};
+        //furente
+        if(car.statuses[1] == true){ des -= 2;int -= 2}
+        //lento
+        if(car.statuses[0] == true) des = des -2;
+        //confuso
+        if(car.statuses[2] == true) int = int -2;
+        //scosso
+        if(car.statuses[4] == true) vig = vig -2;
+        //debole
+        if(car.statuses[6] == true)  vol = vol-2;
+
+        
+        return [des, int, vig, vol].map(stat => Math.max(stat, 6));
+    })
+
+    let additionalDef = 0;
+    let additionalMdef = 0;
+    let classBonus = {
+        hp:0,
+        mp:0,
+        ip:0
+    }
+    let maxHp = $derived( car.characteristics[2]*5 + car.level + classBonus.hp);
+    let maxMp = $derived( car.characteristics[3]*5 + car.level + classBonus.hp);
+    let maxIp = $derived( 6 + classBonus.ip);
+    let hp = $derived({
+        max:car.characteristics[2]*5 + car.level + classBonus.hp,
+        actual:car.characteristics[2]*5 + car.level + classBonus.hp
+    });
+    
+    let mp = {
+        max:car.characteristics[3]*5 + car.level + classBonus.hp,
+        actual:car.characteristics[3]*5 + car.level + classBonus.mp
+    }
+    let ip = {
+        max: 6 + classBonus.ip,
+        actual: 6 + classBonus.ip
+    }
+    let defensiveStats:number[] = $derived.by(()=>{
+        
+        let def = actualStats[0] + additionalDef;
+        let mdef= actualStats[1] + additionalMdef;
+
+        //aggiungere considerazioni per armature che forniscono difesa flat
+        return [def,mdef];
+    })
 
 </script>
 
@@ -104,17 +159,16 @@
     <div class="flex flex-row gap-2">
         <!-- lato sx-->
         <div class="bg-white flex-col">
-            
             <!-- Avatar --> 
             <img src={car.pic} alt="character pic" class=" border border-white w-70 h-70">
             
             <!-- Information Bars-->
             <div class="flex  flex-col justify-start items-start">
-                <ProgressiveBar bgColor="carribean_current-600" color="bg-red-500" max={car.stats[1]} actual={car.stats[0]}/>
+                <ProgressiveBar bgColor="carribean_current-600" color="bg-red-500" label="HP"  max={hp.max} actual={hp.actual}/>
 
-                <ProgressiveBar bgColor="carribean_current-600" color="bg-blue-500" max={car.stats[3]} actual={car.stats[2]}/>
+                <ProgressiveBar bgColor="carribean_current-600" color="bg-blue-500" label="MP" max={mp.max} actual={mp.actual}/>
                 
-                <ProgressiveBar bgColor="carribean_current-600" color="bg-lion-700" max={car.stats[5]} actual={car.stats[4]}/>
+                <ProgressiveBar bgColor="carribean_current-600" color="bg-lion-700" label="IP" max={ip.max} actual={ip.max}/>
             </div>
         </div>
 
@@ -133,14 +187,14 @@
             <br>
             <!-- stats -->
             <div class="items-center justify-around px-4">
-                {@render characterStats([car.characteristics[0],car.characteristics[2]],["Des","Vig"])}
-                {@render characterStats([car.characteristics[1],car.characteristics[3]],["Int","Vol"])}
+                {@render characterStats([actualStats[0],actualStats[2]],["Des","Vig"])}
+                {@render characterStats([actualStats[1],actualStats[3]],["Int","Vol"])}
             </div>
             <br>
             <!-- statistiche difensive-->
             <span class=" flex items-center justify-between px-4">
-                {@render derivedStats("DEF",car.characteristics[0],faShield,faKhanda)}
-                {@render derivedStats("M.DEF",car.characteristics[1],faShield,faMagicWandSparkles)}
+                {@render derivedStats("DEF",defensiveStats[0],faShield,faKhanda)}
+                {@render derivedStats("M.DEF",defensiveStats[1],faShield,faMagicWandSparkles)}
                 {@render derivedStats("INIT",0,faRunning,null)}
             </span>
             <br>

@@ -5,7 +5,7 @@
     import type { Tab } from "$lib/utility";
     import InfoSheet from "./infoSheet.svelte";
     import Fa from "svelte-fa";
-
+   
     //Prop richiesti
     let { character } = $props();
     
@@ -42,7 +42,6 @@
     let index = $state(0);
     let ActiveComponent = $derived(tabs[index].comp);
     let activeProps = $derived(tabs[index].props);
-    console.log(character.bonds);
 
 </script>
 
@@ -66,6 +65,7 @@
             </div>
         {/each}
     </div>
+
     <!-- Barra intermedia -->
     <span class="flex items-center justify-center gap-4">
         <!-- Pulsante per rendering dinamico tra schede  -->
@@ -78,7 +78,6 @@
         <!-- Pulsante Dice Roller -->
         <CustomButton text="roll" dimensions="w-15 h-8" color="bg-cafe_noir-600" textIcon={true} icon={faDiceFive}/>
     </span>
-
     <!-- Componente Dinamico per visualizzazione Scheda -->
     <div class="flex  justify-center gap-4">
         <ActiveComponent {...activeProps}/> 
