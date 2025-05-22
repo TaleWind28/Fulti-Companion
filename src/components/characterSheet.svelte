@@ -9,7 +9,7 @@
     //Prop richiesti
     let { character } = $props();
     
-    console.log(character,"characterSheet");
+    // $inspect(character,"characterSheet");
     //Tabs che rappresentano le due schede: Informativa e Battaglia
     let tabs:Tab[] = [
         //InfoSheet

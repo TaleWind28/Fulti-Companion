@@ -47,16 +47,7 @@ export type Glam = {
   icon:IconDefinition,
   color:String,
 }
-export type ElementType =
-| 'poison'
-| 'light'
-| 'dark'
-| 'ice'
-| 'fire'
-| 'earth'
-| 'wind'
-| 'bolt'
-| 'physical';
+export type ElementType = 'poison'| 'light'| 'dark'| 'ice'| 'fire'| 'earth'| 'wind'| 'bolt'| 'physical';
 
 export type AffinityGlams = Record<ElementType,{
   icon:IconDefinition,
@@ -234,13 +225,25 @@ export function convertToCharacterFormat(original: FultimatorJson): Character {
   if(original.id)id = original.id.toString();
   let bonds = [];
 
-  for(let i = 0;i<original.info.bonds.length;i++){
-    let bond = {
-      name:original.info.bonds[i].name,
-      bond:{...original.info.bonds[i]}
-    };
-    bonds.push(bond);
+// Controlla che bonds esista e sia un array
+if (original.info.bonds!== null) {
+  for(let i = 0; i < original.info.bonds.length; i++){
+      let bond = {
+        name: original.info.bonds[i].name,
+        bonds: {...original.info.bonds},
+      }
+      bonds.push(bond);
+    }
   }
+  /*
+  // for(let i = 0;i<original.info.bonds.length;i++){
+  //   let bond = {
+  //     name:original.info.bonds[i].name,
+  //     bond:{...original.info.bonds[i]}
+  //   };
+  //   bonds.push(bond);
+  // }
+  */
   return {
   name: original.name || "-",
   level: original.lvl,

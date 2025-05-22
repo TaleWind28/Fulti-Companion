@@ -2,8 +2,26 @@
     import InfoBox from "./infoBox.svelte";
     let { statusArray = $bindable(), bonds} = $props();
 
-    let status = ["Lento","Furente","Confuso","skip","Scosso","Avvelenato","Debole"]
-    
+    let status = ["Lento","Furente","Confuso","skip","Scosso","Avvelenato","Debole"];
+
+    function getTrueBonds(bondObject:any[]) {
+        if (!bondObject) return [];
+        let bonding = [];
+        // $inspect(bondObject,"bobj")  
+        for(let i = 0;i<bondObject.length;i++){
+            // $inspect(bondObject[i].bonds,"dentro for");
+            // $inspect(bondObject[i].bonds[0], "obj");
+            bonding.push({
+                    name: bondObject[i].name,
+                    bond: Object.entries(bondObject[i].bonds[0]).filter(([key,value]) => key!== 'name' && value === true).map( ([key]) => key )
+                })
+        }
+        return bonding;    
+    }
+
+    let trueBonds = getTrueBonds(bonds);
+    $inspect(trueBonds, "legami");
+
 </script>
 
 <div class="flex flex-col gap-y-4 ">
@@ -29,17 +47,16 @@
         <InfoBox dimension = "w-220" background = "bg-amber-50">
             {#snippet headerName()} LEGAMI {/snippet}
                 <div class="px-8 grid grid-cols-2 {`grid-rows-${Math.floor(bonds.lenght)}`} justify-between items-center gap-4">
-                    {#each bonds as bond }
-                        {@const trueBonds = Object.entries(bond.bond).filter(([_, value]) => value === true).map(([key]) => key)}
+                    {#each trueBonds as tBond }
                         <span class="flex">
-                            <p class="font-bold mx-2">{bond.name}:</p> 
-                            {#each trueBonds as key, index}
+                            <p class="font-bold mx-2">{tBond.name}:</p> 
+                            {#each tBond.bond as elem, index}
                                 <span class="flex">
-                                        <p class={`${(key === "affection" || key ==="loyality" || key ==="admiration" ) ? 'text-green-800 font-bold' : 'text-red-800 font-bold'}`}>
-                                            {key.toLocaleUpperCase()}
+                                        <p class={`${(elem === "affection" || elem ==="loyality" || elem ==="admiration" ) ? 'text-green-800 font-bold' : 'text-red-800 font-bold'}`}>
+                                            {elem.toLocaleUpperCase()}
                                         </p>
-                                        {#if index < trueBonds.length-1}
-                                            <p>,</p>
+                                        {#if index<tBond.bond.length-1}
+                                        <p>,</p>
                                         {/if}
                                 </span>
                             {/each}
