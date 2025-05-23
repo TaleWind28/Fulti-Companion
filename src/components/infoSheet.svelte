@@ -3,17 +3,18 @@
     let { statusArray = $bindable(), bonds} = $props();
 
     let status = ["Lento","Furente","Confuso","skip","Scosso","Avvelenato","Debole"];
-
+    $inspect(bonds,"bonds Raw");
     function getTrueBonds(bondObject:any[]) {
         if (!bondObject) return [];
         let bonding = [];
         // $inspect(bondObject,"bobj")  
         for(let i = 0;i<bondObject.length;i++){
             // $inspect(bondObject[i].bonds,"dentro for");
+            // $inspect(Object.entries(bondObject[i].bonds).filter(([key,value]) => key!== 'name' && value === true),"filter");
             // $inspect(bondObject[i].bonds[0], "obj");
             bonding.push({
                     name: bondObject[i].name,
-                    bond: Object.entries(bondObject[i].bonds[0]).filter(([key,value]) => key!== 'name' && value === true).map( ([key]) => key )
+                    bond: Object.entries(bondObject[i].bonds).filter(([key,value]) => key!== 'name' && value === true).map( ([key]) => key )
                 })
         }
         return bonding;    
@@ -46,7 +47,7 @@
     {#if bonds}
         <InfoBox dimension = "w-220" background = "bg-amber-50">
             {#snippet headerName()} LEGAMI {/snippet}
-                <div class="px-8 grid grid-cols-2 {`grid-rows-${Math.floor(bonds.lenght)}`} justify-between items-center gap-4">
+                <div class="px-8 grid grid-cols-3 {`grid-rows-${Math.floor(bonds.lenght)}`} justify-evenly items-center gap-4">
                     {#each trueBonds as tBond }
                         <span class="flex">
                             <p class="font-bold mx-2">{tBond.name}:</p> 

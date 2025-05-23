@@ -230,7 +230,7 @@ if (original.info.bonds!== null) {
   for(let i = 0; i < original.info.bonds.length; i++){
       let bond = {
         name: original.info.bonds[i].name,
-        bonds: {...original.info.bonds},
+        bonds: {...original.info.bonds[i]},
       }
       bonds.push(bond);
     }
