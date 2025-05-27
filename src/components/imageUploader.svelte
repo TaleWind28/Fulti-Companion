@@ -9,6 +9,7 @@
     export let text = '';
     export let fileSelectionText = '';
     export let hidePreview = false;
+    export let wantToUpload = true;
     function handleFileSelect(event:Event){
         const target = event.target as HTMLInputElement;
         selectedFile = target.files?.[0] || null;
@@ -46,6 +47,7 @@
         </div>
     </div>
 {/if}
-{#if selectedFile}
+
+{#if selectedFile && wantToUpload}
     <CustomButton text={text} additionalStyle="hover:bg-blue-600 transition-colors" on:click={handleUpload}/>
 {/if}
