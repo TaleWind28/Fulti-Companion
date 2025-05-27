@@ -5,13 +5,14 @@
     let status = ["Lento","Furente","Confuso","skip","Scosso","Avvelenato","Debole"];
     $inspect(bonds,"bonds Raw");
     function getTrueBonds(bondObject:any[]) {
-        if (!bondObject) return [];
+        if (bondObject.length == 0) return null;
         let bonding = [];
-        // $inspect(bondObject,"bobj")  
+        $inspect(bondObject,"bobj")  
         for(let i = 0;i<bondObject.length;i++){
+            // $inspect(bondObject[i],"mio");
             // $inspect(bondObject[i].bonds,"dentro for");
             // $inspect(Object.entries(bondObject[i].bonds).filter(([key,value]) => key!== 'name' && value === true),"filter");
-            // $inspect(bondObject[i].bonds[0], "obj");
+            // $inspect(bondObject[i].bonds, "obj");
             bonding.push({
                     name: bondObject[i].name,
                     bond: Object.entries(bondObject[i].bonds).filter(([key,value]) => key!== 'name' && value === true).map( ([key]) => key )
@@ -22,7 +23,6 @@
 
     let trueBonds = getTrueBonds(bonds);
     $inspect(trueBonds, "legami");
-
 </script>
 
 <div class="flex flex-col gap-y-4 ">
@@ -44,7 +44,7 @@
     </InfoBox>
 
     <!-- Legami -->
-    {#if bonds}
+    {#if trueBonds}
         <InfoBox dimension = "w-220" background = "bg-amber-50">
             {#snippet headerName()} LEGAMI {/snippet}
                 <div class="px-8 grid grid-cols-3 {`grid-rows-${Math.floor(bonds.lenght)}`} justify-evenly items-center gap-4">
