@@ -1,13 +1,18 @@
 <script lang="ts">
-    import { user } from "../../stores/authStore";
-    import { type Image } from "$lib/utility";
-    import { baseWeapons } from "$lib/weaponUtility";
+    import AccessoryGenerator from "../../components/accessoryGenerator.svelte";
+    import ArcanaGenerator from "../../components/arcanaGenerator.svelte";
+    import ShieldGenerator from "../../components/shieldGenerator.svelte";
     import WeaponGenerator from "../../components/weaponGenerator.svelte";
 
 </script>
 
+<div class="bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
+    <WeaponGenerator/>
+    <ShieldGenerator/>
+    <AccessoryGenerator/>
+    <ArcanaGenerator/>
+</div>
 
-<WeaponGenerator>
-    loro
-</WeaponGenerator>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
