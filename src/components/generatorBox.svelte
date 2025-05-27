@@ -1,5 +1,5 @@
 <script>
-    let {nameTag = "undefinedNameTag", children} = $props();
+    let {nameTag = "undefinedNameTag", imageProcessor ,children} = $props();
 </script>
 
 <div>
@@ -13,7 +13,7 @@
             </div>
 
             <!-- children passato dal chiamante -->
-            <div class=" flex">
+            <div class=" flex bg-white">
                 {@render children?.()}
             </div>
 
@@ -21,8 +21,7 @@
 
         <!-- Generated Image -->
         <div class="border">
-            pippo
+           {@render imageProcessor?.()}
         </div>
-    
     </div>
 </div>
