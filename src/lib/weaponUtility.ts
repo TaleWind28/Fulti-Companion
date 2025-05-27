@@ -247,3 +247,28 @@ const weaponsPage2: Weapon[] = [
 ];
 
 export let baseWeapons:Weapon[] = [...weaponsPage1, ...weaponsPage2];
+
+import { toPng } from 'html-to-image';
+
+export function exportHtmlToImage(elementId: string) {
+  const node = document.getElementById(elementId);
+
+  if (!node) {
+    console.error('Elemento non trovato');
+    return;
+  }
+
+  toPng(node)
+    .then((dataUrl) => {
+      const img = new Image();
+      img.src = dataUrl;
+      // Per scaricarla automaticamente:
+      const link = document.createElement('a');
+      link.download = elementId+'.png';
+      link.href = dataUrl;
+      link.click();
+    })
+    .catch((error) => {
+      console.error('Errore nella conversione:', error);
+    });
+}

@@ -29,6 +29,7 @@
 		"@fortawesome/free-brands-svg-icons": "^6.7.2",
 		"@fortawesome/free-solid-svg-icons": "^6.7.2",
 		"firebase": "^11.6.0",
+		"html-to-image": "^1.11.13",
 		"svelte-awesome-icons": "^2.0.1",
 		"svelte-fa": "^4.0.3",
 		"tailwind-scrollbar-hide": "^2.0.0"
