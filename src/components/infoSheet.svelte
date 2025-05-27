@@ -5,7 +5,8 @@
     let status = ["Lento","Furente","Confuso","skip","Scosso","Avvelenato","Debole"];
     $inspect(bonds,"bonds Raw");
     function getTrueBonds(bondObject:any[]) {
-        if (bondObject.length == 0) return null;
+        $inspect(bondObject);
+        if (bondObject == undefined) return null;
         let bonding = [];
         $inspect(bondObject,"bobj")  
         for(let i = 0;i<bondObject.length;i++){
