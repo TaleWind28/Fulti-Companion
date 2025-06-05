@@ -2,7 +2,7 @@
 <script lang="ts">
     import { fade } from "svelte/transition";
 
-	let { showModal = $bindable(), count = $bindable(),modalText, children, divStyle = "m-auto" } = $props();
+	let { showModal = $bindable(), count = $bindable(), modalText,relative = false ,divPosition = "flex items-center justify-center", children, divStyle = "m-auto" } = $props();
 
 	let modalVisible = $derived(showModal);
 
@@ -23,11 +23,12 @@
 
 </script>
 
-
 {#if modalVisible}
-	<!-- Overlay -->
+	<!-- Modal container - cambia solo le classi CSS basandosi su relative -->
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center"
+		class={relative 
+			? "absolute top-full left-0 bg-white border border-gray-300 rounded-md shadow-lg z-50 min-w-max" 
+			: "fixed inset-0 z-50 " + divPosition}
 		role="button"
 		tabindex="0"
 		onclick={handleOverlayClick}
@@ -35,9 +36,11 @@
 		in:fade={{ duration: 200 }}
 		out:fade={{ duration: 150 }}
 	>
-		<!-- Modal box -->
+		<!-- Modal content -->
 		<div
-			class={`bg-white rounded-md p-4 shadow-lg ${divStyle}`}
+			class={relative 
+				? "p-2" 
+				: `bg-white rounded-md p-4 shadow-lg ${divStyle}`}
 			in:fade={{ duration: 200 }}
 			out:fade={{ duration: 150 }}
 		>

@@ -4,40 +4,52 @@
     import RunesButton from "./runesButton.svelte";
     import { exportHtmlToImage } from "$lib/weaponUtility";
     import ImageUploader2 from "./imageUploader2.svelte";
-    let weaponName = $state("");
-    let selectedWeapon = $state();
+    import Modal from "./modal.svelte";
+    let baseQuality = ["none"];
+    //fare con calma ed attenzione perchè sono linkati -> il primo che cambia fa cambiare l'altro
+    let selectedWeapon = $state(baseWeapons[0]);
+    let weaponName = $derived(selectedWeapon.name);
+    let selectedQuality = $state(baseQuality[0]);
+    let qualityName = $derived(selectedQuality);
+ 
     let isOpen = $state(false);
+    let isChoosingQual = $state(false);
 </script>
 
 <GeneratorBox nameTag="Arma">
-    <div class="flex flex-col ">
+    <div class="flex flex-col gap-5">
         <div class="flex gap-4">
-            {@render weaponSelection()}
+            <!-- scelta classe Arma -->
+            <span class="border rounded">
+                {@render weaponSelection()}
+            </span>
             <input type="checkbox">
-            <input placeholder="Nome" bind:value= {weaponName}>
+            <input placeholder="Nome" bind:value= {weaponName} class="border rounded">
         </div>
-        <div>
-            <input placeholder="Tipo">
-            <input placeholder="# mani">
-            <input placeholder="Attributo 1">
-            <input placeholder="Attributo 2">
+        <div class="flex flex-rows gap-5">
+            <input placeholder="Tipo" class="border rounded">
+            <input placeholder="# mani" class="border rounded">
+            <input placeholder="Attributo 1" class="border rounded">
+            <input placeholder="Attributo 2" class="border rounded">
         </div>
-        <div class="flex flex-row">
-            <input placeholder="select quality">
+        <div class="flex flex-row gap-5 items-center">
+            <!-- scelta classe Arma -->
+            {@render qualitySelection()}
+            
             <div class="flex flex-col gap-2">
                 <span>
                     <input type="checkbox">
-                    testo
+                    +1 Precisione
                 </span>
                 <span>
                     <input type="checkbox">
-                    testo
+                    +4 Danno
                 </span>
             </div>
         </div>
         <div>
-            <input placeholder="Quality Custom">
-            <input placeholder="Custom Cost">
+            <input placeholder="Quality Custom" class="border rounded">
+            <input placeholder="Custom Cost" class="border rounded" >
         </div>
         <hr>
         <div>
@@ -69,13 +81,46 @@
         </div>
     {/snippet}
 </GeneratorBox>
+
 <RunesButton text="pino" clickFun={()=> exportHtmlToImage(weaponName)}/>
 
 {#snippet weaponSelection()}
-    {#if !isOpen}
-        <!-- <input placeholder="Armi" bind:value={isOpen}> -->
-         <button onclick={() => {switch(isOpen){case true: isOpen = false;return; case false: isOpen = true; return;}}}> scegli un'arma</button>
-    {:else}
-        mino
-    {/if}
+    <div class="relative">   
+    <!-- <input placeholder="Armi" bind:value={isOpen}> -->
+         <button onclick={() => {switch(isOpen){case true: isOpen = false;return; case false: isOpen = true; return;}}}> {weaponName}</button>
+        <!-- Lista a comparsa per scegliere il tipo di arma su cui basare la creazione -->
+        <Modal modalText="pino" bind:showModal = {isOpen} relative={true}>
+            <ul>
+                {#each baseWeapons as weapon }
+                    <li>
+                        <button onclick={() => {selectedWeapon = weapon; isOpen = false}}>
+                            {weapon.name}
+                        </button>
+                    </li>
+                {/each}
+            </ul>
+        </Modal>
+    </div>
 {/snippet}
+
+{#snippet qualitySelection()}
+    <div class="relative">   
+    <!-- <input placeholder="Armi" bind:value={isOpen}> -->
+         <button onclick={() => {switch(isChoosingQual){case true: isChoosingQual = false;return; case false: isChoosingQual = true; return;}}} class="w-20 h-10 border rounded"> {qualityName}</button>
+        <!-- Lista a comparsa per scegliere il tipo di arma su cui basare la creazione -->
+        <Modal modalText="pino" bind:showModal = {isChoosingQual} relative={true}>
+            <ul>
+                {#each baseQuality as quality }
+                    <li>
+                        <button onclick={() => {selectedQuality = quality; isChoosingQual = false}}>
+                            {quality}
+                        </button>
+                    </li>
+                {/each}
+            </ul>
+        </Modal>
+    </div>
+{/snippet}
+
+
+

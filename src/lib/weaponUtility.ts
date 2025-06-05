@@ -1,6 +1,7 @@
 
-export type Weapon = {
-    name: string,
+import type { Item } from './types';
+
+export type Weapon = Item &{
     cost: number,
     accuracy: string,
     damage: number,
