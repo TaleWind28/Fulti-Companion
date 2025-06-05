@@ -1,19 +1,30 @@
-<script>
+<script lang="ts">
     import { baseWeapons } from "$lib/weaponUtility";
     import GeneratorBox from "./generatorBox.svelte";
     import RunesButton from "./runesButton.svelte";
     import { exportHtmlToImage } from "$lib/weaponUtility";
     import ImageUploader2 from "./imageUploader2.svelte";
     import Modal from "./modal.svelte";
+    import ModalSelector from "./modalSelector.svelte";
     let baseQuality = ["none"];
+
     //fare con calma ed attenzione perchè sono linkati -> il primo che cambia fa cambiare l'altro
     let selectedWeapon = $state(baseWeapons[0]);
-    let weaponName = $derived(selectedWeapon.name);
+    let customWeaponName = $state(" ");
     let selectedQuality = $state(baseQuality[0]);
     let qualityName = $derived(selectedQuality);
- 
-    let isOpen = $state(false);
+    
+    let displayWeaponName = $derived.by(() => {
+        return displayName(customWeaponName,selectedWeapon.name);
+    })
+
+    let isChoosingWeapon = $state(false);
     let isChoosingQual = $state(false);
+
+    function displayName(customName:string, originalName:string){
+        if(customName === " ")return originalName;
+        else return customName;
+    }
 </script>
 
 <GeneratorBox nameTag="Arma">
@@ -21,10 +32,10 @@
         <div class="flex gap-4">
             <!-- scelta classe Arma -->
             <span class="border rounded">
-                {@render weaponSelection()}
+                <ModalSelector itemName = {selectedWeapon.name} itemList = {baseWeapons} bind:selectedItem = {selectedWeapon} bind:isOpen = {isChoosingWeapon}/>
             </span>
             <input type="checkbox">
-            <input placeholder="Nome" bind:value= {weaponName} class="border rounded">
+            <input placeholder="Nome" bind:value= {customWeaponName} class="border rounded">
         </div>
         <div class="flex flex-rows gap-5">
             <input placeholder="Tipo" class="border rounded">
@@ -35,7 +46,6 @@
         <div class="flex flex-row gap-5 items-center">
             <!-- scelta classe Arma -->
             {@render qualitySelection()}
-            
             <div class="flex flex-col gap-2">
                 <span>
                     <input type="checkbox">
@@ -59,14 +69,14 @@
     </div>
 
     {#snippet imageProcessor()}    
-        <div  id={weaponName} class="bg-white">
+        <div  id={displayWeaponName} class="bg-white">
             <div class="flex gap-4">
                 <div>
                     <ImageUploader2/>
                 </div>
                 <div>
                     <div>
-                        {weaponName}, costo, formula prec, formula danno,
+                        {displayWeaponName}, costo, formula prec, formula danno,
                     </div>
                     <div>
                         categoria arma * #mani* distance
@@ -82,14 +92,15 @@
     {/snippet}
 </GeneratorBox>
 
-<RunesButton text="pino" clickFun={()=> exportHtmlToImage(weaponName)}/>
+<RunesButton text="pino" clickFun={()=> exportHtmlToImage(displayWeaponName)}/>
 
 {#snippet weaponSelection()}
+<!--
     <div class="relative">   
-    <!-- <input placeholder="Armi" bind:value={isOpen}> -->
-         <button onclick={() => {switch(isOpen){case true: isOpen = false;return; case false: isOpen = true; return;}}}> {weaponName}</button>
+     <input placeholder="Armi" bind:value={isOpen}> -->
+        <!-- <button onclick={() => {switch(isOpen){case true: isOpen = false;return; case false: isOpen = true; return;}}}> {weaponName}</button> -->
         <!-- Lista a comparsa per scegliere il tipo di arma su cui basare la creazione -->
-        <Modal modalText="pino" bind:showModal = {isOpen} relative={true}>
+        <!-- <Modal modalText="pino" bind:showModal = {isOpen} relative={true}>
             <ul>
                 {#each baseWeapons as weapon }
                     <li>
@@ -101,6 +112,7 @@
             </ul>
         </Modal>
     </div>
+     -->
 {/snippet}
 
 {#snippet qualitySelection()}
