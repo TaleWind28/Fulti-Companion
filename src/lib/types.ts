@@ -28,7 +28,14 @@ export const AFFINITY_CONFIG = {
   physical: { label: "Fisico", color: "#9CA3AF" }
 } as const;
 
-// Tutto il resto viene derivato automaticamente
-export type DamageType = keyof typeof AFFINITY_CONFIG;
-export const DAMAGE_TYPES = Object.keys(AFFINITY_CONFIG) as DamageType[];
-export type Affinities = Partial<Record<DamageType, Affinity>>;
+// Deriva automaticamente solo i valori delle label
+export type DamageType = {
+  name: typeof AFFINITY_CONFIG[keyof typeof AFFINITY_CONFIG]['label'];
+} & Item;
+//creo una costante con tutti i tipi disponibili
+export const DAMAGE_TYPES: DamageType[] = Object.values(AFFINITY_CONFIG).map(a => ({
+  name: a.label
+}));
+
+//per le affinità vengono usati i nomi inglesi per compatibilità con fultimator
+export type Affinities = Partial<Record<keyof typeof AFFINITY_CONFIG, Affinity>>;

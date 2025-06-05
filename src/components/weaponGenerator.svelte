@@ -7,12 +7,14 @@
     import Modal from "./modal.svelte";
     import ModalSelector from "./modalSelector.svelte";
     let baseQuality = ["none"];
+    import { DAMAGE_TYPES } from "$lib/types";
 
     //fare con calma ed attenzione perchè sono linkati -> il primo che cambia fa cambiare l'altro
     let selectedWeapon = $state(baseWeapons[0]);
     let customWeaponName = $state(" ");
     let selectedQuality = $state(baseQuality[0]);
     let qualityName = $derived(selectedQuality);
+    let selectedDamageType = $state(DAMAGE_TYPES[8]);
     
     let displayWeaponName = $derived.by(() => {
         return displayName(customWeaponName,selectedWeapon.name);
@@ -20,16 +22,18 @@
 
     let isChoosingWeapon = $state(false);
     let isChoosingQual = $state(false);
+    let isChoosingDamageType = $state(false);
 
     function displayName(customName:string, originalName:string){
         if(customName.length <= 1)return originalName;
         else return customName;
     }
-
+    
+    $inspect(DAMAGE_TYPES[8].name);
     // $inspect(customWeaponName, customWeaponName.length);
 </script>
 
-<GeneratorBox nameTag="Arma">
+<GeneratorBox nameTag="Arma" >
     <div class="flex flex-col gap-5">
         <div class="flex gap-4">
             <!-- scelta classe Arma -->
@@ -42,7 +46,7 @@
         <div class="flex flex-rows gap-5">
             <!-- Tipo di danno -->
             <span class="border rounded">
-                <ModalSelector itemName = {selectedWeapon.name} itemList = {baseWeapons} bind:selectedItem = {selectedWeapon} bind:isOpen = {isChoosingWeapon}/>
+                <ModalSelector itemName = {selectedDamageType.name} itemList = {DAMAGE_TYPES} bind:selectedItem = {selectedDamageType} bind:isOpen = {isChoosingDamageType}/>
             </span>
             
             <!-- Numero di Mani -->

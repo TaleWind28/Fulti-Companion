@@ -23,5 +23,6 @@
         <div class="border">
            {@render imageProcessor?.()}
         </div>
+        
     </div>
 </div>
