@@ -3,6 +3,7 @@ import { getAuth } from "firebase/auth";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../stores/authStore";
 import { faBoltLightning, faFire, faKhanda,  faMoon, faMountain, faSkullCrossbones, faSnowflake, faSun,  faWind } from "@fortawesome/free-solid-svg-icons";
+import type { Affinities } from "./types";
 
 import type {  IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
@@ -27,22 +28,11 @@ export interface Character{
     id:string
     bonds:any[]|null;
     shields:any[]|null;
-  }
+}
 
-  export type Affinity = "im" | "rs" | "ab" | "wk" | "nu"; // Immunità, Resistenza, Assorbimento, Debolezza, Normale
-  
-export type Affinities = {
-  poison?: Affinity;
-  light?: Affinity;
-  dark?: Affinity;
-  ice?:Affinity;
-  fire?: Affinity;
-  earth?: Affinity;
-  wind?: Affinity;
-  bolt?: Affinity;
-  physical?: Affinity;
-  // Puoi aggiungere altri tipi di affinità se necessario
-};
+
+
+
 export type Glam = {
   icon:IconDefinition,
   color:String,

@@ -22,9 +22,11 @@
     let isChoosingQual = $state(false);
 
     function displayName(customName:string, originalName:string){
-        if(customName === " ")return originalName;
+        if(customName.length <= 1)return originalName;
         else return customName;
     }
+
+    // $inspect(customWeaponName, customWeaponName.length);
 </script>
 
 <GeneratorBox nameTag="Arma">
@@ -38,10 +40,26 @@
             <input placeholder="Nome" bind:value= {customWeaponName} class="border rounded">
         </div>
         <div class="flex flex-rows gap-5">
-            <input placeholder="Tipo" class="border rounded">
-            <input placeholder="# mani" class="border rounded">
-            <input placeholder="Attributo 1" class="border rounded">
-            <input placeholder="Attributo 2" class="border rounded">
+            <!-- Tipo di danno -->
+            <span class="border rounded">
+                <ModalSelector itemName = {selectedWeapon.name} itemList = {baseWeapons} bind:selectedItem = {selectedWeapon} bind:isOpen = {isChoosingWeapon}/>
+            </span>
+            
+            <!-- Numero di Mani -->
+            <span class="border rounded">
+                <ModalSelector itemName = {selectedWeapon.name} itemList = {baseWeapons} bind:selectedItem = {selectedWeapon} bind:isOpen = {isChoosingWeapon}/>
+            </span>
+            
+            <!-- Attributo Precisione 1 -->
+            <span class="border rounded">
+                <ModalSelector itemName = {selectedWeapon.name} itemList = {baseWeapons} bind:selectedItem = {selectedWeapon} bind:isOpen = {isChoosingWeapon}/>
+            </span>
+
+            <!-- Attributo Precisione 1 -->
+            <span class="border rounded">
+                <ModalSelector itemName = {selectedWeapon.name} itemList = {baseWeapons} bind:selectedItem = {selectedWeapon} bind:isOpen = {isChoosingWeapon}/>
+            </span>
+
         </div>
         <div class="flex flex-row gap-5 items-center">
             <!-- scelta classe Arma -->

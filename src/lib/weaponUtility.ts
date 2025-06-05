@@ -273,3 +273,4 @@ export function exportHtmlToImage(elementId: string) {
       console.error('Errore nella conversione:', error);
     });
 }
+
