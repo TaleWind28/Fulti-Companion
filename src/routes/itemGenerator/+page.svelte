@@ -6,7 +6,7 @@
 
 </script>
 
-<div class="bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
+<div class="bg-cafe_noir-900 items-center pt-6 pb-6 flex-col px-28 gap-6">
     <WeaponGenerator/>
     <ShieldGenerator/>
     <AccessoryGenerator/>
