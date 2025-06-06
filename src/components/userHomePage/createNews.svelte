@@ -1,6 +1,6 @@
 <script>
     
-    import { user } from "../stores/authStore";
+    import { user } from "../../stores/authStore";
     import { publishNews } from "$lib/utility";
     let title= "";
     let iconImg = "";

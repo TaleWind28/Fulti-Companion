@@ -1,6 +1,6 @@
 <script lang="ts">
     import { uploadImages } from "$lib/utility";
-    import CustomButton from "./customButton.svelte";
+    import CustomButton from "./customHTMLElements/customButton.svelte";
     import { getAuth } from "firebase/auth";
     let previewUrl = '';
     let selectedFile:File|null = null; 

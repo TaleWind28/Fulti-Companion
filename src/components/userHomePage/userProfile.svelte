@@ -2,10 +2,10 @@
     import { auth } from "$lib/authUtility";
     import { getUserAvatar } from "$lib/utility";
     import { onAuthStateChanged, type User } from "firebase/auth";
-    import CustomButton from "./customButton.svelte";
+    import CustomButton from "../customHTMLElements/customButton.svelte";
     import { onDestroy, onMount } from "svelte";
     import { type Image } from "$lib/utility";
-    import ImageUploader from "./imageUploader.svelte";
+    import ImageUploader from "../imageUploader.svelte";
     let avatar:null | Image = null;
     let loading = true;
     let error = null;

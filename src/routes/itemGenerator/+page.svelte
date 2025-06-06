@@ -1,8 +1,8 @@
 <script lang="ts">
-    import AccessoryGenerator from "../../components/accessoryGenerator.svelte";
-    import ArcanaGenerator from "../../components/arcanaGenerator.svelte";
-    import ShieldGenerator from "../../components/shieldGenerator.svelte";
-    import WeaponGenerator from "../../components/weaponGenerator.svelte";
+    import AccessoryGenerator from "../../components/Generators/accessoryGenerator.svelte";
+    import ArcanaGenerator from "../../components/Generators/arcanaGenerator.svelte";
+    import ShieldGenerator from "../../components/Generators/shieldGenerator.svelte";
+    import WeaponGenerator from "../../components/Generators/weaponGenerator.svelte";
 
 </script>
 

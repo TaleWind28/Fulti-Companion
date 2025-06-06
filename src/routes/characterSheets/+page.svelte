@@ -1,13 +1,13 @@
 <script lang="ts">
-    import CustomButton from "../../components/customButton.svelte";
-    import CharacterCard from "../../components/characterCard.svelte";
-    import CustomInput from "../../components/customInput.svelte";
+    import CustomButton from "../../components/customHTMLElements/customButton.svelte";
+    import CharacterCard from "../../components/charachterComps/characterCard.svelte";
     import { addUserCharacter, type Character ,convertToCharacterFormat,retrieveUserCharacters ,processSelectedFile} from "$lib/characterUtils";
     import { personaggiStore } from "../../stores/characterStore";
     import { onDestroy, onMount } from "svelte";
     import { onAuthStateChanged } from "firebase/auth";
     import { auth } from "$lib/authUtility";
     import { afterNavigate, beforeNavigate } from "$app/navigation";
+    import CustomInput from "../../components/customHTMLElements/customInput.svelte";
 
     let selectedFile:File|null = null; 
     let previewUrl = '';

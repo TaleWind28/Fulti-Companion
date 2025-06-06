@@ -1,6 +1,6 @@
 <!-- Combat Simulator -->
 <script>
-    import Modal from "../../components/modal.svelte";
+    import Modal from "../../components/customHTMLElements/modal.svelte";
     let showModal = $state(false);
 </script>
 

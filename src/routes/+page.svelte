@@ -1,6 +1,6 @@
 <script>
   export let loginPage = "/loginPage";
-  import Grid from '../components/grid.svelte'
+  import Grid from '../components/customHTMLElements/grid.svelte'
   import {faDiceD20,faCloud, faKhanda, faScroll, faBookSkull, faBookBookmark} from '@fortawesome/free-solid-svg-icons';   
 
   const features = [

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { type RecentActivity } from "$lib/utility";
     import { getRecentActivities, manageRecentActivities } from "$lib/utility";
-    import { user } from "../stores/authStore";
+    import { user } from "../../stores/authStore";
     import { onMount } from "svelte";
     let recentActivities:RecentActivity[] = [];
     let loading = true;

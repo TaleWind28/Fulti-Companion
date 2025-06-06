@@ -5,10 +5,10 @@
     import { onAuthStateChanged } from 'firebase/auth';
     import { auth } from '$lib/authUtility';
     import { type Character, retrieveUserCharacter } from "$lib/characterUtils";
-    import Traits from '../../../components/traits.svelte';
-    import RunesTab from '../../../components/runesTab.svelte';
-    import CustomInput from '../../../components/customInput.svelte';
-    import CharacterSheet from '../../../components/characterSheet.svelte';
+    import Traits from '../../../components/charachterComps/traits.svelte';
+    import RunesTab from '../../../components/customHTMLElements/runesTab.svelte';
+    import CharacterSheet from '../../../components/sheets/characterSheet.svelte';
+    import CustomInput from '../../../components/customHTMLElements/customInput.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');

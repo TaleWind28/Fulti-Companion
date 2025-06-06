@@ -2,7 +2,7 @@
     import { goto } from '$app/navigation';
     import { registerUser, login} from '$lib/authUtility';
     import {updateProfile } from "firebase/auth";
-    import CustomButton from '../../components/customButton.svelte';
+    import CustomButton from '../../components/customHTMLElements/customButton.svelte';
     import { error } from '@sveltejs/kit';
 
     let email = "";

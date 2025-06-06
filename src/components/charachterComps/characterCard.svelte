@@ -4,14 +4,14 @@
 
     import {  faFileExport, faKhanda, faMagicWandSparkles, faPencil, faRunning, faShield, faTrashCan } from "@fortawesome/free-solid-svg-icons";
     import Fa from "svelte-fa";
-    import CustomButton from "./customButton.svelte";
+    import CustomButton from "../customHTMLElements/customButton.svelte";
 
-    import ProgressiveBar from "./progressiveBar.svelte";
+    import ProgressiveBar from "../customHTMLElements/progressiveBar.svelte";
 
-    import { personaggiStore } from "../stores/characterStore";
+    import { personaggiStore } from "../../stores/characterStore";
     import { goto } from "$app/navigation";
-    import Modal from "./modal.svelte";
-    import RunesButton from "./runesButton.svelte";
+    import Modal from "../customHTMLElements/modal.svelte";
+    import RunesButton from "../customHTMLElements/runesButton.svelte";
     
     export {traits};
 

@@ -1,16 +1,16 @@
 <script lang="ts">
     import { baseWeapons } from "$lib/weaponUtility";
     import GeneratorBox from "./generatorBox.svelte";
-    import RunesButton from "./runesButton.svelte";
+    import RunesButton from "../customHTMLElements/runesButton.svelte";
     import { exportHtmlToImage } from "$lib/weaponUtility";
-    import ImageUploader2 from "./imageUploader2.svelte";
-    import Modal from "./modal.svelte";
-    import ModalSelector from "./modalSelector.svelte";
+    import ImageUploader2 from "../customHTMLElements/imageUploader2.svelte";
+    import Modal from "../customHTMLElements/modal.svelte";
+    import ModalSelector from "../customHTMLElements/modalSelector.svelte";
     import { DAMAGE_TYPES, type Item } from "$lib/types";
     import { accuracyFormula, damageFormula } from "$lib/combatUtility";
+    import { BASE_QUALITIES } from "$lib/types";
 
     //questo deve diventare un import
-    let baseQuality:Item[] = [{name:"none"}];
     let char:Item[] = [{name:"DES"},{name:"VIG"},{name:"INT"},{name:"VOL"}];
     let hands:Item[] = [{name:"una mano"},{name:"due mani"}];
 
@@ -21,8 +21,8 @@
     let customWeaponName = $state(" ");
     
     //qualità base
-    let selectedQuality = $state(baseQuality[0]);
-    let qualityName = $derived(selectedQuality);
+    let selectedQuality = $state(BASE_QUALITIES[0]);
+    let qualityName = $derived(selectedQuality.effect);
     
     //qualità custom    
     let customQuality = $state(" ");
@@ -59,11 +59,12 @@
     })
 
     let displayQuality = $derived.by( ()=> {
-        return displayName(customQuality,selectedQuality.name);
+       return displayName(customQuality,selectedQuality.effect);
+       //return customQuality;
     })
     
-    $inspect(DAMAGE_TYPES[8].name);
-
+    // $inspect(DAMAGE_TYPES[8].name);
+    // $inspect(BASE_QUALITIES);
 </script>
 
 <GeneratorBox nameTag="Arma" >
@@ -73,68 +74,71 @@
         <!-- Nome Arma  -->
         <div class="flex gap-4 w-full justify-center items-center">
             <!-- scelta classe Arma -->
-            <span class="border rounded">
+            <span class="border rounded flex-1 max-w-xsd">
                 <ModalSelector itemName = {selectedWeapon.name} itemList = {baseWeapons} bind:selectedItem = {selectedWeapon} bind:isOpen = {isChoosingWeapon}/>
             </span>
-            <input type="checkbox">
+            <input type="checkbox" class="flex-shrink-0">
             <input placeholder="Nome" bind:value= {customWeaponName} class="border rounded">
         </div>
 
         <!-- Attributi e Tipi di danno -->
-        <div class="flex flex-rows gap-5 justify-evenly">
+        <div class="flex flex-row gap-5 justify-center items-center w-full">
             <!-- Tipo di danno -->
-            <span class="border rounded">
+            <span class="border rounded flex-1 max-w-32">
                 <ModalSelector itemName = {selectedDamageType.name} itemList = {DAMAGE_TYPES} bind:selectedItem = {selectedDamageType} bind:isOpen = {isChoosingDamageType}/>
             </span>
             
             <!-- Numero di Mani -->
-            <span class="border rounded">
+            <span class="border rounded flex-1 max-w-32">
                 <ModalSelector itemName = {selectedHand.name} itemList = {hands} bind:selectedItem = {selectedHand} bind:isOpen = {isChoosingHand}/>
             </span>
             
             <!-- Attributo Precisione 1 -->
-            <span class="border rounded">
+            <span class="border rounded flex-1 max-w-32">
                 <ModalSelector itemName = {selectedChar1.name} itemList = {char} bind:selectedItem = {selectedChar1} bind:isOpen = {isChoosingChar1}/>
             </span>
 
-            <!-- Attributo Precisione 1 -->
-            <span class="border rounded">
+            <!-- Attributo Precisione 2 -->
+            <span class="border rounded flex-1 max-w-32">
                 <ModalSelector itemName = {selectedChar2.name} itemList = {char} bind:selectedItem = {selectedChar2} bind:isOpen = {isChoosingChar2}/>
             </span>
 
         </div>
 
         <!-- Qualità Standard -->
-        <div class="flex flex-row gap-5 items-center">
+        <div class="flex flex-row gap-5 items-center justify-center w-full">
 
             <!-- scelta qualità standard-->
-            <div class="border rounded">
-                <ModalSelector itemName = {selectedQuality.name} itemList = {baseQuality} bind:selectedItem = {selectedQuality} bind:isOpen = {isChoosingQual}/>
+            <div class="border rounded flex-1 max-w-48">
+                <ModalSelector itemName = {selectedQuality.name} itemList = {BASE_QUALITIES} bind:selectedItem = {selectedQuality} bind:isOpen = {isChoosingQual}/>
             </div>
             
-            <div class="flex flex-col gap-2">
-                <span>
+            <div class="flex flex-col gap-2 flex-1 max-w-48">
+                <span class="flex items-center gap-2">
                     <input type="checkbox">
                     +1 Precisione
                 </span>
 
-                <span>
-                    <input type="checkbox">
+                <span class="flex items-center gap-2">
+                    <input type="checkbox" >
                     +4 Danno
                 </span>
             </div>
         </div>
 
         <!-- Qualità Custom -->
-        <div class="flex items-center gap-5">
-            <input placeholder="Quality Custom" class="border rounded" bind:value={customQuality}>
-            <input placeholder="Custom Cost" class="border rounded w-20" bind:value={qualityCost} >
+        <div class="flex items-center gap-50  justify-start w-full">
+            <!-- <input placeholder="Quality Custom" class="border rounded flex-1 max-w-xs" bind:value={customQuality}> -->
+            <textarea class="border rounded" bind:value={customQuality}>
+                {displayQuality}
+            </textarea>
+            <input placeholder="Custom Cost" class="border rounded w-20 flex-shrink-0" bind:value={qualityCost} >
         </div>
         
-        <hr>
+      <hr class="w-full">        
 
         <!-- pulsanti per resettare i campi -->
-        <div>
+        <div class="flex gap-4 justify-center">
             <RunesButton text="carica json" clickFun={()=> console.log("premuto")}/>
             <RunesButton text="Pulisci Campi" clickFun={()=> console.log("premuto")}/>
         </div>

@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import { type News, getNewsPerUtente } from '$lib/utility';
   import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons'; 
-  import CustomButton from './customButton.svelte';
+  import CustomButton from '../customHTMLElements/customButton.svelte';
 
   let news: News[] = [];
   let loading = true;

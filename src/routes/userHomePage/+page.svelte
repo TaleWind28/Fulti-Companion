@@ -1,9 +1,9 @@
 <script>
-    import ShowRelatedNews from "../../components/showRelatedNews.svelte";
-    import UserProfile from "../../components/userProfile.svelte";
-    import Calendar from "../../components/calendar.svelte";
-    import RecentActivityTable from "../../components/recentActivityTable.svelte";
-    import CustomButton from "../../components/customButton.svelte";
+    import ShowRelatedNews from "../../components/userHomePage/showRelatedNews.svelte";
+    import UserProfile from "../../components/userHomePage/userProfile.svelte";
+    import Calendar from "../../components/userHomePage/calendar.svelte";
+    import RecentActivityTable from "../../components/userHomePage/recentActivityTable.svelte";
+    import CustomButton from "../../components/customHTMLElements/customButton.svelte";
     let hideCalendar = true;
 </script> 
  

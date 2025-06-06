@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import {user, loading} from '../stores/authStore';
+  import {user, loading} from '../../stores/authStore';
   import {logout} from '$lib/authUtility';
   import Fa from 'svelte-fa'
   import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons';  
