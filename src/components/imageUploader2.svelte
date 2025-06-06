@@ -4,6 +4,12 @@
   let uploadError = $state();
   let ObjUrl = $state(defaultImage);
   let imageSrc = $derived(ObjUrl);
+  let {dimensions = "w-auto h-auto", fill=false} = $props();
+
+  let modality = () =>{
+    if(fill = true)return "object-fill";
+    else return "object-cover";
+  }
 
   function handleFileSelect(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -26,7 +32,7 @@
   <img
       src={imageSrc}
       alt="Immagine corrente, clicca per cambiarla"
-      class="w-full h-full object-cover"
+      class="{dimensions} {modality}"
     />
 </label>
 
