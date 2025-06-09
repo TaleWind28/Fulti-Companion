@@ -9,7 +9,7 @@
     import { accuracyFormula, damageFormula, retrieveAccuracy } from "$lib/combatUtility";
     import { BASE_QUALITIES } from "$lib/types";
     import { downloadFile } from "$lib/characterUtils";
-    
+    import { weaponToFultimatorWeapon } from "$lib/weaponUtility";
     
     //checkbox
     let isMoreDamageChecked = $state(false);
@@ -93,8 +93,21 @@
     )
 
     //arma craftata
-    let craftedWeapon:Weapon = selectedWeapon;
+    let craftedWeapon:Weapon = $derived.by( ()=> {
+        return {
+            name:displayWeaponName,
+            cost:selectedWeapon.cost,
+            accuracy:accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),
+            damage: damageModifier,
+            type: selectedWeapon.type,
+            category: selectedWeapon.category,
+            quality: displayQuality,
+            distance: selectedWeapon.distance,
+            hands: selectedHand.name
+        }
+    });
 
+    $inspect(weaponToFultimatorWeapon(craftedWeapon,1, additionalDamage));
 </script>
 
 <GeneratorBox nameTag="Arma" >

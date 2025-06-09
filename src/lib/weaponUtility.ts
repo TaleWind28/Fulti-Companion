@@ -8,8 +8,8 @@ export type Weapon = Item &{
     type: string,
     category: string,
     quality: string,
-    distance: string
-    hands:string,
+    distance: string,
+    hands:string
 }
 
 // Armi dalla prima immagine
@@ -332,4 +332,77 @@ export function parseWeapon(json: string): Weapon | null {
 
 export function weaponToJson(weapon:Weapon):string{
     return JSON.stringify(weapon, null, 2);
+}
+
+export type FultimatorWeapon = {
+    name:string,
+    att1: string,
+    att2: string,
+    martial: true,
+    type: string,
+    hands: number,
+    category: string,
+    melee: true,
+    cost: number,
+    damage:number,
+    prec: number,
+    quality: string,
+    qualityCost: number,
+    damageBonus: boolean,
+    damageReworkBonus: boolean,
+    precBonus: boolean,
+    rework: boolean,
+    dataType: string
+}
+
+export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damageMod:number){
+    let prec = 1;let precBonus:boolean = false;
+    let [att1, att2, precString] = weapon.accuracy.replace("[","").replace("]","").replace(" ","").replace(" ","").split("+");
+
+    if(precString !== null && precString!== undefined) precBonus = true;
+    else prec = 0;
+
+    switch(att1){
+        case "VOL": att1 = "will"
+        case "VIG": att1 = "might"
+        case "DES": att1 = "dexterity"
+        case "INT": att1 = "insight"
+    }
+
+    switch(att2){
+        case "VOL": att2 = "will"
+        case "VIG": att2 = "might"
+        case "DES": att2 = "dexterity"
+        case "INT": att2 = "insight"
+    }
+
+    let bonusDamage:boolean = false;    
+    let baseDamage:number = weapon.damage - damageMod;
+    if((baseDamage - damageMod)>=2)bonusDamage = true;
+
+
+    
+    let hands:number = 0;
+     
+
+    return {
+        name: weapon.name,
+        att1: att1,
+        att2: att2,
+        martial: true,
+        type: weapon.type,
+        hands: hands,
+        category: weapon.category,
+        melee: true,
+        cost: weapon.cost,
+        damage: weapon.damage,
+        prec: prec,
+        quality: "",
+        qualityCost: 0,
+        damageBonus: bonusDamage,
+        damageReworkBonus: false,
+        precBonus: precBonus,
+        rework: false,
+        dataType: "weapon"
+    };
 }
