@@ -9,10 +9,18 @@
     import { accuracyFormula, damageFormula, retrieveAccuracy } from "$lib/combatUtility";
     import { BASE_QUALITIES } from "$lib/types";
 
+    //checkbox
+    let isMoreDamageChecked = $state(false);
+    let isMoreAccuracyChecked = $state(false);
+    
     //questo deve diventare un import
     let char:Item[] = [{name:"DES"},{name:"VIG"},{name:"INT"},{name:"VOL"}];
     let hands:Item[] = [{name:"una mano"},{name:"due mani"}]
-
+    let additionalDamage = 4;
+    let additionalAccuracy = $derived.by(()=>{
+        if(isMoreAccuracyChecked)return "1";
+        else return undefined;
+    })
     //reattività per selezione
     //armi 
     let selectedWeapon = $state(baseWeapons[0]);
@@ -31,9 +39,14 @@
     let selectedChar1 = $state(char[0]);
     let selectedChar2 = $state(char[0]);
     
+    
     //tipo di danno
     let selectedDamageType = $state(DAMAGE_TYPES[8]);
-    let damageModifier = $derived(selectedWeapon.damage);
+    let damageModifier = $derived.by( ()=>{
+        if(isMoreDamageChecked)return selectedWeapon.damage + additionalDamage;
+        else return selectedWeapon.damage;
+    }
+    );
 
     //Numero di Mani
     let selectedHand = $state(hands[0]);
@@ -48,7 +61,6 @@
 
     //funzione per mostrare il nome corretto
     function displayName(customName:string, originalName:string){
-        console.log(customName.length, customName);
         if(customName.length <= 1)return originalName;
         else return customName;
     }
@@ -65,7 +77,7 @@
 
     //inizializzata a null per caricare la prima arma correttamente
     let oldWeapon:any = null;
-
+    //effect è purtroppo necessario in quanto devo aggiornare all'aggiornamente dell'arma
     $effect( ()=>{
 
         if(selectedWeapon !== oldWeapon){
@@ -127,12 +139,12 @@
             
             <div class="flex flex-col gap-2 flex-1 max-w-48">
                 <span class="flex items-center gap-2">
-                    <input type="checkbox">
+                    <input type="checkbox" bind:checked={isMoreAccuracyChecked}>
                     +1 Precisione
                 </span>
 
                 <span class="flex items-center gap-2">
-                    <input type="checkbox" >
+                    <input type="checkbox" bind:checked={isMoreDamageChecked}>
                     +4 Danno
                 </span>
             </div>
@@ -175,7 +187,7 @@
                 <div class="col-span-2">
                     <div class="justify-around bg-cafe_noir-800 flex">
                         <p>
-                            {accuracyFormula(selectedChar1.name,selectedChar2.name)}
+                            {accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy)}
                         </p>
                         <p>
                             {damageFormula(damageModifier,selectedDamageType.name)}
