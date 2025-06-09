@@ -2,7 +2,8 @@ import { initializeApp } from 'firebase/app';
 import {getAuth, onAuthStateChanged, type User} from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { writable, type Writable } from 'svelte/store';
-import 'dotenv/config'
+
+// Configurazione Firebase utilizzando le variabili d'ambiente
 export const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -12,6 +13,7 @@ export const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
+
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 const auth = getAuth();
