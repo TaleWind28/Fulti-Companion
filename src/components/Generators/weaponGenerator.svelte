@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { baseWeapons } from "$lib/weaponUtility";
+    import { baseWeapons, parseWeapon, weaponToJson, type Weapon} from "$lib/weaponUtility";
     import GeneratorBox from "./generatorBox.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import { exportHtmlToImage } from "$lib/weaponUtility";
@@ -8,7 +8,9 @@
     import { DAMAGE_TYPES, type DamageType, type Item } from "$lib/types";
     import { accuracyFormula, damageFormula, retrieveAccuracy } from "$lib/combatUtility";
     import { BASE_QUALITIES } from "$lib/types";
-
+    import { downloadFile } from "$lib/characterUtils";
+    
+    
     //checkbox
     let isMoreDamageChecked = $state(false);
     let isMoreAccuracyChecked = $state(false);
@@ -89,6 +91,10 @@
     }
 
     )
+
+    //arma craftata
+    let craftedWeapon:Weapon = selectedWeapon;
+
 </script>
 
 <GeneratorBox nameTag="Arma" >
@@ -165,6 +171,7 @@
         <div class="flex gap-4 justify-center">
             <RunesButton text="carica json" clickFun={()=> console.log("premuto")}/>
             <RunesButton text="Pulisci Campi" clickFun={()=> console.log("premuto")}/>
+            <RunesButton text="Scarica Json" clickFun={()=>{downloadFile(weaponToJson(craftedWeapon),`${craftedWeapon.name.replace(/\s+/g, '_') || 'arma'}.json`,'application/json')}}/>
         </div>
 
     </div>

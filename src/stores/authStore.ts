@@ -2,14 +2,15 @@ import { initializeApp } from 'firebase/app';
 import {getAuth, onAuthStateChanged, type User} from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { writable, type Writable } from 'svelte/store';
+import 'dotenv/config'
 export const firebaseConfig = {
-  apiKey: "AIzaSyC3TKMg8Vk7dXxm150_lqnaxSUF4WlXMQ0",
-  authDomain: "fulti-companion.firebaseapp.com",
-  projectId: "fulti-companion",
-  storageBucket: "fulti-companion.firebasestorage.app",
-  messagingSenderId: "95100721227",
-  appId: "1:95100721227:web:7ccd483748a453dfb215ce",
-  measurementId: "G-3QKCNSCCMW"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);

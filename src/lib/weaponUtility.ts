@@ -297,3 +297,39 @@ export function exportHtmlToImage(elementId: string) {
     });
 }
 
+// Type guard per verificare se un oggetto è un Item valido
+function isItem(obj: any): obj is Item {
+  return obj && typeof obj.name === 'string';
+}
+
+// Type guard per verificare se un oggetto è una Weapon valida
+function isWeapon(obj: any): obj is Weapon {
+        return typeof obj.name === 'string' && 
+        typeof obj.cost === 'number' &&    
+        typeof obj.accuracy === 'string' &&
+        typeof obj.damage === 'number' &&
+        typeof obj.type === 'string' &&
+        typeof obj.category === 'string' &&
+        typeof obj.quality === 'string' &&
+        typeof obj.distance === 'string' &&
+        typeof obj.hands === 'string';
+}
+
+// Parser sicuro per Weapon, da correggere
+export function parseWeapon(json: string): Weapon | null {
+  try {
+    const obj = JSON.parse(json);
+    if (isWeapon(obj)) {
+      return obj;
+    }
+    console.error('Oggetto non valido come Weapon:', obj);
+    return null;
+  } catch (error) {
+    console.error('Errore nel parsing JSON:', error);
+    return null;
+  }
+}
+
+export function weaponToJson(weapon:Weapon):string{
+    return JSON.stringify(weapon, null, 2);
+}
