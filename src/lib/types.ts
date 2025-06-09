@@ -41,6 +41,7 @@ export const DAMAGE_TYPES: DamageType[] = Object.values(AFFINITY_CONFIG).map(a =
 export type Affinities = Partial<Record<keyof typeof AFFINITY_CONFIG, Affinity>>;
 
 export const QUALITIES_CONFIG = {
+  nessuna_qualità:{effect:"Nessuna Qualità", price:0},
   antistatus:{ effect:"Sei immune a un singolo status", price: 500},
   resistenza:{
     effect:"Sei resistente a un singolo tipo di danno (eccetto fisico)",

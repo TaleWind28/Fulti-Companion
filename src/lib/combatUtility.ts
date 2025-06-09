@@ -4,6 +4,11 @@ export let accuracyFormula = (attr1:string, attr2:string, accuracyModifier?:stri
     
 }
 
-export let damageFormula = (damageModifier: number) =>{
-    return "[ TM + "+damageModifier+"]";
+export let damageFormula = (damageModifier: number, damageType:string) =>{
+    return "[ TM + "+damageModifier+"] " + damageType;
+}   
+
+export let retrieveAccuracy = (accuracyString:string) => {
+    //"[VOL + VOL]"
+    return accuracyString.replace("[", "").replace("]", "").split(" + ");  // Rimuove le parentesi e separa per il +
 }

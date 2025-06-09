@@ -9,6 +9,7 @@ export type Weapon = Item &{
     category: string,
     quality: string,
     distance: string
+    hands:string,
 }
 
 // Armi dalla prima immagine
@@ -19,30 +20,34 @@ const weaponsPage1: Weapon[] = [
         cost: 200,
         accuracy: "[VIG + VIG]",
         damage: 6,
-        type: "fisico",
+        type: "Fisico",
         category: "Pesanti",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"una mano"
+
     },
     {
         name: "Ascia",
         cost: 250,
         accuracy: "[VIG + VIG]",
         damage: 10,
-        type: "fisico",
+        type: "Fisico",
         category: "Pesanti",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"una mano"
     },
     {
         name: "Ascia da Guerra",
         cost: 250,
         accuracy: "[VIG + VIG]",
         damage: 14,
-        type: "fisico",
+        type: "Fisico",
         category: "Pesanti",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Due mani"
     },
     
     // Pugnali
@@ -51,10 +56,11 @@ const weaponsPage1: Weapon[] = [
         cost: 150,
         accuracy: "[DES + INT] +1",
         damage: 4,
-        type: "fisico",
+        type: "Fisico",
         category: "Pugnali",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"una mano"
     },
     
     // Da Rissa
@@ -63,131 +69,143 @@ const weaponsPage1: Weapon[] = [
         cost: 0,
         accuracy: "[DES + VIG]",
         damage: 0,
-        type: "fisico",
+        type: "Fisico",
         category: "Da Rissa",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"una mano"
     },
     {
         name: "Improvvisata (Misc.)",
         cost: 0,
         accuracy: "[DES + VIG]",
         damage: 2,
-        type: "fisico",
+        type: "Fisico",
         category: "Da Rissa",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"una mano"
     },
     {
         name: "Tirapugni di Ferro",
         cost: 150,
         accuracy: "[DES + VIG]",
         damage: 6,
-        type: "fisico",
+        type: "Fisico",
         category: "Da Rissa",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"una mano"
     },
     
-    // Spade
+    // Spada
     {
         name: "Katana",
         cost: 200,
         accuracy: "[DES + INT] +1",
         damage: 10,
-        type: "fisico",
-        category: "Spade",
+        type: "Fisico",
+        category: "Spada",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Due mani"
     },
     {
         name: "Spada di Bronzo",
         cost: 200,
         accuracy: "[DES + VIG] +1",
         damage: 6,
-        type: "fisico",
-        category: "Spade",
+        type: "Fisico",
+        category: "Spada",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Una mano"
     },
     {
         name: "Spadone",
         cost: 200,
         accuracy: "[DES + VIG] +1",
         damage: 10,
-        type: "fisico",
-        category: "Spade",
+        type: "Fisico",
+        category: "Spada",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Due mani"
     },
     {
         name: "Stocco",
         cost: 200,
         accuracy: "[DES + INT] +1",
         damage: 6,
-        type: "fisico",
-        category: "Spade",
+        type: "Fisico",
+        category: "Spada",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Una mano"
     }
 ];
 
 // Armi dalla seconda immagine
 const weaponsPage2: Weapon[] = [
-    // Arcane
+    // Arcana
     {
         name: "Bastone",
         cost: 100,
         accuracy: "[VOL + VOL]",
         damage: 6,
-        type: "fisico",
-        category: "Arcane",
+        type: "Fisico",
+        category: "Arcana",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Due mani"
     },
     {
         name: "Tomo",
         cost: 100,
         accuracy: "[INT + INT]",
         damage: 6,
-        type: "fisico",
-        category: "Arcane",
+        type: "Fisico",
+        category: "Arcana",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Due mani"
     },
     
-    // Archi
+    // Arco
     {
         name: "Balestra",
         cost: 150,
         accuracy: "[DES + INT]",
         damage: 8,
-        type: "fisico",
-        category: "Archi",
+        type: "Fisico",
+        category: "Arco",
         quality: "Nessuna Qualità",
-        distance: "Distanza"
+        distance: "Distanza",
+        hands:"Due mani"
     },
     {
         name: "Arco Corto",
         cost: 200,
         accuracy: "[DES + DES]",
         damage: 8,
-        type: "fisico",
-        category: "Archi",
+        type: "Fisico",
+        category: "Arco",
         quality: "Nessuna Qualità",
-        distance: "Distanza"
+        distance: "Distanza",
+        hands:"Due mani"
     },
     
-    // Flagelli
+    // Flagello
     {
         name: "Frusta-Catena",
         cost: 150,
         accuracy: "[DES + DES]",
         damage: 8,
-        type: "fisico",
-        category: "Flagelli",
+        type: "Fisico",
+        category: "Flagello",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Due mani"
     },
     
     // Da Fuoco
@@ -196,32 +214,35 @@ const weaponsPage2: Weapon[] = [
         cost: 250,
         accuracy: "[DES + INT]",
         damage: 8,
-        type: "fisico",
+        type: "Fisico",
         category: "Da Fuoco",
         quality: "Nessuna Qualità",
-        distance: "Distanza"
+        distance: "Distanza",
+        hands:"Una mano"
     },
     
-    // Lance
+    // Lancia
     {
         name: "Lancia Leggera",
         cost: 200,
         accuracy: "[DES + VIG]",
         damage: 8,
-        type: "fisico",
-        category: "Lance",
+        type: "Fisico",
+        category: "Lancia",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Una mano"
     },
     {
         name: "Lancia Pesante",
         cost: 200,
         accuracy: "[DES + VIG]",
         damage: 12,
-        type: "fisico",
-        category: "Lance",
+        type: "Fisico",
+        category: "Lancia",
         quality: "Nessuna Qualità",
-        distance: "Mischia"
+        distance: "Mischia",
+        hands:"Due mani"
     },
     
     // Da Lancio
@@ -230,24 +251,26 @@ const weaponsPage2: Weapon[] = [
         cost: 0,
         accuracy: "[DES + VIG]",
         damage: 2,
-        type: "fisico",
+        type: "Fisico",
         category: "Da Lancio",
         quality: "Nessuna Qualità",
-        distance: "Distanza"
+        distance: "Distanza",
+        hands:"Una mano"
     },
     {
         name: "Shuriken",
         cost: 150,
         accuracy: "[DES + INT]",
         damage: 4,
-        type: "fisico",
+        type: "Fisico",
         category: "Da Lancio",
         quality: "Nessuna Qualità",
-        distance: "Distanza"
+        distance: "Distanza",
+        hands:"Una mano"
     }
 ];
 
-export let baseWeapons:Weapon[] = [...weaponsPage1, ...weaponsPage2];
+export let baseWeapons:Weapon[] = [...weaponsPage2, ...weaponsPage1];
 
 import { toPng } from 'html-to-image';
 

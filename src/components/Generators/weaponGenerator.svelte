@@ -4,20 +4,19 @@
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import { exportHtmlToImage } from "$lib/weaponUtility";
     import ImageUploader2 from "../customHTMLElements/imageUploader2.svelte";
-    import Modal from "../customHTMLElements/modal.svelte";
     import ModalSelector from "../customHTMLElements/modalSelector.svelte";
-    import { DAMAGE_TYPES, type Item } from "$lib/types";
-    import { accuracyFormula, damageFormula } from "$lib/combatUtility";
+    import { DAMAGE_TYPES, type DamageType, type Item } from "$lib/types";
+    import { accuracyFormula, damageFormula, retrieveAccuracy } from "$lib/combatUtility";
     import { BASE_QUALITIES } from "$lib/types";
 
     //questo deve diventare un import
     let char:Item[] = [{name:"DES"},{name:"VIG"},{name:"INT"},{name:"VOL"}];
-    let hands:Item[] = [{name:"una mano"},{name:"due mani"}];
-
+    let hands:Item[] = [{name:"una mano"},{name:"due mani"}]
 
     //reattività per selezione
     //armi 
     let selectedWeapon = $state(baseWeapons[0]);
+
     let customWeaponName = $state(" ");
     
     //qualità base
@@ -31,10 +30,10 @@
     //caratteristiche
     let selectedChar1 = $state(char[0]);
     let selectedChar2 = $state(char[0]);
-
+    
     //tipo di danno
     let selectedDamageType = $state(DAMAGE_TYPES[8]);
-    let damageModifier = 0;
+    let damageModifier = $derived(selectedWeapon.damage);
 
     //Numero di Mani
     let selectedHand = $state(hands[0]);
@@ -49,6 +48,7 @@
 
     //funzione per mostrare il nome corretto
     function displayName(customName:string, originalName:string){
+        console.log(customName.length, customName);
         if(customName.length <= 1)return originalName;
         else return customName;
     }
@@ -62,9 +62,21 @@
        return displayName(customQuality,selectedQuality.effect);
        //return customQuality;
     })
+
+    //inizializzata a null per caricare la prima arma correttamente
+    let oldWeapon:any = null;
+
+    $effect( ()=>{
+
+        if(selectedWeapon !== oldWeapon){
+            selectedHand.name = selectedWeapon.hands;
+            [selectedChar1.name,selectedChar2.name] = retrieveAccuracy(selectedWeapon.accuracy);
+            oldWeapon = selectedWeapon;
+        }
     
-    // $inspect(DAMAGE_TYPES[8].name);
-    // $inspect(BASE_QUALITIES);
+    }
+
+    )
 </script>
 
 <GeneratorBox nameTag="Arma" >
@@ -166,7 +178,7 @@
                             {accuracyFormula(selectedChar1.name,selectedChar2.name)}
                         </p>
                         <p>
-                            {damageFormula(damageModifier)}
+                            {damageFormula(damageModifier,selectedDamageType.name)}
                         </p>
                     </div>
                     <hr>
