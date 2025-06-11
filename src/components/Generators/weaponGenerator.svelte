@@ -6,21 +6,25 @@
     import ImageUploader2 from "../customHTMLElements/imageUploader2.svelte";
     import ModalSelector from "../customHTMLElements/modalSelector.svelte";
     import { DAMAGE_TYPES, type DamageType, type Item } from "$lib/types";
-    import { accuracyFormula, damageFormula, retrieveAccuracy } from "$lib/combatUtility";
+    import { accuracyFormula, checkAccuracyBonus, damageFormula, retrieveAccuracy } from "$lib/combatUtility";
     import { BASE_QUALITIES } from "$lib/types";
-    import { downloadFile } from "$lib/characterUtils";
+    import { downloadFile, processSelectedFile } from "$lib/characterUtils";
     import { weaponToFultimatorWeapon } from "$lib/weaponUtility";
+    import { WeaponScheme } from "$lib/zodTypeChecking";
+    import Modal from "../customHTMLElements/modal.svelte";
+    import { json } from "@sveltejs/kit";
     
     //checkbox
     let isMoreDamageChecked = $state(false);
     let isMoreAccuracyChecked = $state(false);
-    
+    let imageUrl = $state("");
     //questo deve diventare un import
     let char:Item[] = [{name:"DES"},{name:"VIG"},{name:"INT"},{name:"VOL"}];
     let hands:Item[] = [{name:"una mano"},{name:"due mani"}]
     let additionalDamage = 4;
+    let accuracyMod = "1";
     let additionalAccuracy = $derived.by(()=>{
-        if(isMoreAccuracyChecked)return "1";
+        if(isMoreAccuracyChecked)return accuracyMod;
         else return undefined;
     })
     //reattività per selezione
@@ -91,7 +95,7 @@
     }
 
     )
-
+    let errore = $state(false);
     //arma craftata
     let craftedWeapon:Weapon = $derived.by( ()=> {
         return {
@@ -103,11 +107,52 @@
             category: selectedWeapon.category,
             quality: displayQuality,
             distance: selectedWeapon.distance,
-            hands: selectedHand.name
+            hands: selectedHand.name,
+            pic: imageUrl
         }
     });
 
-    $inspect(weaponToFultimatorWeapon(craftedWeapon,1, additionalDamage));
+     async function handleFileSelect(event:Event){
+        console.log("pino");
+        const target = event.target as HTMLInputElement;
+        //recupero il file fornito dall'utente
+        let selectedFile = target.files?.[0] || null;
+        if(selectedFile == null)return;
+        if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json'))return;
+        //leggo il file json
+        const jsonImport = await processSelectedFile(selectedFile);
+        //controllo il tipo
+        let result = WeaponScheme.safeParse(jsonImport);
+        
+        //aggiungere controllo sul fultimatorWeapon
+
+        if(result.error){
+            errore = true;
+            console.log("errore");
+        
+        }else{
+
+            console.log("tutto bene");
+        }
+        
+        //craftedWeapon = jsonImport as Weapon;
+        console.log(jsonImport,"import");
+
+        selectedWeapon = jsonImport as Weapon;
+        console.log(retrieveAccuracy(jsonImport.accuracy));
+        selectedChar1.name = retrieveAccuracy(jsonImport.accuracy)[0];
+        selectedChar2.name = retrieveAccuracy(jsonImport.accuracy)[1];
+        isMoreAccuracyChecked = checkAccuracyBonus(jsonImport.accuracy,parseInt(accuracyMod));
+        selectedHand.name = jsonImport.hands;
+        selectedQuality.effect = jsonImport.quality;
+        
+        selectedFile = null;
+    }
+    function handleClearAll(){
+        console.log("pulisco");
+    }
+    $inspect(craftedWeapon.pic);
+    
 </script>
 
 <GeneratorBox nameTag="Arma" >
@@ -181,11 +226,15 @@
       <hr class="w-full">        
 
         <!-- pulsanti per resettare i campi -->
-        <div class="flex gap-4 justify-center">
-            <RunesButton text="carica json" clickFun={()=> console.log("premuto")}/>
-            <RunesButton text="Pulisci Campi" clickFun={()=> console.log("premuto")}/>
-            <RunesButton text="Scarica Json" clickFun={()=>{downloadFile(JSON.stringify(weaponToFultimatorWeapon(craftedWeapon,1,damageModifier)),`${craftedWeapon.name.replace(/\s+/g, '_') || 'arma'}.json`,'application/json')}}/>
+        <div class="flex gap-4 justify-center w-24 h-8 text-white">
+            <label class="bg-cafe_noir-600 rounded">
+                <input placeholder="Carica Json" type="file" class="bg-cafe_noir-600 hidden" onchange={handleFileSelect}/>
+                carica Json
+            </label>
+            <RunesButton text="Pulisci Campi" color="bg-cafe_noir-600" clickFun={handleClearAll}/>
+            <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={()=>{downloadFile(weaponToJson(craftedWeapon),`${craftedWeapon.name.replace(/\s+/g, '_') || 'arma'}.json`,'application/json')}}/>
         </div>
+
     </div>
 
     {#snippet imageProcessor()}    
@@ -201,7 +250,7 @@
             </div>
             <div class=" grid grid-cols-3 gap-4">
                 <div class="col-span-1">
-                    <ImageUploader2 dimensions={"w-40 h-30"} fill={true}/>
+                    <ImageUploader2 dimensions={"w-40 h-30"} fill={true} bind:imageUrl = {imageUrl}/>
                 </div>
                 <div class="col-span-2">
                     <div class="justify-around bg-cafe_noir-800 flex">
@@ -230,5 +279,13 @@
         <RunesButton text="pino" clickFun={()=> exportHtmlToImage(displayWeaponName)}/>
     {/snippet}
     
+    <Modal showModal={errore} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
+        <div>
+            <h1>
+                Bro hai caricato il file sbagliato diommerda
+            </h1>
+            finotto
+         </div>
+    </Modal>
 </GeneratorBox>
 
