@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { removeUserCharacter, elemGlams, type AffinityGlams, type Character, type ElementType, convertToFultimatorJson, downloadFile } from "$lib/characterUtils";
+    import { removeUserCharacter, elemGlams, type AffinityGlams, type Character, type ElementType, convertToFultimatorJson } from "$lib/characterUtils";
     import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-
+    import {downloadFile} from "$lib/utility";
     import {  faFileExport, faKhanda, faMagicWandSparkles, faPencil, faRunning, faShield, faTrashCan } from "@fortawesome/free-solid-svg-icons";
     import Fa from "svelte-fa";
     import CustomButton from "../customHTMLElements/customButton.svelte";

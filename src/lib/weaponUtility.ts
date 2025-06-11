@@ -333,13 +333,11 @@ export function parseWeapon(json: string): Weapon | null {
 }
 
 export async function weaponToJson(weapon:Weapon){
-    // const base64Data = await convertToBase64(weapon.pic);
-    // weapon.pic = base64Data;
-    // Codifica la stringa in base64
-    if(weapon.pic!== "" && weapon.pic !== undefined){
-        weapon.pic = await blobToBase64Compact(weapon.pic) as string;
-        console.log(weapon.pic);
-    }
+    if( weapon.pic !== undefined){
+        console.log(weapon.pic,"prova blob");
+        weapon.pic = await blobUrlToBase64(weapon.pic) as string;
+        console.log(weapon.pic,"stringa base 64");
+    }else console.log("non ho un'immagine");
     return JSON.stringify(weapon, null, 2);
 }
 
@@ -427,3 +425,37 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
         dataType: "weapon"
     };
 }
+
+function blobUrlToBase64(blobUrl:any) {
+  return new Promise((resolve, reject) => {
+    // 1. Usa fetch per recuperare i dati dall'URL Blob
+    fetch(blobUrl)
+      .then(response => {
+        
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        // 2. Ottieni l'oggetto Blob dalla risposta
+        return response.blob();
+      })
+      .then(blob => {
+        
+        const reader = new FileReader();
+        reader.onload = () => {
+          // La lettura è completata, risolviamo la promise con il risultato
+          resolve(reader.result);
+        };
+        reader.onerror = (error) => {
+          // C'è stato un errore durante la lettura
+          reject(new Error("Errore durante la lettura del Blob: " + error));
+        };
+        // 3. Usa FileReader per convertire il Blob in Base64 (Data URL)
+        reader.readAsDataURL(blob);
+      })
+      .catch(error => {
+        // C'è stato un errore nel fetch
+        reject(new Error("Errore nel fetch dell'URL Blob: " + error));
+      });
+  });
+}
+

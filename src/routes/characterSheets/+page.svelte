@@ -1,8 +1,9 @@
 <script lang="ts">
     import CustomButton from "../../components/customHTMLElements/customButton.svelte";
     import CharacterCard from "../../components/charachterComps/characterCard.svelte";
-    import { addUserCharacter, type Character ,convertToCharacterFormat,retrieveUserCharacters ,processSelectedFile} from "$lib/characterUtils";
+    import { addUserCharacter, type Character ,convertToCharacterFormat,retrieveUserCharacters } from "$lib/characterUtils";
     import { personaggiStore } from "../../stores/characterStore";
+    import {processSelectedJsonFile} from "$lib/utility";
     import { onDestroy, onMount } from "svelte";
     import { onAuthStateChanged } from "firebase/auth";
     import { auth } from "$lib/authUtility";
@@ -70,7 +71,7 @@
         if(selectedFile == null)return;
         if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json'))return;
         
-        const jsonImport = await processSelectedFile(selectedFile);
+        const jsonImport = await processSelectedJsonFile(selectedFile);
         let result = CharacterSchema.safeParse(jsonImport);
         let jsonCharacter:Character;
         if(result.error){

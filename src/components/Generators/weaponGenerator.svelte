@@ -1,23 +1,24 @@
 <script lang="ts">
-    import { baseWeapons, parseWeapon, weaponToJson, type Weapon} from "$lib/weaponUtility";
-    import GeneratorBox from "./generatorBox.svelte";
-    import RunesButton from "../customHTMLElements/runesButton.svelte";
+    //import da file ts
+    import { baseWeapons, weaponToJson, type Weapon} from "$lib/weaponUtility";
     import { exportHtmlToImage } from "$lib/weaponUtility";
-    import ImageUploader2 from "../customHTMLElements/imageUploader2.svelte";
-    import ModalSelector from "../customHTMLElements/modalSelector.svelte";
-    import { DAMAGE_TYPES, type DamageType, type Item } from "$lib/types";
+    import { DAMAGE_TYPES, type Item } from "$lib/types";
     import { accuracyFormula, checkAccuracyBonus, damageFormula, retrieveAccuracy } from "$lib/combatUtility";
     import { BASE_QUALITIES } from "$lib/types";
-    import { downloadFile, processSelectedFile } from "$lib/characterUtils";
-    import { weaponToFultimatorWeapon } from "$lib/weaponUtility";
+    import { downloadFile, processSelectedJsonFile } from "$lib/utility";
     import { WeaponScheme } from "$lib/zodTypeChecking";
+    //import di componenti
+    import ImageUploader2 from "../customHTMLElements/imageUploader2.svelte";
+    import ModalSelector from "../customHTMLElements/modalSelector.svelte";
+    import GeneratorBox from "./generatorBox.svelte";
+    import RunesButton from "../customHTMLElements/runesButton.svelte";
     import Modal from "../customHTMLElements/modal.svelte";
-    import { json } from "@sveltejs/kit";
-    
+
     //checkbox
     let isMoreDamageChecked = $state(false);
     let isMoreAccuracyChecked = $state(false);
-    let imageUrl = $state("");
+    let imageUrl = $state(null);
+    $inspect(imageUrl,"imageUrl");
     //questo deve diventare un import
     let char:Item[] = [{name:"DES"},{name:"VIG"},{name:"INT"},{name:"VOL"}];
     let hands:Item[] = [{name:"una mano"},{name:"due mani"}]
@@ -31,7 +32,7 @@
     //armi 
     let selectedWeapon = $state(baseWeapons[0]);
 
-    let customWeaponName = $state(" ");
+    let customWeaponName = $state("");
     
     //qualità base
     let selectedQuality = $state(BASE_QUALITIES[0]);
@@ -108,24 +109,26 @@
             quality: displayQuality,
             distance: selectedWeapon.distance,
             hands: selectedHand.name,
-            pic: imageUrl
+            pic:  imageUrl === null ? "" : imageUrl
         }
     });
 
-     async function handleFileSelect(event:Event){
-        console.log("pino");
+    async function handleFileSelect(event:Event){
         const target = event.target as HTMLInputElement;
         //recupero il file fornito dall'utente
         let selectedFile = target.files?.[0] || null;
-        if(selectedFile == null)return;
-        if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json'))return;
-        //leggo il file json
-        const jsonImport = await processSelectedFile(selectedFile);
+        if(selectedFile == null)return new Error("il file non è valido!");
+    // Controlla il tipo di file (opzionale ma buona pratica)
+        if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json')) {
+            errore = true;
+            return;
+        }
+        //processo il file json
+        const jsonImport = await processSelectedJsonFile(selectedFile);
+        
         //controllo il tipo
         let result = WeaponScheme.safeParse(jsonImport);
         
-        //aggiungere controllo sul fultimatorWeapon
-
         if(result.error){
             errore = true;
             console.log("errore");
@@ -138,21 +141,24 @@
         //craftedWeapon = jsonImport as Weapon;
         console.log(jsonImport,"import");
 
+        //modifico i campi di crafted weapon per farla cambiare reattivamente
         selectedWeapon = jsonImport as Weapon;
-        console.log(retrieveAccuracy(jsonImport.accuracy));
         selectedChar1.name = retrieveAccuracy(jsonImport.accuracy)[0];
         selectedChar2.name = retrieveAccuracy(jsonImport.accuracy)[1];
         isMoreAccuracyChecked = checkAccuracyBonus(jsonImport.accuracy,parseInt(accuracyMod));
         selectedHand.name = jsonImport.hands;
         selectedQuality.effect = jsonImport.quality;
-        
+        imageUrl = jsonImport.pic;
         selectedFile = null;
     }
     function handleClearAll(){
         console.log("pulisco");
     }
-    $inspect(craftedWeapon.pic);
-    
+    async function handleExport(){
+        console.log(craftedWeapon.pic,"prima dell'export");
+        const jsonExport = await weaponToJson(craftedWeapon);
+        downloadFile(jsonExport,`${craftedWeapon.name.replace(/\s+/g, '') || 'arma'}.json`,'application/json')
+    }
 </script>
 
 <GeneratorBox nameTag="Arma" >
@@ -232,7 +238,7 @@
                 carica Json
             </label>
             <RunesButton text="Pulisci Campi" color="bg-cafe_noir-600" clickFun={handleClearAll}/>
-            <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={()=>{downloadFile(weaponToJson(craftedWeapon),`${craftedWeapon.name.replace(/\s+/g, '_') || 'arma'}.json`,'application/json')}}/>
+            <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={handleExport}/>
         </div>
 
     </div>

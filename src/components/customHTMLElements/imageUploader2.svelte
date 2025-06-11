@@ -1,15 +1,32 @@
 <script lang="ts">
   import defaultImage from "/src/images/UploadImage.png";
 
+  let {dimensions = "w-auto h-auto", fill=false, imageUrl = $bindable()} = $props();
+  
   let uploadError = $state();
   let ObjUrl = $state(defaultImage);
-  let imageSrc = $derived(ObjUrl);
-  let {dimensions = "w-auto h-auto", fill=false, imageUrl = $bindable()} = $props();
+
+  $inspect(imageUrl,"imageUploader");
+ 
+
+  let imageSrc = $derived.by(()=>{
+    if(imageUrl === null || imageUrl === undefined) return ObjUrl;
+    console.log("passo il primo");
+    if(imageUrl.replaceAll(" ","") !=="")
+    { console.log("sono nel secondo"); 
+      return imageUrl;
+    }else {  console.log("passo il secondo");
+      return ObjUrl;
+    }
+    
+  });
+
+  
   let modality = () =>{
     if(fill = true)return "object-fill";
     else return "object-cover";
   }
-
+  
   function handleFileSelect(event: Event) {
     const target = event.target as HTMLInputElement;
     const selectedFile = target.files?.[0] || null;
