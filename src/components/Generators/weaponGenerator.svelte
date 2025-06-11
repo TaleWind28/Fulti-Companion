@@ -33,7 +33,7 @@
     //armi 
     let selectedWeapon = $state(baseWeapons[0]);
     //inizializzata a null per caricare la prima arma correttamente
-    let oldWeapon:any = baseWeapons[0];
+    let oldWeapon:any = null;
 
     let customWeaponName = $state("");
     
