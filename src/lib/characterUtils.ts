@@ -30,20 +30,6 @@ export interface Character{
     shields:any[]|null;
 }
 
-
-
-
-export type Glam = {
-  icon:IconDefinition,
-  color:String,
-}
-export type ElementType = 'poison'| 'light'| 'dark'| 'ice'| 'fire'| 'earth'| 'wind'| 'bolt'| 'physical';
-
-export type AffinityGlams = Record<ElementType,{
-  icon:IconDefinition,
-  color: string;
-}>
-
 export interface FultimatorJson{
   uid: string;
   name: string;
@@ -104,6 +90,20 @@ export interface FultimatorJson{
   shields:any[]|null;
   dataType: string;
 }
+
+
+export type Glam = {
+  icon:IconDefinition,
+  color:String,
+}
+export type ElementType = 'poison'| 'light'| 'dark'| 'ice'| 'fire'| 'earth'| 'wind'| 'bolt'| 'physical';
+
+export type AffinityGlams = Record<ElementType,{
+  icon:IconDefinition,
+  color: string;
+}>
+
+
 
 export async function retrieveUserCharacters(){
   const user = getAuth().currentUser;
@@ -273,7 +273,7 @@ export async function importCharacterToFirestore(jsonData: FultimatorJson) {
   }
 }
 
-export async function processSelectedFile(file: File): Promise<FultimatorJson> {
+export async function processSelectedFile(file: File): Promise<any> {
   return new Promise((resolve, reject) => {
     // Controlla il tipo di file (opzionale ma buona pratica)
     if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
@@ -297,14 +297,14 @@ export async function processSelectedFile(file: File): Promise<FultimatorJson> {
         // ATTENZIONE: Questo non valida la struttura! Se il JSON non corrisponde
         // all'interfaccia, potresti avere errori a runtime più avanti.
         // Per una maggiore robustezza, potresti aggiungere una funzione di validazione.
-        const fultimatorData = jsonData as FultimatorJson;
+        const fultimatorData = jsonData;
 
-        // Esempio di validazione base (puoi espanderla)
-        if (!fultimatorData || typeof fultimatorData.uid !== 'string' || typeof fultimatorData.name !== 'string') {
-            reject(new Error("Il file JSON non ha la struttura attesa per FultimatorJson (mancano uid o name)."));
-            return;
-        }
-        console.log(fultimatorData.affinities);
+        // // Esempio di validazione base (puoi espanderla)
+        // if (!fultimatorData || typeof fultimatorData.uid !== 'string' || typeof fultimatorData.name !== 'string') {
+        //     reject(new Error("Il file JSON non ha la struttura attesa per FultimatorJson (mancano uid o name)."));
+        //     return;
+        // }
+        // console.log(fultimatorData.affinities);
         resolve(fultimatorData);
       } catch (e) {
         reject(new Error(`Errore durante il parsing del JSON:`));
@@ -397,6 +397,7 @@ function updateAffinities(defaultAffinities: Affinities, newAffinitiesSource?: A
 }
 
 export function downloadFile(data:any, filename:string, mimeType = 'application/octet-stream') {
+  console.log(data,"data to download");
   // 1. Crea un Blob se i dati sono una stringa
   const blob = (data instanceof Blob) ? data : new Blob([data], { type: mimeType });
 

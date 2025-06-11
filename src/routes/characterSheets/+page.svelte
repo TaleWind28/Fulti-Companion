@@ -8,6 +8,7 @@
     import { auth } from "$lib/authUtility";
     import { afterNavigate, beforeNavigate } from "$app/navigation";
     import CustomInput from "../../components/customHTMLElements/customInput.svelte";
+    import { CharacterSchema, WeaponScheme } from "$lib/zodTypeChecking";
 
     let selectedFile:File|null = null; 
     let previewUrl = '';
@@ -70,8 +71,13 @@
         if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json'))return;
         
         const jsonImport = await processSelectedFile(selectedFile);
-
-        const jsonCharacter = convertToCharacterFormat(jsonImport);
+        let result = CharacterSchema.safeParse(jsonImport);
+        let jsonCharacter:Character;
+        if(result.error){
+            jsonCharacter = convertToCharacterFormat(jsonImport);
+        }else{
+            jsonCharacter = jsonImport;
+        }
         // addUserCharacter(jsonCharacter);
         console.log(jsonCharacter.bonds)
         handleAdd(jsonCharacter).then(()=>{

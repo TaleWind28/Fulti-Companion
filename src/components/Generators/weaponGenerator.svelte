@@ -184,9 +184,8 @@
         <div class="flex gap-4 justify-center">
             <RunesButton text="carica json" clickFun={()=> console.log("premuto")}/>
             <RunesButton text="Pulisci Campi" clickFun={()=> console.log("premuto")}/>
-            <RunesButton text="Scarica Json" clickFun={()=>{downloadFile(weaponToJson(craftedWeapon),`${craftedWeapon.name.replace(/\s+/g, '_') || 'arma'}.json`,'application/json')}}/>
+            <RunesButton text="Scarica Json" clickFun={()=>{downloadFile(JSON.stringify(weaponToFultimatorWeapon(craftedWeapon,1,damageModifier)),`${craftedWeapon.name.replace(/\s+/g, '_') || 'arma'}.json`,'application/json')}}/>
         </div>
-
     </div>
 
     {#snippet imageProcessor()}    

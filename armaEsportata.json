@@ -1,0 +1,33 @@
+{
+    "base": {
+    "category": "Bow",
+    "name": "Lancia Leggera",
+    "cost": 200,
+    "att1": "dexterity",
+    "att2": "dexterity",
+    "prec": 0,
+    "damage": 8,
+    "type": "physical",
+    "hands": 2,
+    "ranged": true,
+    "martial": false
+  },
+"att1":"dexterity",
+"att2": "dexterity",
+"category":"Bow",
+"cost":200,
+"damage":8,
+"damageBonus":false,
+"damageReworkBonus":false,
+"dataType":"weapon",
+"hands":0,
+"martial":false,
+"ranged":true,
+"name":"Lancia Leggera",
+"prec":0,
+"precBonus":false,
+"quality":"Sei immune a un singolo status",
+"qualityCost":0,
+"rework":false,
+"type":"Fisico"
+}

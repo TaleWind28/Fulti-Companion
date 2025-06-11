@@ -356,7 +356,7 @@ export type FultimatorWeapon = {
 }
 
 export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damageMod:number){
-    let prec = 1;let precBonus:boolean = false;
+    let prec = accuracyMod;let precBonus:boolean = false;
     let [att1, att2, precString] = weapon.accuracy.replace("[","").replace("]","").replace(" ","").replace(" ","").split("+");
 
     if(precString !== null && precString!== undefined) precBonus = true;
@@ -379,13 +379,25 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
     let bonusDamage:boolean = false;    
     let baseDamage:number = weapon.damage - damageMod;
     if((baseDamage - damageMod)>=2)bonusDamage = true;
-
-
     
     let hands:number = 0;
      
     console.log(weapon.quality);
+
     return {
+        base:{
+            category:weapon.category,
+            name:weapon.name,
+            cost:weapon.cost,
+            att1:att1,
+            att2:att2,
+            prec:prec,
+            damage:weapon.damage,
+            type:weapon.type,
+            hands:hands,
+            melee:true,
+            martial:true
+        },
         name: weapon.name,
         att1: att1,
         att2: att2,
@@ -405,4 +417,8 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
         rework: false,
         dataType: "weapon"
     };
+}
+
+export function readJson(){
+    
 }

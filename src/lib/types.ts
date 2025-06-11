@@ -117,3 +117,4 @@ export const BASE_QUALITIES: QualityFromBase[] = Object.entries(QUALITIES_CONFIG
     // aggiungi altri campi da `Item` se necessari
   })
 );
+
