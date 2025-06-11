@@ -17,11 +17,12 @@
     //checkbox
     let isMoreDamageChecked = $state(false);
     let isMoreAccuracyChecked = $state(false);
+    //imagSource
     let imageUrl = $state(null);
-    $inspect(imageUrl,"imageUrl");
+
     //questo deve diventare un import
     let char:Item[] = [{name:"DES"},{name:"VIG"},{name:"INT"},{name:"VOL"}];
-    let hands:Item[] = [{name:"una mano"},{name:"due mani"}]
+    let hands:Item[] = [{name:"Una mano"},{name:"Due mani"}]
     let additionalDamage = 4;
     let accuracyMod = "1";
     let additionalAccuracy = $derived.by(()=>{

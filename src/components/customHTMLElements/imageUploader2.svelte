@@ -6,19 +6,12 @@
   let uploadError = $state();
   let ObjUrl = $state(defaultImage);
 
-  $inspect(imageUrl,"imageUploader");
- 
-
+  // $inspect(imageUrl,"imageUploader");
+  
   let imageSrc = $derived.by(()=>{
     if(imageUrl === null || imageUrl === undefined) return ObjUrl;
-    console.log("passo il primo");
-    if(imageUrl.replaceAll(" ","") !=="")
-    { console.log("sono nel secondo"); 
-      return imageUrl;
-    }else {  console.log("passo il secondo");
-      return ObjUrl;
-    }
-    
+    if(imageUrl.replaceAll(" ","") !=="")return imageUrl;
+    else return ObjUrl;
   });
 
   
