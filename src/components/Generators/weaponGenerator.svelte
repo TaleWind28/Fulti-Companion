@@ -166,58 +166,48 @@
 
 </script>
 
-<GeneratorBox nameTag="Arma" >
-    <!-- Container che definisce le righe della  -->
-    <div class="flex flex-col gap-5 justify-evenly items-center p-4">
-        
-        <!-- Nome Arma  -->
-        <div class="flex gap-4 w-full justify-center items-center">
-            <!-- scelta classe Arma -->
+<GeneratorBox nameTag="Arma">
+    
+    <!-- Contenuto passato allo slot 'children' del GeneratorBox -->
+    <!-- Ho rimosso 'justify-evenly' e 'items-center' per un allineamento più standard -->
+    <div class="flex flex-col gap-5 p-4">
+        <!-- Riga 1: Nome Arma -->         <!-- Sostituito 'justify-center' con 'justify-between' per distribuire gli elementi. -->
+        <div class="flex gap-4 w-full justify-between items-center">
             <span class="border rounded flex-1 max-w-xsd">
-                <ModalSelector itemName = {selectedWeapon.name} itemList = {baseWeapons} bind:selectedItem = {selectedWeapon} bind:isOpen = {isChoosingWeapon}/>
+                <ModalSelector itemName={selectedWeapon.name} itemList={baseWeapons} bind:selectedItem={selectedWeapon} bind:isOpen={isChoosingWeapon}/>
             </span>
-            <input type="checkbox" class="flex-shrink-0">
-            <input placeholder="Nome" bind:value= {customWeaponName} class="border rounded">
-        </div>
-
-        <!-- Attributi e Tipi di danno -->
-        <div class="flex flex-row gap-5 justify-center items-center w-full">
-            <!-- Tipo di danno -->
-            <span class="border rounded flex-1 max-w-32">
-                <ModalSelector itemName = {selectedDamageType.name} itemList = {DAMAGE_TYPES} bind:selectedItem = {selectedDamageType} bind:isOpen = {isChoosingDamageType}/>
-            </span>
-            
-            <!-- Numero di Mani -->
-            <span class="border rounded flex-1 max-w-32">
-                <ModalSelector itemName = {selectedHand.name} itemList = {hands} bind:selectedItem = {selectedHand} bind:isOpen = {isChoosingHand}/>
-            </span>
-            
-            <!-- Attributo Precisione 1 -->
-            <span class="border rounded flex-1 max-w-32">
-                <ModalSelector itemName = {selectedChar1.name} itemList = {char} bind:selectedItem = {selectedChar1} bind:isOpen = {isChoosingChar1}/>
-            </span>
-
-            <!-- Attributo Precisione 2 -->
-            <span class="border rounded flex-1 max-w-32">
-                <ModalSelector itemName = {selectedChar2.name} itemList = {char} bind:selectedItem = {selectedChar2} bind:isOpen = {isChoosingChar2}/>
-            </span>
-
-        </div>
-
-        <!-- Qualità Standard -->
-        <div class="flex flex-row gap-5 items-center justify-center w-full">
-
-            <!-- scelta qualità standard-->
-            <div class="border rounded flex-1 max-w-48">
-                <ModalSelector itemName = {selectedQuality.name} itemList = {BASE_QUALITIES} bind:selectedItem = {selectedQuality} bind:isOpen = {isChoosingQual}/>
+            <div class="flex items-center gap-2">
+                <input type="checkbox" class="flex-shrink-0">
+                <input placeholder="Nome" bind:value={customWeaponName} class="border rounded">
             </div>
-            
-            <div class="flex flex-col gap-2 flex-1 max-w-48">
+        </div>
+        <!-- Riga 2: Attributi e Tipi di danno --> <!-- 'justify-between' distribuirà i 4 selettori in modo uniforme su tutta la larghezza. -->
+        <div class="flex flex-row gap-5 justify-between items-center w-full">
+            <span class="border rounded flex-1 max-w-32">
+                <ModalSelector itemName={selectedDamageType.name} itemList={DAMAGE_TYPES} bind:selectedItem={selectedDamageType} bind:isOpen={isChoosingDamageType}/>
+            </span>
+            <span class="border rounded flex-1 max-w-32">
+                <ModalSelector itemName={selectedHand.name} itemList={hands} bind:selectedItem={selectedHand} bind:isOpen={isChoosingHand}/>
+            </span>
+            <span class="border rounded flex-1 max-w-32">
+                <ModalSelector itemName={selectedChar1.name} itemList={char} bind:selectedItem={selectedChar1} bind:isOpen={isChoosingChar1}/>
+            </span>
+            <span class="border rounded flex-1 max-w-32">
+                <ModalSelector itemName={selectedChar2.name} itemList={char} bind:selectedItem={selectedChar2} bind:isOpen={isChoosingChar2}/>
+            </span>
+        </div>
+
+        <!-- Riga 3: Qualità Standard --> <!-- 'justify-between' spingerà il selettore a sinistra e il gruppo di checkbox a destra. -->
+        
+        <div class="flex flex-row gap-5 items-center justify-between w-full">
+            <div class="border rounded flex-1 max-w-48">
+                <ModalSelector itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual}/>
+            </div>
+            <div class="flex flex-col gap-2 flex-1 max-w-48 items-start">
                 <span class="flex items-center gap-2">
                     <input type="checkbox" bind:checked={isMoreAccuracyChecked}>
                     +1 Precisione
                 </span>
-
                 <span class="flex items-center gap-2">
                     <input type="checkbox" bind:checked={isMoreDamageChecked}>
                     +4 Danno
@@ -225,22 +215,20 @@
             </div>
         </div>
 
-        <!-- Qualità Custom -->
-        <div class="flex items-center gap-50  justify-start w-full">
-            <!-- <input placeholder="Quality Custom" class="border rounded flex-1 max-w-xs" bind:value={customQuality}> -->
-            <textarea class="border rounded" bind:value={customQuality}>
-                {displayQuality}
-            </textarea>
-            <input placeholder="Custom Cost" class="border rounded w-20 flex-shrink-0" bind:value={qualityCost} >
+        <!-- Riga 4: Qualità Custom --> <!-- 'justify-between' e 'flex-1' sulla textarea per l'allineamento desiderato. -->
+        
+        <div class="flex items-center gap-4 justify-between w-full">
+            <textarea class="border rounded flex-1" bind:value={customQuality} placeholder="Descrizione qualità custom...">{displayQuality}</textarea>
+            <input placeholder="Custom Cost" class="border rounded w-20 flex-shrink-0" bind:value={qualityCost}>
         </div>
         
-      <hr class="w-full">        
+        <hr class="w-full border-cafe_noir-600">       
 
-        <!-- pulsanti per resettare i campi -->
-        <div class="flex gap-4 justify-center w-24 h-8 text-white">
-            <label class="bg-cafe_noir-600 rounded">
-                <input placeholder="Carica Json" type="file" class="bg-cafe_noir-600 hidden" onchange={handleFileSelect}/>
-                carica Json
+        <!-- Riga 5: Pulsanti Azioni -->
+        <div class="flex gap-4 justify-center w-full h-8 text-white">
+            <label class="bg-cafe_noir-600 rounded p-2 cursor-pointer">
+                <input type="file" class="hidden" onchange={handleFileSelect}/>
+                Carica Json
             </label>
             <RunesButton text="Pulisci Campi" color="bg-cafe_noir-600" clickFun={handleClearAll}/>
             <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={handleExport}/>
@@ -248,6 +236,7 @@
 
     </div>
 
+    <!-- Contenuto passato allo snippet 'imageProcessor' -->
     {#snippet imageProcessor()}    
         <div  id={displayWeaponName} class="bg-white">
             <div class="bg-cafe_noir-700 grid grid-cols-5">
@@ -288,15 +277,18 @@
             </div>
         </div>
         <RunesButton text="pino" clickFun={()=> exportHtmlToImage(displayWeaponName)}/>
-    {/snippet}
+    {/snippet}  
     
     <Modal showModal={errore} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
         <div>
-            <h1>
-                Bro hai caricato il file sbagliato diommerda
+            <h1 class="text-red-400 text-2xl">
+                È stato selezionato un formato di file non supportato, sono accettati solo file in formato Json
             </h1>
-            finotto
-         </div>
+            <h2>
+                premi sulla pagina per chiudere questa finestra
+            </h2>
+        </div>
+        
     </Modal>
-</GeneratorBox>
+</GeneratorBox> 
 
