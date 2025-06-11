@@ -4,8 +4,7 @@
   let uploadError = $state();
   let ObjUrl = $state(defaultImage);
   let imageSrc = $derived(ObjUrl);
-  let {dimensions = "w-auto h-auto", fill=false} = $props();
-
+  let {dimensions = "w-auto h-auto", fill=false, imageUrl = $bindable()} = $props();
   let modality = () =>{
     if(fill = true)return "object-fill";
     else return "object-cover";
@@ -20,6 +19,7 @@
       if (selectedFile.type.startsWith('image/')) {
         //creo il nuovo url
         ObjUrl = URL.createObjectURL(selectedFile);
+        imageUrl = ObjUrl;
       } else {
         uploadError = 'Per favore, seleziona un file immagine valido.';
       }

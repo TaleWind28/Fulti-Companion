@@ -123,6 +123,7 @@
             )
         }
     });
+    
     onDestroy(()=>{
         console.log("component destroyed. Starting cleanup");
         personaggiStore.reset();
