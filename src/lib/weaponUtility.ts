@@ -384,7 +384,7 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
     
     let hands:number = 0;
      
-
+    console.log(weapon.quality);
     return {
         name: weapon.name,
         att1: att1,
@@ -397,7 +397,7 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
         cost: weapon.cost,
         damage: weapon.damage,
         prec: prec,
-        quality: "",
+        quality: weapon.quality     ,
         qualityCost: 0,
         damageBonus: bonusDamage,
         damageReworkBonus: false,

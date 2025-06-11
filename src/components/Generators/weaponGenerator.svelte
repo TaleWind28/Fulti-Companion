@@ -34,7 +34,7 @@
     let qualityName = $derived(selectedQuality.effect);
     
     //qualità custom    
-    let customQuality = $state(" ");
+    let customQuality = $state("");
     let qualityCost = $state(0);
     
     //caratteristiche
