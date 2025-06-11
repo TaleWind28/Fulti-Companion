@@ -32,6 +32,8 @@
     //reattività per selezione
     //armi 
     let selectedWeapon = $state(baseWeapons[0]);
+    //inizializzata a null per caricare la prima arma correttamente
+    let oldWeapon:any = baseWeapons[0];
 
     let customWeaponName = $state("");
     
@@ -66,54 +68,35 @@
     let isChoosingChar1 = $state(false);
     let isChoosingChar2 = $state(false);
     let isChoosingHand = $state(false);
+    let errore = $state(false);
 
-    //funzione per mostrare il nome corretto
+    //funzione per mostrare il dato corretto
     function displayName(customName:string, originalName:string){
         if(customName.length <= 1)return originalName;
         else return customName;
     }
 
-    //devo capire come aggiornarlo per tutte le mie variabili
+    //mostro il nome custom se presente
     let displayWeaponName = $derived.by(() => {
         return displayName(customWeaponName,selectedWeapon.name);
     })
-
+    //mostro la qualità custom presente
     let displayQuality = $derived.by( ()=> {
        return displayName(customQuality,selectedQuality.effect);
-       //return customQuality;
     })
 
-    //inizializzata a null per caricare la prima arma correttamente
-    let oldWeapon:any = null;
-    //effect è purtroppo necessario in quanto devo aggiornare all'aggiornamente dell'arma
+    //effect è purtroppo necessario in quanto devo aggiornare i dati in conseguenza alla selezione dell'arma
     $effect( ()=>{
-
         if(selectedWeapon !== oldWeapon){
             selectedHand.name = selectedWeapon.hands;
             [selectedChar1.name,selectedChar2.name] = retrieveAccuracy(selectedWeapon.accuracy);
             oldWeapon = selectedWeapon;
         }
     
-    }
+    })
 
-    )
-    let errore = $state(false);
-    //arma craftata
-    let craftedWeapon:Weapon = $derived.by( ()=> {
-        return {
-            name:displayWeaponName,
-            cost:selectedWeapon.cost,
-            accuracy:accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),
-            damage: damageModifier,
-            type: selectedWeapon.type,
-            category: selectedWeapon.category,
-            quality: displayQuality,
-            distance: selectedWeapon.distance,
-            hands: selectedHand.name,
-            pic:  imageUrl === null ? "" : imageUrl
-        }
-    });
-
+   
+    //funzione per gestire il caricamento di un file weaponJson da parte dell'utente
     async function handleFileSelect(event:Event){
         const target = event.target as HTMLInputElement;
         //recupero il file fornito dall'utente
@@ -152,14 +135,35 @@
         imageUrl = jsonImport.pic;
         selectedFile = null;
     }
+
+    //funzione per pulire tutti i campi del json -> IMPLEMENTARE
     function handleClearAll(){
         console.log("pulisco");
     }
+
+    //funzione per esportare il weaponJson creato dall'utente
     async function handleExport(){
         console.log(craftedWeapon.pic,"prima dell'export");
         const jsonExport = await weaponToJson(craftedWeapon);
         downloadFile(jsonExport,`${craftedWeapon.name.replace(/\s+/g, '') || 'arma'}.json`,'application/json')
     }
+
+    //arma craftata
+    let craftedWeapon:Weapon = $derived.by( ()=> {
+        return {
+            name:displayWeaponName,
+            cost:selectedWeapon.cost,
+            accuracy:accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),
+            damage: damageModifier,
+            type: selectedWeapon.type,
+            category: selectedWeapon.category,
+            quality: displayQuality,
+            distance: selectedWeapon.distance,
+            hands: selectedHand.name,
+            pic:  imageUrl === null ? "" : imageUrl
+        }
+    });
+
 </script>
 
 <GeneratorBox nameTag="Arma" >
