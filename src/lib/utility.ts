@@ -271,3 +271,11 @@ export class Tabs{
 }
 
 
+export const blobToBase64Compact = async (blob:any) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+};
