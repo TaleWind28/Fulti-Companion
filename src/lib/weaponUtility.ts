@@ -9,7 +9,8 @@ export type Weapon = Item &{
     category: string,
     quality: string,
     distance: string,
-    hands:string
+    hands:string,
+    pic?:string
 }
 
 // Armi dalla prima immagine
@@ -273,6 +274,7 @@ const weaponsPage2: Weapon[] = [
 export let baseWeapons:Weapon[] = [...weaponsPage2, ...weaponsPage1];
 
 import { toPng } from 'html-to-image';
+import { blobToBase64Compact } from './utility';
 
 export function exportHtmlToImage(elementId: string) {
   const node = document.getElementById(elementId);
@@ -330,7 +332,14 @@ export function parseWeapon(json: string): Weapon | null {
   }
 }
 
-export function weaponToJson(weapon:Weapon):string{
+export async function weaponToJson(weapon:Weapon){
+    // const base64Data = await convertToBase64(weapon.pic);
+    // weapon.pic = base64Data;
+    // Codifica la stringa in base64
+    if(weapon.pic!== "" && weapon.pic !== undefined){
+        weapon.pic = await blobToBase64Compact(weapon.pic) as string;
+        console.log(weapon.pic);
+    }
     return JSON.stringify(weapon, null, 2);
 }
 
@@ -357,7 +366,7 @@ export type FultimatorWeapon = {
 
 export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damageMod:number){
     let prec = accuracyMod;let precBonus:boolean = false;
-    let [att1, att2, precString] = weapon.accuracy.replace("[","").replace("]","").replace(" ","").replace(" ","").split("+");
+    let [att1, att2, precString] = weapon.accuracy.replaceAll("[","").replaceAll("]","").replaceAll(" ","").split("+");
 
     if(precString !== null && precString!== undefined) precBonus = true;
     else prec = 0;
@@ -417,8 +426,4 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
         rework: false,
         dataType: "weapon"
     };
-}
-
-export function readJson(){
-    
 }

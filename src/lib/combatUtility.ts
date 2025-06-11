@@ -10,5 +10,10 @@ export let damageFormula = (damageModifier: number, damageType:string) =>{
 
 export let retrieveAccuracy = (accuracyString:string) => {
     //"[VOL + VOL]"
-    return accuracyString.replace("[", "").replace("]", "").split(" + ");  // Rimuove le parentesi e separa per il +
+    return accuracyString.replace("[", "").replace("]", "").replaceAll(" ","").split("+");  // Rimuove le parentesi e separa per il +
+}
+
+export let checkAccuracyBonus = (accuracyString:string, accuracyMod:number) =>{
+    
+    return accuracyString.includes(accuracyMod.toString());
 }

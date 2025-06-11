@@ -16,7 +16,8 @@ export const WeaponScheme = ItemScheme.extend({
   category: z.string(),
   quality: z.string(),
   distance: z.string(),
-  hands: z.string()
+  hands: z.string(),
+  pic: z.string()
 });
 
 // 4. Tipo TypeScript inferito (opzionale)
@@ -41,7 +42,7 @@ export const CharacterSchema = z.object({
   pic: z.string(),
   id: z.string(),
   bonds: z.union([z.array(z.any()), z.null()]),
-  shields: z.union([z.array(z.any()), z.null()])
+  shields: z.union([z.array(z.any()), z.null()]),
 });
 
 // Tipo TypeScript (opzionale)
