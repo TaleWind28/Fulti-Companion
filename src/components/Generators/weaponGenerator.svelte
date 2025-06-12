@@ -183,7 +183,45 @@
             pic:  imageUrl === null ? "" : imageUrl
         }
     });
+    let thirdRowElement = $derived([selectedWeapon.category,"*",selectedWeapon.hands,"*",selectedWeapon.distance]);
+    let formulaRow = $derived([accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),damageFormula(damageModifier,selectedDamageType.name)]);
+    let tableHeader = ["PRECISIONE","DANNO"];
+   
+    let damageTypeSelector=$derived({
+        itemName:selectedDamageType.name,
+        itemList:DAMAGE_TYPES,
+        selectedBind:selectedDamageType,
+        modalShower:isChoosingDamageType
+    });
 
+    
+
+    // let selectorInput = $derived([
+    //     {
+    //     itemName:selectedDamageType.name,
+    //     itemList:DAMAGE_TYPES,
+    //     selectedBind:selectedDamageType,
+    //     modalShower:isChoosingDamageType,
+    //     },
+    //     {
+    //     itemName:selectedHand.name,
+    //     itemList:hands,
+    //     selectedBind:selectedHand,
+    //     modalShower:isChoosingHand
+    //     },
+    //     {
+    //     itemName:selectedChar1.name,
+    //     itemList:char,
+    //     selectedBind:selectedChar1,
+    //     modalShower:isChoosingChar1
+    //     },
+    //     {
+    //     itemName:selectedChar2.name,
+    //     itemList:char,
+    //     selectedBind:selectedChar2,
+    //     modalShower:isChoosingChar2
+    //     },
+    // ]);
 </script>
 
 <GeneratorBox nameTag="Arma">
@@ -203,6 +241,12 @@
         </div>
         <!-- Riga 2: Attributi e Tipi di danno --> <!-- 'justify-between' distribuirà i 4 selettori in modo uniforme su tutta la larghezza. -->
         <div class="flex flex-row gap-5 justify-between items-center w-full">
+            <!-- {#each selectorInput as selector,i}
+                <span class="border rounded flex-1 max-w-32">
+                    <ModalSelector itemName= {selector.itemName} itemList={selector.itemList} bind:selectedItem={damageTypeSelector.selectedBind} bind:isOpen={damageTypeSelector.modalShower}/>
+                </span>
+            {/each}
+<!--              -->
             <span class="border rounded flex-1 max-w-32">
                 <ModalSelector itemName={selectedDamageType.name} itemList={DAMAGE_TYPES} bind:selectedItem={selectedDamageType} bind:isOpen={isChoosingDamageType}/>
             </span>
@@ -214,7 +258,7 @@
             </span>
             <span class="border rounded flex-1 max-w-32">
                 <ModalSelector itemName={selectedChar2.name} itemList={char} bind:selectedItem={selectedChar2} bind:isOpen={isChoosingChar2}/>
-            </span>
+            </span> -->
         </div>
 
         <!-- Riga 3: Qualità Standard --> <!-- 'justify-between' spingerà il selettore a sinistra e il gruppo di checkbox a destra. -->
@@ -257,15 +301,16 @@
     </div>
 
     <!-- Contenuto passato allo snippet 'imageProcessor' -->
-    {#snippet imageProcessor()}    
+    {#snippet imageProcessor()} 
         <div  id={displayWeaponName} class="bg-white">
             <div class="bg-cafe_noir-700 grid grid-cols-5">
                 <p class="col-span-2">
                     {displayWeaponName}
                 </p>
                 <span class="grid grid-cols-2  col-span-2 gap-30">
-                    <p>PRECISIONE</p>
-                    <p>DANNO</p>
+                    {#each tableHeader as header}
+                        <p> {header} </p>
+                    {/each}
                 </span>
             </div>
             <div class=" grid grid-cols-3 gap-4">
@@ -274,20 +319,15 @@
                 </div>
                 <div class="col-span-2">
                     <div class="justify-around bg-cafe_noir-800 flex">
-                        <p>
-                            {accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy)}
-                        </p>
-                        <p>
-                            {damageFormula(damageModifier,selectedDamageType.name)}
-                        </p>
+                        {#each formulaRow as formula}
+                            <p> {formula} </p>
+                        {/each}
                     </div>
                     <hr>
                     <div class="flex flex-row items-center justify-between px-2 ">
-                        <p>{selectedWeapon.category}</p>
-                        <p>*</p>
-                        <p>{selectedHand.name}</p>
-                        <p>* </p>
-                        <p>{selectedWeapon.distance}</p>
+                        {#each thirdRowElement as element }
+                            <p> {element} </p>
+                        {/each}
                     </div>
                     <hr>
                     <div>
