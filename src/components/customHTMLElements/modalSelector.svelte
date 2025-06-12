@@ -4,6 +4,7 @@
     let { itemName, itemList, selectedItem = $bindable(), isOpen = $bindable() } = $props();
     
     function selectItem(item:Item) {
+        console.log("selezione item: "+ item.name);
         selectedItem = item; // Questo dovrebbe triggerare la reattività
         isOpen = false;
     }
