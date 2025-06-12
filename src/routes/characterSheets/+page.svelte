@@ -9,12 +9,11 @@
     import { auth } from "$lib/authUtility";
     import { afterNavigate, beforeNavigate } from "$app/navigation";
     import CustomInput from "../../components/customHTMLElements/customInput.svelte";
-    import { CharacterSchema, WeaponScheme } from "$lib/zodTypeChecking";
+    import { CharacterSchema } from "$lib/zodTypeChecking";
 
     let selectedFile:File|null = null; 
-    let previewUrl = '';
-    let uploadError = '';
-    $: rows = Math.floor($personaggiStore.length);
+
+    let rows = $state(Math.floor($personaggiStore.length));
       // Esegui prima della navigazione
     beforeNavigate(({ to, from, cancel }) => {
         // Cancella i dati qui          
@@ -69,8 +68,10 @@
         const target = event.target as HTMLInputElement;
         selectedFile = target.files?.[0] || null;
         if(selectedFile == null)return;
-        if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json'))return;
-        
+        if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json')){
+            target.value = "";
+            return;
+        }
         const jsonImport = await processSelectedJsonFile(selectedFile);
         let result = CharacterSchema.safeParse(jsonImport);
         let jsonCharacter:Character;
@@ -84,11 +85,10 @@
         handleAdd(jsonCharacter).then(()=>{
             personaggiStore.aggiungiPersonaggio(jsonCharacter);
         })
+        target.value = "";
         selectedFile = null;
     }
-
-    export let characters: Character[] = [];
-
+    let {characters = []} = $props();
     const handleAdd = async (character:Character) => {
         await addUserCharacter(character);
     }

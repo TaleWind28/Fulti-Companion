@@ -13,6 +13,7 @@
     import GeneratorBox from "./generatorBox.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import Modal from "../customHTMLElements/modal.svelte";
+    import { documentId } from "firebase/firestore";
 
     //checkbox
     let isMoreDamageChecked = $state(false);
@@ -33,7 +34,7 @@
     //armi 
     let selectedWeapon = $state(baseWeapons[0]);
     //inizializzata a null per caricare la prima arma correttamente
-    let oldWeapon:any = null;
+    let oldWeapon:any = $state(null);
 
     let customWeaponName = $state("");
     
@@ -87,23 +88,28 @@
 
     //effect è purtroppo necessario in quanto devo aggiornare i dati in conseguenza alla selezione dell'arma
     $effect( ()=>{
-        if(selectedWeapon !== oldWeapon){
-            selectedHand.name = selectedWeapon.hands;
-            [selectedChar1.name,selectedChar2.name] = retrieveAccuracy(selectedWeapon.accuracy);
-            oldWeapon = selectedWeapon;
-        }
+        //controllo che non sia stata selezionata due volte la stessa arma e che non sia la prima inizializzazione
+        if(selectedWeapon !== oldWeapon && oldWeapon !== baseWeapons[0])return;
+        selectedHand.name = selectedWeapon.hands;
+        [selectedChar1.name,selectedChar2.name] = retrieveAccuracy(selectedWeapon.accuracy);
+        oldWeapon = selectedWeapon;
+        
     
     })
 
    
     //funzione per gestire il caricamento di un file weaponJson da parte dell'utente
     async function handleFileSelect(event:Event){
+
         const target = event.target as HTMLInputElement;
         //recupero il file fornito dall'utente
         let selectedFile = target.files?.[0] || null;
+        
         if(selectedFile == null)return new Error("il file non è valido!");
-    // Controlla il tipo di file (opzionale ma buona pratica)
+        
+        // Controlla il tipo di file (opzionale ma buona pratica)
         if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json')) {
+            target.value = "";
             errore = true;
             return;
         }
@@ -115,6 +121,7 @@
         
         if(result.error){
             errore = true;
+            target.value = "";
             console.log("errore");
         
         }else{
@@ -127,18 +134,31 @@
 
         //modifico i campi di crafted weapon per farla cambiare reattivamente
         selectedWeapon = jsonImport as Weapon;
-        selectedChar1.name = retrieveAccuracy(jsonImport.accuracy)[0];
-        selectedChar2.name = retrieveAccuracy(jsonImport.accuracy)[1];
-        isMoreAccuracyChecked = checkAccuracyBonus(jsonImport.accuracy,parseInt(accuracyMod));
+        
+        [selectedChar1.name,selectedChar2.name] = retrieveAccuracy(jsonImport.accuracy);
+        
         selectedHand.name = jsonImport.hands;
         selectedQuality.effect = jsonImport.quality;
+        
+        isMoreAccuracyChecked = checkAccuracyBonus(jsonImport.accuracy,parseInt(accuracyMod));
+        
         imageUrl = jsonImport.pic;
+        target.value = "";
         selectedFile = null;
     }
 
     //funzione per pulire tutti i campi del json -> IMPLEMENTARE
     function handleClearAll(){
-        console.log("pulisco");
+        selectedHand = hands[0];
+        selectedWeapon = baseWeapons[0];
+        selectedQuality = BASE_QUALITIES[0];
+        selectedChar1.name = retrieveAccuracy(baseWeapons[0].accuracy)[0];
+        selectedChar2.name = retrieveAccuracy(baseWeapons[0].accuracy)[1];
+        imageUrl = null;
+        isMoreAccuracyChecked = false;
+        isMoreDamageChecked = false;
+        oldWeapon = baseWeapons[0];
+
     }
 
     //funzione per esportare il weaponJson creato dall'utente
@@ -227,7 +247,7 @@
         <!-- Riga 5: Pulsanti Azioni -->
         <div class="flex gap-4 justify-center w-full h-8 text-white">
             <label class="bg-cafe_noir-600 rounded p-2 cursor-pointer">
-                <input type="file" class="hidden" onchange={handleFileSelect}/>
+                <input id="jsonFileSelector" type="file" class="hidden" onchange={handleFileSelect}/>
                 Carica Json
             </label>
             <RunesButton text="Pulisci Campi" color="bg-cafe_noir-600" clickFun={handleClearAll}/>
