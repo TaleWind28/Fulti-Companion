@@ -9,7 +9,8 @@ export type Weapon = Item &{
     category: string,
     quality: string,
     distance: string,
-    hands:string
+    hands:string,
+    pic?:string
 }
 
 // Armi dalla prima immagine
@@ -273,6 +274,7 @@ const weaponsPage2: Weapon[] = [
 export let baseWeapons:Weapon[] = [...weaponsPage2, ...weaponsPage1];
 
 import { toPng } from 'html-to-image';
+import { blobToBase64Compact } from './utility';
 
 export function exportHtmlToImage(elementId: string) {
   const node = document.getElementById(elementId);
@@ -330,7 +332,12 @@ export function parseWeapon(json: string): Weapon | null {
   }
 }
 
-export function weaponToJson(weapon:Weapon):string{
+export async function weaponToJson(weapon:Weapon){
+    if( weapon.pic !== undefined){
+        console.log(weapon.pic,"prova blob");
+        weapon.pic = await blobUrlToBase64(weapon.pic) as string;
+        console.log(weapon.pic,"stringa base 64");
+    }else console.log("non ho un'immagine");
     return JSON.stringify(weapon, null, 2);
 }
 
@@ -356,8 +363,8 @@ export type FultimatorWeapon = {
 }
 
 export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damageMod:number){
-    let prec = 1;let precBonus:boolean = false;
-    let [att1, att2, precString] = weapon.accuracy.replace("[","").replace("]","").replace(" ","").replace(" ","").split("+");
+    let prec = accuracyMod;let precBonus:boolean = false;
+    let [att1, att2, precString] = weapon.accuracy.replaceAll("[","").replaceAll("]","").replaceAll(" ","").split("+");
 
     if(precString !== null && precString!== undefined) precBonus = true;
     else prec = 0;
@@ -379,13 +386,25 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
     let bonusDamage:boolean = false;    
     let baseDamage:number = weapon.damage - damageMod;
     if((baseDamage - damageMod)>=2)bonusDamage = true;
-
-
     
     let hands:number = 0;
      
+    console.log(weapon.quality);
 
     return {
+        base:{
+            category:weapon.category,
+            name:weapon.name,
+            cost:weapon.cost,
+            att1:att1,
+            att2:att2,
+            prec:prec,
+            damage:weapon.damage,
+            type:weapon.type,
+            hands:hands,
+            melee:true,
+            martial:true
+        },
         name: weapon.name,
         att1: att1,
         att2: att2,
@@ -397,7 +416,7 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
         cost: weapon.cost,
         damage: weapon.damage,
         prec: prec,
-        quality: "",
+        quality: weapon.quality     ,
         qualityCost: 0,
         damageBonus: bonusDamage,
         damageReworkBonus: false,
@@ -406,3 +425,37 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
         dataType: "weapon"
     };
 }
+
+function blobUrlToBase64(blobUrl:any) {
+  return new Promise((resolve, reject) => {
+    // 1. Usa fetch per recuperare i dati dall'URL Blob
+    fetch(blobUrl)
+      .then(response => {
+        
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        // 2. Ottieni l'oggetto Blob dalla risposta
+        return response.blob();
+      })
+      .then(blob => {
+        
+        const reader = new FileReader();
+        reader.onload = () => {
+          // La lettura è completata, risolviamo la promise con il risultato
+          resolve(reader.result);
+        };
+        reader.onerror = (error) => {
+          // C'è stato un errore durante la lettura
+          reject(new Error("Errore durante la lettura del Blob: " + error));
+        };
+        // 3. Usa FileReader per convertire il Blob in Base64 (Data URL)
+        reader.readAsDataURL(blob);
+      })
+      .catch(error => {
+        // C'è stato un errore nel fetch
+        reject(new Error("Errore nel fetch dell'URL Blob: " + error));
+      });
+  });
+}
+

@@ -57,7 +57,7 @@
  
   <section class="text-center px-4 md:px-8 lg:px-16 py-8 mx-auto min-w-3xl max-w-4xl">
       <Grid grid= {features}>
-
+        
       </Grid>
   </section>
 

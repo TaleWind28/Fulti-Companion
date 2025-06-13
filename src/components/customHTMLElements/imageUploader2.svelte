@@ -1,16 +1,25 @@
 <script lang="ts">
   import defaultImage from "/src/images/UploadImage.png";
 
+  let {dimensions = "w-auto h-auto", fill=false, imageUrl = $bindable()} = $props();
+  
   let uploadError = $state();
   let ObjUrl = $state(defaultImage);
-  let imageSrc = $derived(ObjUrl);
-  let {dimensions = "w-auto h-auto", fill=false} = $props();
 
+  // $inspect(imageUrl,"imageUploader");
+  
+  let imageSrc = $derived.by(()=>{
+    if(imageUrl === null || imageUrl === undefined) return ObjUrl;
+    if(imageUrl.replaceAll(" ","") !=="")return imageUrl;
+    else return ObjUrl;
+  });
+
+  
   let modality = () =>{
     if(fill = true)return "object-fill";
     else return "object-cover";
   }
-
+  
   function handleFileSelect(event: Event) {
     const target = event.target as HTMLInputElement;
     const selectedFile = target.files?.[0] || null;
@@ -20,6 +29,7 @@
       if (selectedFile.type.startsWith('image/')) {
         //creo il nuovo url
         ObjUrl = URL.createObjectURL(selectedFile);
+        imageUrl = ObjUrl;
       } else {
         uploadError = 'Per favore, seleziona un file immagine valido.';
       }

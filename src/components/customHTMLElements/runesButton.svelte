@@ -11,15 +11,19 @@
         textIcon = false,
         iconStyle = "",
         clickFun,
-        textColor = "text-white"
+        textColor = "text-white",
+        changeFun = ()=>console.log("change not set")
     } = $props();
 
     function click(){
         clickFun();
     }
+    function change(){
+        changeFun();
+    }
 </script>
 
-<button class="{dimensions} {style} {color} {additionalStyle}" onclick={click}>
+<button class="{dimensions} {style} {color} {additionalStyle}" onclick={click} onchange={change}>
 {#if !textIcon && icon== undefined}
     <p class={textColor}>{text}</p>
 {:else if icon!= undefined && !textIcon}

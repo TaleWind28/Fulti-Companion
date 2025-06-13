@@ -1,4 +1,8 @@
 <script>
+    import { exportHtmlToImage } from '$lib/weaponUtility';
+    import ImageUploader2 from '../customHTMLElements/imageUploader2.svelte';
+    import RunesButton from '../customHTMLElements/runesButton.svelte';
+    let imageUrl = $state(null);
     let {nameTag = "undefinedNameTag", imageProcessor ,children} = $props();
 </script>
 
@@ -20,6 +24,7 @@
     <!-- Generated Image -->
     <div>
         {@render imageProcessor?.()}
+        
     </div>
 
 </div>

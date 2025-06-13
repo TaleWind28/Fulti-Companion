@@ -271,3 +271,89 @@ export class Tabs{
 }
 
 
+export const blobToBase64Compact = async (blob:Blob) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+};
+
+
+export function downloadFile(data:any, filename:string, mimeType = 'application/octet-stream') {
+  // console.log(data,"data to download");
+  // 1. Crea un Blob se i dati sono una stringa
+  const blob = (data instanceof Blob) ? data : new Blob([data], { type: mimeType });
+
+  // 2. Crea un Object URL per il Blob
+  const url = URL.createObjectURL(blob);
+
+  // 3. Crea un elemento <a> temporaneo
+  const a = document.createElement('a');
+
+  // 4. Imposta gli attributi del link
+  a.href = url;
+  a.download = filename;
+
+  // 5. Aggiungi il link al documento (necessario per Firefox in alcuni casi),
+  //    simula il click e rimuovilo.
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  // 6. Revoca l'Object URL per liberare risorse
+  URL.revokeObjectURL(url);
+}
+
+
+export function createObjectWithKeysInReversedOrder<T extends Record<string, any>>(
+  originalObject: T
+): T {
+  const keys = Object.keys(originalObject) as (keyof T)[];
+  const reversedKeys = keys.reverse(); // Inverte l'array delle chiavi
+
+  const newObject = {} as T;
+  for (const key of reversedKeys) {
+    newObject[key] = originalObject[key];
+  }
+  return newObject;
+}
+
+//
+export async function processSelectedJsonFile(file: File | null): Promise<any> {
+  return new Promise((resolve, reject) => {
+    if(file == null)return new Error("il file non è valido!");
+    // Controlla il tipo di file (opzionale ma buona pratica)
+    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+      reject(new Error("Il file selezionato non sembra essere un file JSON. Assicurati che l'estensione sia .json o il tipo MIME sia application/json."));
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      try {
+        const fileContent = event.target?.result as string;
+        if (!fileContent) {
+          reject(new Error("Il contenuto del file è vuoto o illeggibile."));
+          return;
+        }
+        // console.log(fileContent);
+        const jsonData = JSON.parse(fileContent);
+        
+        // console.log(jsonData,"jsonData processSelectedFile")
+        resolve(jsonData);
+      } catch (e) {
+        reject(new Error(`Errore durante il parsing del JSON:`+ e ));
+      }
+    };
+
+    reader.onerror = (error) => {
+
+      reject(new Error(`Errore durante la lettura del file: ${error}`));
+    };
+    console.log(file)
+    reader.readAsText(file); // Legge il file come testo
+  });
+}

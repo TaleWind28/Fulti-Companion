@@ -1,18 +1,19 @@
 <script lang="ts">
     import CustomButton from "../../components/customHTMLElements/customButton.svelte";
     import CharacterCard from "../../components/charachterComps/characterCard.svelte";
-    import { addUserCharacter, type Character ,convertToCharacterFormat,retrieveUserCharacters ,processSelectedFile} from "$lib/characterUtils";
+    import { addUserCharacter, type Character ,convertToCharacterFormat,retrieveUserCharacters } from "$lib/characterUtils";
     import { personaggiStore } from "../../stores/characterStore";
+    import {processSelectedJsonFile} from "$lib/utility";
     import { onDestroy, onMount } from "svelte";
     import { onAuthStateChanged } from "firebase/auth";
     import { auth } from "$lib/authUtility";
     import { afterNavigate, beforeNavigate } from "$app/navigation";
     import CustomInput from "../../components/customHTMLElements/customInput.svelte";
+    import { CharacterSchema } from "$lib/zodTypeChecking";
 
     let selectedFile:File|null = null; 
-    let previewUrl = '';
-    let uploadError = '';
-    $: rows = Math.floor($personaggiStore.length);
+
+    let rows = $state(Math.floor($personaggiStore.length));
       // Esegui prima della navigazione
     beforeNavigate(({ to, from, cancel }) => {
         // Cancella i dati qui          
@@ -67,21 +68,27 @@
         const target = event.target as HTMLInputElement;
         selectedFile = target.files?.[0] || null;
         if(selectedFile == null)return;
-        if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json'))return;
-        
-        const jsonImport = await processSelectedFile(selectedFile);
-
-        const jsonCharacter = convertToCharacterFormat(jsonImport);
+        if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json')){
+            target.value = "";
+            return;
+        }
+        const jsonImport = await processSelectedJsonFile(selectedFile);
+        let result = CharacterSchema.safeParse(jsonImport);
+        let jsonCharacter:Character;
+        if(result.error){
+            jsonCharacter = convertToCharacterFormat(jsonImport);
+        }else{
+            jsonCharacter = jsonImport;
+        }
         // addUserCharacter(jsonCharacter);
         console.log(jsonCharacter.bonds)
         handleAdd(jsonCharacter).then(()=>{
             personaggiStore.aggiungiPersonaggio(jsonCharacter);
         })
+        target.value = "";
         selectedFile = null;
     }
-
-    export let characters: Character[] = [];
-
+    let {characters = []} = $props();
     const handleAdd = async (character:Character) => {
         await addUserCharacter(character);
     }
@@ -117,6 +124,7 @@
             )
         }
     });
+    
     onDestroy(()=>{
         console.log("component destroyed. Starting cleanup");
         personaggiStore.reset();

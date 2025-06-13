@@ -33,6 +33,7 @@
 		"html-to-image": "^1.11.13",
 		"svelte-awesome-icons": "^2.0.1",
 		"svelte-fa": "^4.0.3",
-		"tailwind-scrollbar-hide": "^2.0.0"
+		"tailwind-scrollbar-hide": "^2.0.0",
+		"zod": "^3.25.61"
 	}
 }
