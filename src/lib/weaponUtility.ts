@@ -1,11 +1,11 @@
 
-import type { Item } from './types';
+import type { DamageType, Item } from './types';
 
 export type Weapon = Item &{
     cost: number,
     accuracy: string,
     damage: number,
-    type: string,
+    type:  DamageType,
     category: string,
     quality: string,
     distance: string,
@@ -13,7 +13,11 @@ export type Weapon = Item &{
     pic?:string
 }
 
-// Armi dalla prima immagine
+// Definisco l'oggetto per il danno fisico per non ripeterlo
+const physicalDamage: DamageType = { name: "Fisico" };
+
+
+// Armi dalla prima immagine - AGGIORNATE
 const weaponsPage1: Weapon[] = [
     // Pesanti
     {
@@ -21,34 +25,33 @@ const weaponsPage1: Weapon[] = [
         cost: 200,
         accuracy: "[VIG + VIG]",
         damage: 6,
-        type: "Fisico",
+        type: physicalDamage, // <-- MODIFICATO
         category: "Pesanti",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"una mano"
-
+        hands: "una mano"
     },
     {
         name: "Ascia",
         cost: 250,
         accuracy: "[VIG + VIG]",
         damage: 10,
-        type: "Fisico",
+        type: physicalDamage, // <-- MODIFICATO
         category: "Pesanti",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"una mano"
+        hands: "una mano"
     },
     {
         name: "Ascia da Guerra",
         cost: 250,
         accuracy: "[VIG + VIG]",
         damage: 14,
-        type: "Fisico",
+        type: physicalDamage, // <-- MODIFICATO
         category: "Pesanti",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Due mani"
+        hands: "Due mani"
     },
     
     // Pugnali
@@ -57,11 +60,11 @@ const weaponsPage1: Weapon[] = [
         cost: 150,
         accuracy: "[DES + INT] +1",
         damage: 4,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Pugnali",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"una mano"
+        hands: "una mano"
     },
     
     // Da Rissa
@@ -70,33 +73,33 @@ const weaponsPage1: Weapon[] = [
         cost: 0,
         accuracy: "[DES + VIG]",
         damage: 0,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Da Rissa",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"una mano"
+        hands: "una mano"
     },
     {
         name: "Improvvisata (Misc.)",
         cost: 0,
         accuracy: "[DES + VIG]",
         damage: 2,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Da Rissa",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"una mano"
+        hands: "una mano"
     },
     {
         name: "Tirapugni di Ferro",
         cost: 150,
         accuracy: "[DES + VIG]",
         damage: 6,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Da Rissa",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"una mano"
+        hands: "una mano"
     },
     
     // Spada
@@ -105,48 +108,48 @@ const weaponsPage1: Weapon[] = [
         cost: 200,
         accuracy: "[DES + INT] +1",
         damage: 10,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Spada",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Due mani"
+        hands: "Due mani"
     },
     {
         name: "Spada di Bronzo",
         cost: 200,
         accuracy: "[DES + VIG] +1",
         damage: 6,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Spada",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Una mano"
+        hands: "Una mano"
     },
     {
         name: "Spadone",
         cost: 200,
         accuracy: "[DES + VIG] +1",
         damage: 10,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Spada",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Due mani"
+        hands: "Due mani"
     },
     {
         name: "Stocco",
         cost: 200,
         accuracy: "[DES + INT] +1",
         damage: 6,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Spada",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Una mano"
+        hands: "Una mano"
     }
 ];
 
-// Armi dalla seconda immagine
+// Armi dalla seconda immagine - AGGIORNATE
 const weaponsPage2: Weapon[] = [
     // Arcana
     {
@@ -154,22 +157,22 @@ const weaponsPage2: Weapon[] = [
         cost: 100,
         accuracy: "[VOL + VOL]",
         damage: 6,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Arcana",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Due mani"
+        hands: "Due mani"
     },
     {
         name: "Tomo",
         cost: 100,
         accuracy: "[INT + INT]",
         damage: 6,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Arcana",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Due mani"
+        hands: "Due mani"
     },
     
     // Arco
@@ -178,22 +181,22 @@ const weaponsPage2: Weapon[] = [
         cost: 150,
         accuracy: "[DES + INT]",
         damage: 8,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Arco",
         quality: "Nessuna Qualità",
         distance: "Distanza",
-        hands:"Due mani"
+        hands: "Due mani"
     },
     {
         name: "Arco Corto",
         cost: 200,
         accuracy: "[DES + DES]",
         damage: 8,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Arco",
         quality: "Nessuna Qualità",
         distance: "Distanza",
-        hands:"Due mani"
+        hands: "Due mani"
     },
     
     // Flagello
@@ -202,11 +205,11 @@ const weaponsPage2: Weapon[] = [
         cost: 150,
         accuracy: "[DES + DES]",
         damage: 8,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Flagello",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Due mani"
+        hands: "Due mani"
     },
     
     // Da Fuoco
@@ -215,11 +218,11 @@ const weaponsPage2: Weapon[] = [
         cost: 250,
         accuracy: "[DES + INT]",
         damage: 8,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Da Fuoco",
         quality: "Nessuna Qualità",
         distance: "Distanza",
-        hands:"Una mano"
+        hands: "Una mano"
     },
     
     // Lancia
@@ -228,22 +231,22 @@ const weaponsPage2: Weapon[] = [
         cost: 200,
         accuracy: "[DES + VIG]",
         damage: 8,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Lancia",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Una mano"
+        hands: "Una mano"
     },
     {
         name: "Lancia Pesante",
         cost: 200,
         accuracy: "[DES + VIG]",
         damage: 12,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Lancia",
         quality: "Nessuna Qualità",
         distance: "Mischia",
-        hands:"Due mani"
+        hands: "Due mani"
     },
     
     // Da Lancio
@@ -252,29 +255,28 @@ const weaponsPage2: Weapon[] = [
         cost: 0,
         accuracy: "[DES + VIG]",
         damage: 2,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Da Lancio",
         quality: "Nessuna Qualità",
         distance: "Distanza",
-        hands:"Una mano"
+        hands: "Una mano"
     },
     {
         name: "Shuriken",
         cost: 150,
         accuracy: "[DES + INT]",
         damage: 4,
-        type: "Fisico",
+        type: physicalDamage,
         category: "Da Lancio",
         quality: "Nessuna Qualità",
         distance: "Distanza",
-        hands:"Una mano"
+        hands: "Una mano"
     }
 ];
-
 export let baseWeapons:Weapon[] = [...weaponsPage2, ...weaponsPage1];
 
 import { toPng } from 'html-to-image';
-import { blobToBase64Compact } from './utility';
+
 
 export function exportHtmlToImage(elementId: string) {
   const node = document.getElementById(elementId);
