@@ -81,23 +81,98 @@
     let displayWeaponName = $derived.by(() => {
         return displayName(customWeaponName,selectedWeapon.name);
     })
+
     //mostro la qualità custom presente
     let displayQuality = $derived.by( ()=> {
        return displayName(customQuality,selectedQuality.effect);
     })
 
-    //effect è purtroppo necessario in quanto devo aggiornare i dati in conseguenza alla selezione dell'arma
-    $effect( ()=>{
-        //controllo che non sia stata selezionata due volte la stessa arma e che non sia la prima inizializzazione
-        if(selectedWeapon !== oldWeapon && oldWeapon !== baseWeapons[0])return;
-        selectedHand.name = selectedWeapon.hands;
-        [selectedChar1.name,selectedChar2.name] = retrieveAccuracy(selectedWeapon.accuracy);
-        oldWeapon = selectedWeapon;
-        
-    
+
+    let selectorInput = $state([
+        {
+            id:"damageType",
+            itemName:DAMAGE_TYPES[8].name,
+            itemList:DAMAGE_TYPES,
+            selectedBind:null,
+            modalShower:false,
+        },
+        {
+            id:"handNumber",
+            itemName:hands[0].name,
+            itemList:hands,
+            selectedBind:null,
+            modalShower:false,
+        },
+        {
+            id:"characteristic1",
+            itemName:char[0].name,
+            itemList:char,
+            selectedBind:null,
+            modalShower:false,
+        },
+        {
+            id:"characteristic2",
+            itemName:char[0].name,
+            itemList:char,
+            selectedBind:null,
+            modalShower:false,
+        },
+    ]);
+
+    $effect(()=>{
+        const weapon = selectedWeapon;
+        if(!weapon)return;
+        // Funzione helper per trovare e aggiornare un selettore specifico
+        const updateSelector = (id:string, value:any) => {
+            const selector = selectorInput.find(s => s.id === id);
+            if (selector) {
+                selector.selectedBind = value;
+                console.log(value, "pino");
+            }
+        };
+        // Aggiorna ogni selettore con i valori del template scelto
+        updateSelector('damageType', weapon.type);
+        updateSelector('hand', weapon.hands);
+        updateSelector('char1', retrieveAccuracy(weapon.accuracy)[0]);
+        updateSelector('char2', retrieveAccuracy(weapon.accuracy)[1]);
     })
 
+
+    // //effect è purtroppo necessario in quanto devo aggiornare i dati in conseguenza alla selezione dell'arma
+    // $effect( ()=>{
+    //     //controllo che non sia stata selezionata due volte la stessa arma e che non sia la prima inizializzazione
+    //     if(selectedWeapon !== oldWeapon && oldWeapon !== baseWeapons[0])return;
+    //     selectedHand.name = selectedWeapon.hands;
+    //     [selectedChar1.name,selectedChar2.name] = retrieveAccuracy(selectedWeapon.accuracy);
+    //     oldWeapon = selectedWeapon;
+        
+    
+    // })
+
    
+
+    //arma craftata
+    let craftedWeapon:Weapon = $derived.by( ()=> {
+        return {
+            name:displayWeaponName,
+            cost:selectedWeapon.cost,
+            accuracy:accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),
+            damage: damageModifier,
+            type: selectedWeapon.type,
+            category: selectedWeapon.category,
+            quality: displayQuality,
+            distance: selectedWeapon.distance,
+            hands: selectedHand.name,
+            pic:  imageUrl === null ? "" : imageUrl
+        }
+    });
+
+    //imageProcessor
+    let thirdRowElement = $derived([selectedWeapon.category,"*",selectedWeapon.hands,"*",selectedWeapon.distance]);
+    let formulaRow = $derived([accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),damageFormula(damageModifier,selectedDamageType.name)]);
+    let tableHeader = ["PRECISIONE","DANNO"];
+   
+
     //funzione per gestire il caricamento di un file weaponJson da parte dell'utente
     async function handleFileSelect(event:Event){
 
@@ -188,6 +263,7 @@
     let formulaRow = $derived([accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),damageFormula(damageModifier,selectedDamageType.name)]);
     let tableHeader = ["PRECISIONE","DANNO"];
     
+
 </script>
 
 <GeneratorBox nameTag="Arma">
@@ -205,9 +281,11 @@
                 <input placeholder="Nome" bind:value={customWeaponName} class="border rounded">
             </div>
         </div>
+
         <!-- Riga 2: Attributi e Tipi di danno --> <!-- 'justify-between' distribuirà i 4 selettori in modo uniforme su tutta la larghezza. -->
         <div class="flex flex-row gap-5 justify-between items-center w-full">
             <span class="border rounded flex-1 max-w-32">
+
                 <ModalSelector itemName={selectedDamageType.name} itemList={DAMAGE_TYPES} bind:selectedItem={selectedDamageType} bind:isOpen={isChoosingDamageType}/>
             </span>
             <span class="border rounded flex-1 max-w-32">
@@ -246,9 +324,9 @@
             <input placeholder="Custom Cost" class="border rounded w-20 flex-shrink-0" bind:value={qualityCost}>
         </div>
         
-        <hr class="w-full border-cafe_noir-600">       
+        <hr class="w-full border-cafe_noir-600">
 
-        <!-- Riga 5: Pulsanti Azioni -->
+
         <div class="flex gap-4 justify-center w-full h-8 text-white">
             <label class="bg-cafe_noir-600 rounded p-2 cursor-pointer">
                 <input id="jsonFileSelector" type="file" class="hidden" onchange={handleFileSelect}/>

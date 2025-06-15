@@ -285,7 +285,7 @@ export function exportHtmlToImage(elementId: string) {
   }
 
   toPng(node)
-    .then((dataUrl) => {
+    .then((dataUrl:any) => {
       const img = new Image();
       img.src = dataUrl;
       // Per scaricarla automaticamente:
@@ -294,7 +294,7 @@ export function exportHtmlToImage(elementId: string) {
       link.href = dataUrl;
       link.click();
     })
-    .catch((error) => {
+    .catch((error:any) => {
       console.error('Errore nella conversione:', error);
     });
 }
