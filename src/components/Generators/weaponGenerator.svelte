@@ -242,7 +242,28 @@
         const jsonExport = await weaponToJson(craftedWeapon);
         downloadFile(jsonExport,`${craftedWeapon.name.replace(/\s+/g, '') || 'arma'}.json`,'application/json')
     }
-    // $inspect(selectorInput[0],"selectorInput");
+
+    //arma craftata
+    let craftedWeapon:Weapon = $derived.by( ()=> {
+        return {
+            name:displayWeaponName,
+            cost:selectedWeapon.cost,
+            accuracy:accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),
+            damage: damageModifier,
+            type: selectedWeapon.type,
+            category: selectedWeapon.category,
+            quality: displayQuality,
+            distance: selectedWeapon.distance,
+            hands: selectedHand.name,
+            pic:  imageUrl === null ? "" : imageUrl
+        }
+    });
+    
+    let thirdRowElement = $derived([selectedWeapon.category,"*",craftedWeapon.hands,"*",selectedWeapon.distance]);
+    let formulaRow = $derived([accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),damageFormula(damageModifier,selectedDamageType.name)]);
+    let tableHeader = ["PRECISIONE","DANNO"];
+    
+
 </script>
 
 <GeneratorBox nameTag="Arma">
@@ -263,14 +284,8 @@
 
         <!-- Riga 2: Attributi e Tipi di danno --> <!-- 'justify-between' distribuirà i 4 selettori in modo uniforme su tutta la larghezza. -->
         <div class="flex flex-row gap-5 justify-between items-center w-full">
-            
-            {#each selectorInput as selector}
-                <span class="border rounded flex-1 max-w-32">
-                    <ModalSelector itemName= {selector.itemName} itemList={selector.itemList} bind:selectedItem={selector.selectedBind} bind:isOpen={selector.modalShower}/>
-                </span>
-            {/each}
-           
-            <!-- <span class="border rounded flex-1 max-w-32">
+            <span class="border rounded flex-1 max-w-32">
+
                 <ModalSelector itemName={selectedDamageType.name} itemList={DAMAGE_TYPES} bind:selectedItem={selectedDamageType} bind:isOpen={isChoosingDamageType}/>
             </span>
             <span class="border rounded flex-1 max-w-32">
