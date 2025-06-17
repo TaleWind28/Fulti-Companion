@@ -217,7 +217,7 @@
             </span>
             <span class="border rounded flex-1 max-w-32">
                 <ModalSelector itemName={selectedChar2.name} itemList={char} bind:selectedItem={selectedChar2} bind:isOpen={isChoosingChar2}/>
-            </span> -->
+            </span>
         </div>
 
         <!-- Riga 3: Qualità Standard --> <!-- 'justify-between' spingerà il selettore a sinistra e il gruppo di checkbox a destra. -->
@@ -295,7 +295,7 @@
                 </div>
             </div>
         </div>
-        <RunesButton text="pino" clickFun={()=> exportHtmlToImage(displayWeaponName)}/>
+        <RunesButton text="scarica Json" clickFun={()=> exportHtmlToImage(displayWeaponName)}/>
     {/snippet}  
     
     <Modal showModal={errore} modalText={"errore"} divStyle={"flex flex-col gap-4"}>

@@ -103,3 +103,5 @@ export const ArmorList: Armor[] = [
         data:"armor"
     },
 ]
+
+export const EquipList =  [...ShieldList,...ArmorList]

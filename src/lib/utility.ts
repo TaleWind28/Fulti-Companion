@@ -357,3 +357,9 @@ export async function processSelectedJsonFile(file: File | null): Promise<any> {
     reader.readAsText(file); // Legge il file come testo
   });
 }
+
+//funzione per mostrare il dato corretto
+export function displayName(customName:string, originalName:string){
+  if(customName.length <= 1)return originalName;
+  else return customName;
+}
