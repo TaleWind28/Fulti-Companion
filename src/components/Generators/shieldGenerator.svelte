@@ -5,10 +5,12 @@
     import ModalSelector from "../customHTMLElements/modalSelector.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import GeneratorBox from "./generatorBox.svelte";
-    import { EquipList } from "$lib/equipment";
-    import { displayName } from "$lib/utility";
+    import { EquipList, equipToJson } from "$lib/equipment";
+    import { displayName, downloadFile, processSelectedJsonFile } from "$lib/utility";
+    import { json } from "@sveltejs/kit";
+    import { effect } from "zod";
 
-    let imageUrl = $state(null);
+    let equipImageUrl = $state(null);
     let customEquipName = $state("");
     let customQuality = $state("");
     let selectedEquip = $state(EquipList[0]);
@@ -19,12 +21,29 @@
  
     let displayEquipName = $derived(displayName(customEquipName,selectedEquip.name)) 
     let displayQuality = $derived(displayName(customQuality,selectedQuality.effect))
-
+    let craftedQuality = $derived.by(()=>{
+        return {
+            name: selectedEquip.quality.name,
+            effect: displayQuality,
+            cost:0
+        }
+    })
     //imageProcessor
     let tableHeader = ["DIFESA", "DIF.MAGICA"];
     let dataRow = $derived([selectedEquip.def,selectedEquip.mdef])
 
-
+    let craftedEquip = $derived.by(()=>{
+        return {
+                name:displayEquipName,
+                def:selectedEquip.def,
+                mdef:selectedEquip.mdef,
+                quality: craftedQuality,
+                martial:selectedEquip.martial,
+                data:selectedEquip.data,
+                pic:equipImageUrl,
+            }
+        }
+    )
 
 
      //funzione per gestire il caricamento di un file weaponJson da parte dell'utente
@@ -67,41 +86,60 @@
         
     //     isMoreAccuracyChecked = checkAccuracyBonus(jsonImport.accuracy,parseInt(accuracyMod));
         
-    //     imageUrl = jsonImport.pic;
+    //     equipImageUrl = jsonImport.pic;
     //     target.value = "";
     //     selectedFile = null;
     // }
-    function handleFileSelect(){
+    async function handleFileSelect(event:Event){
+        const target = event.target as HTMLInputElement;
+        //recupero il file fornito dall'utente
+        let selectedFile = target.files?.[0] || null;
+        
+        if(selectedFile == null)return new Error("il file non è valido!");
+        
+        // Controlla il tipo di file (opzionale ma buona pratica)
+        if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json')) {
+            target.value = "";
+            return;
+        }
+        //processo il file json
+        const jsonImport = await processSelectedJsonFile(selectedFile);
+
+        //configurare Zod type checking
+        // let result = EquipScheme.safeParse(jsonImport);
+        // if(result.error){
+        //     errore = true;
+        //     target.value = "";
+        //     console.log("file Json non parsato correttamente");
+        // }
+
+        console.log(jsonImport,"import");
+
+        handleClearAll();
+
+        console.log(jsonImport,"import");
+        selectedEquip = jsonImport;
+        selectedQuality = jsonImport.quality;
+        equipImageUrl = jsonImport.pic;
+        
+        selectedFile = null;
 
     }
+    $inspect(selectedEquip);
 
     function handleClearAll(){
-
+        selectedEquip = EquipList[0];
+        selectedQuality = BASE_QUALITIES[0];
+        customQuality = "";
+        customEquipName = "";
+        equipImageUrl = null;
     }
 
-    function handleExport(){
-        
+    async function handleExport(){
+        console.log("esporto");
+        const jsonExport = await equipToJson(craftedEquip);
+        downloadFile(jsonExport,`${craftedEquip.name.replace(/\s+/g, '') || 'arma'}.json`,'application/json');
     }
-    //funzione per pulire tutti i campi del json -> IMPLEMENTARE
-    // function handleClearAll(){
-    //     selectedHand = hands[0];
-    //     selectedWeapon = baseWeapons[0];
-    //     selectedQuality = BASE_QUALITIES[0];
-    //     selectedChar1.name = retrieveAccuracy(baseWeapons[0].accuracy)[0];
-    //     selectedChar2.name = retrieveAccuracy(baseWeapons[0].accuracy)[1];
-    //     imageUrl = null;
-    //     isMoreAccuracyChecked = false;
-    //     isMoreDamageChecked = false;
-    //     oldWeapon = baseWeapons[0];
-
-    // }
-
-    // //funzione per esportare il weaponJson creato dall'utente
-    // async function handleExport(){
-    //     console.log(craftedWeapon.pic,"prima dell'export");
-    //     const jsonExport = await weaponToJson(craftedWeapon);
-    //     downloadFile(jsonExport,`${craftedWeapon.name.replace(/\s+/g, '') || 'arma'}.json`,'application/json')
-    // }
    
 </script>
 
@@ -114,18 +152,19 @@
             <span class="border rounded flex-1">
                 <ModalSelector itemList = {EquipList} itemName = {selectedEquip.name} bind:selectedItem = {selectedEquip} bind:isOpen = {isChoosingEquip}/>
             </span>
-            <span class="border rounded flex-1">
-                <ModalSelector itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual}/>
-            </span>
+            
             <span class="flex items-center gap-2">
-                <input type="checkbox" class="flex-shrink-0">
                 <input placeholder="Nome" bind:value={customEquipName} class="border rounded">
             </span>
         </div>
 
         <!-- Seconda Riga: Qualità -->
         <div class="flex items-center gap-4 justify-between w-full">
+            
             <textarea bind:value={customQuality} class="border rounded w-auto flex-shrink-0" placeholder="Descrizione qualità custom..."></textarea>
+            <span class="border rounded flex-1">
+                <ModalSelector itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual}/>
+            </span>
         </div>
 
         <!-- Footer -->
@@ -146,7 +185,7 @@
         <div  id={"pino"} class="bg-white">
             <div class="bg-cafe_noir-700 grid grid-cols-5">
                 <p class="col-span-2">
-                    {displayEquipName}
+                    {craftedEquip.name}
                 </p>
                 <span class="grid grid-cols-2  col-span-2 gap-30">
                     {#each tableHeader as header}
@@ -156,7 +195,7 @@
             </div>
             <div class=" grid grid-cols-5 gap-4">
                 <div class="col-span-1">
-                    <ImageUploader2 dimensions={"w-40 h-30"} fill={true} bind:imageUrl = {imageUrl}/>
+                    <ImageUploader2 padre="shieldGenerator" dimensions={"w-40 h-30"} fill={true} bind:imageUrl = {equipImageUrl}/>
                 </div>
                 <div class="col-span-4">
                     <div class="justify-around bg-cafe_noir-800 flex">

@@ -1,9 +1,5 @@
 <script>
-    import { exportHtmlToImage } from '$lib/weaponUtility';
-    import ImageUploader2 from '../customHTMLElements/imageUploader2.svelte';
-    import RunesButton from '../customHTMLElements/runesButton.svelte';
-    let imageUrl = $state(null);
-    let {nameTag = "undefinedNameTag", imageProcessor ,children} = $props();
+    let {nameTag = "undefinedNameTag", imageProcessor, generateImage= true ,children} = $props();
 </script>
 
 <div  class="grid grid-cols-2 gap-4 p-4">
@@ -22,9 +18,11 @@
     </div>
 
     <!-- Generated Image -->
-    <div>
-        {@render imageProcessor?.()}
-        
-    </div>
-
+    
+    {#if generateImage}
+        <div>
+            {@render imageProcessor?.()}
+        </div>
+    {/if}
+    
 </div>

@@ -274,7 +274,7 @@ const weaponsPage2: Weapon[] = [
 export let baseWeapons:Weapon[] = [...weaponsPage2, ...weaponsPage1];
 
 import { toPng } from 'html-to-image';
-import { blobToBase64Compact } from './utility';
+import { blobToBase64Compact, blobUrlToBase64 } from './utility';
 
 export function exportHtmlToImage(elementId: string) {
   const node = document.getElementById(elementId);
@@ -333,12 +333,9 @@ export function parseWeapon(json: string): Weapon | null {
 }
 
 export async function weaponToJson(weapon:Weapon){
-    if( weapon.pic !== undefined){
-        console.log(weapon.pic,"prova blob");
-        weapon.pic = await blobUrlToBase64(weapon.pic) as string;
-        console.log(weapon.pic,"stringa base 64");
-    }else console.log("non ho un'immagine");
-    return JSON.stringify(weapon, null, 2);
+  if( weapon.pic !== undefined)weapon.pic = await blobUrlToBase64(weapon.pic) as string
+  else weapon.pic = undefined;
+  return JSON.stringify(weapon, null, 2);
 }
 
 export type FultimatorWeapon = {
@@ -425,37 +422,3 @@ export function weaponToFultimatorWeapon(weapon:Weapon, accuracyMod:number,damag
         dataType: "weapon"
     };
 }
-
-function blobUrlToBase64(blobUrl:any) {
-  return new Promise((resolve, reject) => {
-    // 1. Usa fetch per recuperare i dati dall'URL Blob
-    fetch(blobUrl)
-      .then(response => {
-        
-        if (!response.ok) {
-          throw new Error(`Network response was not ok: ${response.statusText}`);
-        }
-        // 2. Ottieni l'oggetto Blob dalla risposta
-        return response.blob();
-      })
-      .then(blob => {
-        
-        const reader = new FileReader();
-        reader.onload = () => {
-          // La lettura è completata, risolviamo la promise con il risultato
-          resolve(reader.result);
-        };
-        reader.onerror = (error) => {
-          // C'è stato un errore durante la lettura
-          reject(new Error("Errore durante la lettura del Blob: " + error));
-        };
-        // 3. Usa FileReader per convertire il Blob in Base64 (Data URL)
-        reader.readAsDataURL(blob);
-      })
-      .catch(error => {
-        // C'è stato un errore nel fetch
-        reject(new Error("Errore nel fetch dell'URL Blob: " + error));
-      });
-  });
-}
-

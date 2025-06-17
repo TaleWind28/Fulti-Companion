@@ -13,13 +13,12 @@
     import GeneratorBox from "./generatorBox.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import Modal from "../customHTMLElements/modal.svelte";
-    import { documentId } from "firebase/firestore";
 
     //checkbox
     let isMoreDamageChecked = $state(false);
     let isMoreAccuracyChecked = $state(false);
     //imagSource
-    let imageUrl = $state(null);
+    let weaponImageUrl = $state(null);
 
     //questo deve diventare un import
     let char:Item[] = [{name:"DES"},{name:"VIG"},{name:"INT"},{name:"VOL"}];
@@ -69,6 +68,7 @@
     let isChoosingChar2 = $state(false);
     let isChoosingHand = $state(false);
     let errore = $state(false);
+    let isMartial = $state(false);
 
     //funzione per mostrare il dato corretto
     function displayName(customName:string, originalName:string){
@@ -138,7 +138,7 @@
         
         isMoreAccuracyChecked = checkAccuracyBonus(jsonImport.accuracy,parseInt(accuracyMod));
         
-        imageUrl = jsonImport.pic;
+        weaponImageUrl = jsonImport.pic;
         target.value = "";
         selectedFile = null;
     }
@@ -150,7 +150,7 @@
         selectedQuality = BASE_QUALITIES[0];
         selectedChar1.name = retrieveAccuracy(baseWeapons[0].accuracy)[0];
         selectedChar2.name = retrieveAccuracy(baseWeapons[0].accuracy)[1];
-        imageUrl = null;
+        weaponImageUrl = null;
         isMoreAccuracyChecked = false;
         isMoreDamageChecked = false;
         oldWeapon = baseWeapons[0];
@@ -176,7 +176,7 @@
             quality: displayQuality,
             distance: selectedWeapon.distance,
             hands: selectedHand.name,
-            pic:  imageUrl === null ? "" : imageUrl
+            pic:  weaponImageUrl === null ? "" : weaponImageUrl
         }
     });
     
@@ -198,7 +198,7 @@
                 <ModalSelector itemName={selectedWeapon.name} itemList={baseWeapons} bind:selectedItem={selectedWeapon} bind:isOpen={isChoosingWeapon}/>
             </span>
             <div class="flex items-center gap-2">
-                <input type="checkbox" class="flex-shrink-0">
+                <input type="checkbox" class="flex-shrink-0" bind:checked={isMartial}>
                 <input placeholder="Nome" bind:value={customWeaponName} class="border rounded">
             </div>
         </div>
@@ -258,7 +258,7 @@
         </div>
 
     </div>
-
+    
     <!-- Contenuto passato allo snippet 'imageProcessor' -->
     {#snippet imageProcessor()} 
         <div  id={displayWeaponName} class="bg-white">
@@ -274,7 +274,7 @@
             </div>
             <div class=" grid grid-cols-3 gap-4">
                 <div class="col-span-1">
-                    <ImageUploader2 dimensions={"w-40 h-30"} fill={true} bind:imageUrl = {imageUrl}/>
+                    <ImageUploader2 padre="weaponGenerator" dimensions={"w-40 h-30"} fill={true} bind:imageUrl = {weaponImageUrl}/>
                 </div>
                 <div class="col-span-2">
                     <div class="justify-around bg-cafe_noir-800 flex">

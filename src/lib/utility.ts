@@ -363,3 +363,39 @@ export function displayName(customName:string, originalName:string){
   if(customName.length <= 1)return originalName;
   else return customName;
 }
+
+
+
+export function blobUrlToBase64(blobUrl:any) {
+  return new Promise((resolve, reject) => {
+    // 1. Usa fetch per recuperare i dati dall'URL Blob
+    fetch(blobUrl)
+      .then(response => {
+        
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        // 2. Ottieni l'oggetto Blob dalla risposta
+        return response.blob();
+      })
+      .then(blob => {
+        
+        const reader = new FileReader();
+        reader.onload = () => {
+          // La lettura è completata, risolviamo la promise con il risultato
+          resolve(reader.result);
+        };
+        reader.onerror = (error) => {
+          // C'è stato un errore durante la lettura
+          reject(new Error("Errore durante la lettura del Blob: " + error));
+        };
+        // 3. Usa FileReader per convertire il Blob in Base64 (Data URL)
+        reader.readAsDataURL(blob);
+      })
+      .catch(error => {
+        // C'è stato un errore nel fetch
+        reject(new Error("Errore nel fetch dell'URL Blob: " + error));
+      });
+  });
+}
+

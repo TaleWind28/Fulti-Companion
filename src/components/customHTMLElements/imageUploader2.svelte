@@ -1,22 +1,21 @@
 <script lang="ts">
   import defaultImage from "/src/images/UploadImage.png";
 
-  let {dimensions = "w-auto h-auto", fill=false, imageUrl = $bindable()} = $props();
+  let {dimensions = "w-auto h-auto", fill=false, imageUrl = $bindable(), padre = $bindable()} = $props();
   
   let uploadError = $state();
   let ObjUrl = $state(defaultImage);
 
-  // $inspect(imageUrl,"imageUploader");
-  
-  let imageSrc = $derived.by(()=>{
-    if(imageUrl === null || imageUrl === undefined) return ObjUrl;
-    if(imageUrl.replaceAll(" ","") !=="")return imageUrl;
-    else return ObjUrl;
-  });
 
-  
+  let imageSrc = $derived.by(() => {
+    if (!imageUrl || typeof imageUrl !== 'string' || imageUrl.trim() === "") {
+      return ObjUrl;
+    }
+    return imageUrl;
+  });
+  $inspect(imageSrc,padre,"sono io");
   let modality = () =>{
-    if(fill = true)return "object-fill";
+    if(fill === true)return "object-fill";
     else return "object-cover";
   }
   

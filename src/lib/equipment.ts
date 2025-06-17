@@ -1,12 +1,14 @@
 import type { Item, QualityFromBase } from "./types";
 import { BASE_QUALITIES } from "$lib/types";
+import { blobUrlToBase64 } from "./utility";
 
 export type Shield = {
     def: number,
     mdef:number,
     quality: QualityFromBase,
     martial:boolean,
-    data:string
+    data:string,
+    pic?:string
 } & Item
 
 export type Armor = {
@@ -14,7 +16,8 @@ export type Armor = {
     mdef:string,
     quality: QualityFromBase,
     martial:boolean,
-    data:string    
+    data:string,
+    pic?:string    
 } & Item
 
 export const ShieldList:Shield[] = [
@@ -105,3 +108,10 @@ export const ArmorList: Armor[] = [
 ]
 
 export const EquipList =  [...ShieldList,...ArmorList]
+
+
+export async function equipToJson(equip:any){
+    if(equip.pic)equip.pic = await blobUrlToBase64(equip.pic) as string;
+    else equip.pic = undefined;
+    return JSON.stringify(equip,null,2);
+}
