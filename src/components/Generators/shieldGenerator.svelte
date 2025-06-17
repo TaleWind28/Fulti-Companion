@@ -1,16 +1,28 @@
-<script>
+<script lang="ts">
+    import type { Item } from "$lib/types";
     import { exportHtmlToImage } from "$lib/weaponUtility";
     import ImageUploader2 from "../customHTMLElements/imageUploader2.svelte";
+    import ModalSelector from "../customHTMLElements/modalSelector.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import GeneratorBox from "./generatorBox.svelte";
 
     let imageUrl = $state(null);
+    let customEquipName = $state("");
+    let shieldItems:Item[] = [];
 </script>
 
 
 <GeneratorBox nameTag={"Scudo"}>
     pippo
-  <!-- Contenuto passato allo snippet 'imageProcessor' -->
+    <div>
+        <!-- intestazione -->
+         <span>
+                <ModalSelector itemList = {shieldItems} itemName = {shieldItems[0].name} selectedItem = {shieldItems[0]} />
+                <input type="checkbox" class="flex-shrink-0">
+                <input placeholder="Nome" bind:value={customEquipName} class="border rounded">
+         </span>
+    </div>
+  <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    
         <div  id={"pino"} class="bg-white">
             <div class="bg-cafe_noir-700 grid grid-cols-5">

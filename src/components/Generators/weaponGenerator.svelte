@@ -40,7 +40,6 @@
     
     //qualità base
     let selectedQuality = $state(BASE_QUALITIES[0]);
-    let qualityName = $derived(selectedQuality.effect);
     
     //qualità custom    
     let customQuality = $state("");
