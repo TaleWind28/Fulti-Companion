@@ -14,7 +14,18 @@
     const id = page.url.searchParams.get('id');
     let canLoad= $state(false);
     let character:Character | null = $state(null);
-    let tabs = new Tabs([{
+    let tabs = new Tabs([
+    {
+        id:0,
+        label:"Informazioni",
+        comp: Traits,
+        props:{
+            identity:"Michele",
+            theme:"ha scoperto",
+            origin:"di voler morire"
+        }
+    },
+    {
         id:1,
         label:"Statistiche",
         comp: Traits,

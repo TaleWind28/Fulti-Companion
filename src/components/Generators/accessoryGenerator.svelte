@@ -114,7 +114,7 @@
                 <input placeholder="Nome accessorio" bind:value={customName}/>
             </span>
             <span class="border rounded">
-                <ModalSelector dimensions="w-35" itemName={selectedQuality.name} itemList={BASE_QUALITIES}  bind:selectedItem = {selectedQuality}/>
+                <ModalSelector dimensions="w-35" itemName={selectedQuality.name} itemList={BASE_QUALITIES}  bind:selectedItem = {selectedQuality} maxVisibleItems={3}/>
             </span>
         </div>
 

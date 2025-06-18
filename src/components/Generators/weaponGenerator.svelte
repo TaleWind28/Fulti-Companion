@@ -198,7 +198,7 @@
         <!-- Riga 1: Nome Arma -->         <!-- Sostituito 'justify-center' con 'justify-between' per distribuire gli elementi. -->
         <div class="flex gap-4 w-full justify-between items-center">
             <span class="border rounded flex-1 max-w-xsd">
-                <ModalSelector itemName={selectedWeapon.name} itemList={baseWeapons} bind:selectedItem={selectedWeapon} bind:isOpen={isChoosingWeapon}/>
+                <ModalSelector itemName={selectedWeapon.name} itemList={baseWeapons} bind:selectedItem={selectedWeapon} bind:isOpen={isChoosingWeapon} maxVisibleItems={3}/>
             </span>
             <div class="flex items-center gap-2">
                 <input type="checkbox" class="flex-shrink-0" bind:checked={isMartial}>
@@ -210,7 +210,7 @@
         <div class="flex flex-row gap-5 justify-between items-center w-full">
             <span class="border rounded flex-1 max-w-32">
 
-                <ModalSelector itemName={selectedDamageType.name} itemList={DAMAGE_TYPES} bind:selectedItem={selectedDamageType} bind:isOpen={isChoosingDamageType}/>
+                <ModalSelector itemName={selectedDamageType.name} itemList={DAMAGE_TYPES} bind:selectedItem={selectedDamageType} bind:isOpen={isChoosingDamageType} maxVisibleItems={3}/>
             </span>
             <span class="border rounded flex-1 max-w-32">
                 <ModalSelector itemName={selectedHand.name} itemList={hands} bind:selectedItem={selectedHand} bind:isOpen={isChoosingHand}/>
@@ -227,7 +227,7 @@
         
         <div class="flex flex-row gap-5 items-center justify-between w-full">
             <div class="border rounded flex-1 max-w-48">
-                <ModalSelector itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual}/>
+                <ModalSelector itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual} maxVisibleItems={3}/>
             </div>
             <div class="flex flex-col gap-2 flex-1 max-w-48 items-start">
                 <span class="flex items-center gap-2">

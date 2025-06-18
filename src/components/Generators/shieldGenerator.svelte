@@ -117,7 +117,7 @@
         <!-- Prima Riga: Nome equipaggiamento e selezione Qualità standard -->
         <div class="flex gap-4 w-full justify-between items-center">
             <span class="border rounded flex-1">
-                <ModalSelector itemList = {EquipList} itemName = {selectedEquip.name} bind:selectedItem = {selectedEquip} bind:isOpen = {isChoosingEquip}/>
+                <ModalSelector itemList = {EquipList} itemName = {selectedEquip.name} bind:selectedItem = {selectedEquip} bind:isOpen = {isChoosingEquip} maxVisibleItems={3}/>
             </span>
             
             <span class="flex items-center gap-2">
@@ -130,7 +130,7 @@
             
             <textarea bind:value={customQuality} class="border rounded w-auto flex-shrink-0" placeholder="Descrizione qualità custom..."></textarea>
             <span class="border rounded">
-                <ModalSelector dimensions="w-35" itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual}/>
+                <ModalSelector dimensions="w-35" itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual} maxVisibleItems={3}/>
             </span>
             <input type="number" bind:value={customQualityCost} class="border rounded w-20 justify-center items-center">
         </div>
