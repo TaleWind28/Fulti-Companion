@@ -8,6 +8,7 @@
     import { EquipList, equipToJson } from "$lib/equipment";
     import { displayName, downloadFile, processSelectedJsonFile } from "$lib/utility";
     import { EquipScheme } from "$lib/zodTypeChecking";
+    import { faDownload, faFileExport } from "@fortawesome/free-solid-svg-icons";
 
     //variabili reattive per la creazione dell'equipaggiamento
     let equipImageUrl = $state(null);
@@ -126,8 +127,8 @@
         <div class="flex items-center gap-4 justify-between w-full">
             
             <textarea bind:value={customQuality} class="border rounded w-auto flex-shrink-0" placeholder="Descrizione qualità custom..."></textarea>
-            <span class="border rounded flex-1">
-                <ModalSelector itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual}/>
+            <span class="border rounded">
+                <ModalSelector dimensions="w-35" itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual}/>
             </span>
         </div>
 
@@ -146,9 +147,9 @@
 
   <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    
-        <div  id={displayEquipName} class="bg-white">
+        <div  id={displayEquipName} class="bg-white border">
             <div class="bg-cafe_noir-700 grid grid-cols-5">
-                <p class="col-span-2">
+                <p class="col-span-2 px-2">
                     {craftedEquip.name}
                 </p>
                 <span class="grid grid-cols-2  col-span-2 gap-30">
@@ -159,7 +160,7 @@
             </div>
             <div class="flex">
                 <div class="flex-shrink-0">
-                    <ImageUploader2 padre="shieldGenerator" dimensions={"w-20 h-20"} fill={true} bind:imageUrl = {equipImageUrl}/>
+                    <ImageUploader2 padre="shieldGenerator" dimensions={"w-20 h-20 border-r"} fill={true} bind:imageUrl = {equipImageUrl}/>
                 </div>
                 <div class="flex-1">
                     <div class="justify-around bg-cafe_noir-800 flex">
@@ -168,13 +169,13 @@
                         {/each}
                     </div>
                     <hr>
-                    <div>
+                    <div class="px-2">
                         {displayQuality}
                     </div>
                 </div>
             </div>
         </div>
-        <RunesButton text="scarica Json" clickFun={()=> exportHtmlToImage(displayEquipName)}/>
-        <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={handleExport}/>
+        <RunesButton text="" icon={faDownload} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={()=>exportHtmlToImage(displayEquipName)}/>
+        <RunesButton text="" icon={faFileExport} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={handleExport}/>
     {/snippet}
 </GeneratorBox>

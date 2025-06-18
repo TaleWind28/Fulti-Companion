@@ -276,10 +276,10 @@
             </div>
             <div class=" flex">
                 <div class="flex-shrink-0">
-                    <ImageUploader2 padre="weaponGenerator" dimensions={"w-20 h-20"} fill={true} bind:imageUrl = {weaponImageUrl}/>
+                    <ImageUploader2 padre="weaponGenerator" dimensions={"w-20 h-20 border-r"} fill={true} bind:imageUrl = {weaponImageUrl}/>
                 </div>
                 <div class="flex-1">
-                    <div class="justify-around bg-cafe_noir-800 flex">
+                    <div class="justify-around bg-cafe_noir-800 flex ">
                         {#each formulaRow as formula}
                             <p> {formula} </p>
                         {/each}

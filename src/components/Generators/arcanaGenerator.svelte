@@ -3,6 +3,7 @@
     import { displayName, downloadFile, processSelectedJsonFile } from "$lib/utility";
     import { exportHtmlToImage } from "$lib/weaponUtility";
     import { ArcanumScheme } from "$lib/zodTypeChecking";
+    import { faDownload, faFileExport } from "@fortawesome/free-solid-svg-icons";
     import ImageUploader2 from "../customHTMLElements/imageUploader2.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import GeneratorBox from "./generatorBox.svelte";
@@ -160,22 +161,22 @@
 
   <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    
-        <div  id={displayArcanumName} class="bg-white">
+        <div  id={displayArcanumName} class="bg-white border">
             <div class="bg-cafe_noir-700 grid grid-cols-5">
-                <p class="col-span-4">
+                <p class="col-span-4 px-2">
                     {displayArcanumName}
                 </p>
             </div>
             <div class="flex">
                 <div class="flex-shrink-0">
-                    <ImageUploader2 padre="arcanumGenerator" dimensions={"w-20 h-20"} fill={true} bind:imageUrl = {arcanumImageUrl}/>
+                    <ImageUploader2 padre="arcanumGenerator" dimensions={"w-20 h-20 border-r border-b"} fill={true} bind:imageUrl = {arcanumImageUrl}/>
                 </div>
                 <div class="flex-1">
-                    <div class="items-center justify-end px-10  bg-cafe_noir-800 flex">
+                    <div class="items-center justify-start px-2 bg-cafe_noir-800 flex">
                         {displayArcanumDescription}
                     </div>
                     <hr>
-                    <div>
+                    <div class="px-2">
                         {displayArcanumDomain}
                     </div>
                 </div>
@@ -187,8 +188,8 @@
             {/if}
             {@render arcanaEffectBox("Congedo",customDischargeName,displayDischargeBenefit)}
         </div>
-        <RunesButton text="scarica Json" clickFun={()=> exportHtmlToImage(displayArcanumName)}/>
-        <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={handleExport}/>
+        <RunesButton text="" icon={faDownload} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={()=>exportHtmlToImage(displayArcanumName)}/>
+        <RunesButton text="" icon={faFileExport} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={handleExport}/>
     {/snippet}
 </GeneratorBox>
 

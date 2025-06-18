@@ -9,6 +9,7 @@
     import GeneratorBox from "./generatorBox.svelte";
     import { accessoryToJson } from "$lib/equipment";
     import { AccessoryScheme } from "$lib/zodTypeChecking";
+    import { faDownload, faFileExport } from "@fortawesome/free-solid-svg-icons";
 
     //qualità selezionata
     let selectedQuality = $state(BASE_QUALITIES[0]);
@@ -108,19 +109,19 @@
     <!-- container principale -->
     <div class="flex flex-col gap-5 p-4">
         <!-- Prima Riga: Nome e Quaità base -->
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-25">
             <span class="border rounded">
                 <input placeholder="Nome accessorio" bind:value={customName}/>
             </span>
             <span class="border rounded">
-                <ModalSelector itemName={selectedQuality.name} itemList={BASE_QUALITIES}  bind:selectedItem = {selectedQuality}/>
+                <ModalSelector dimensions="w-35" itemName={selectedQuality.name} itemList={BASE_QUALITIES}  bind:selectedItem = {selectedQuality}/>
             </span>
         </div>
 
         <!-- Seconda Riga: Qualità Custom e Costo -->
-        <div class="flex items-center justify-between gap-4">
-            <textarea class="border" placeholder="Qualità Custom" bind:value={displayQuality}></textarea>
-            <input  class="border rounded w-10" type="number" placeholder="costo" bind:value={customCost}>            
+        <div class="flex items-center justify-start gap-20">
+            <textarea class="border w-60" placeholder="Qualità Custom" bind:value={displayQuality}></textarea>
+            <input  class="border rounded w-20" type="number" placeholder="costo" bind:value={customCost}>            
         </div>
 
         <!-- Footer -->
@@ -139,35 +140,35 @@
     
   <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    
-        <div  id={displayAccessoryName} class="bg-white">
+        <div  id={displayAccessoryName} class="bg-white border">
             <div class="bg-cafe_noir-700 grid grid-cols-5">
-                <p class="col-span-4">
+                <p class="col-span-4 px-2">
                     {displayAccessoryName}
                 </p>
-                <span class="grid grid-cols-1  col-span-1  gap-30">
+                <span class="flex justify-end px-4 gap-30">
                     {#each tableHeader as header}
                         <p> {header} </p>
                     {/each}
                 </span>
             </div>
-            <div class=" flex gap-4">
+            <div class="flex">
                 <div class="flex-shrink-0">
-                    <ImageUploader2 padre="accessoryGenerator" dimensions={"w-20 h-20"} fill={true} bind:imageUrl = {accessoryImageUrl}/>
+                    <ImageUploader2 padre="accessoryGenerator" dimensions={"w-20 h-20 border-r"} fill={true} bind:imageUrl = {accessoryImageUrl}/>
                 </div>
                 <div class="flex-1">
-                    <div class="items-center justify-end px-10  bg-cafe_noir-800 flex">
+                    <div class="items-center justify-end px-5  bg-cafe_noir-800 flex">
                         {#each dataRow as data}
                             <p> {data} </p>
                         {/each}
                     </div>
                     <hr>
-                    <div>
+                    <div class="px-2">
                         {craftedAccessory.quality.effect}
                     </div>
                 </div>
             </div>
         </div>
-        <RunesButton text="scarica Json" clickFun={()=> exportHtmlToImage(displayAccessoryName)}/>
-        <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={handleExport}/>
+        <RunesButton text="" icon={faDownload} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={()=>exportHtmlToImage(displayAccessoryName)}/>
+        <RunesButton text="" icon={faFileExport} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={handleExport}/>
     {/snippet}
 </GeneratorBox>
