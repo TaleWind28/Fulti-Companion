@@ -51,8 +51,7 @@
     //imageProcessor
     let arcanumImageUrl = $state(undefined);
 
-
-
+    //gestisco la selezione dei file
     async function handleFileSelect(event:Event){
          const target = event.target as HTMLInputElement;
         //recupero il file fornito dall'utente
@@ -79,8 +78,8 @@
 
         //resetto i campi dell'equipaggiamento
         handleClearAll();
-        //carico i campi dell'oggetto nei campi reattivi dell'oggetto che 
-        
+
+        //carico i campi dell'oggetto nei campi reattivi dell'oggetto che intendo craftare
         customArcanumName = jsonImport.name;
         customArcanumDomain = jsonImport.domain;
         customArcanumDescription = jsonImport.description;
@@ -96,6 +95,7 @@
         selectedFile = null;
     }
 
+    //resetto i campi reattivi dell'oggetto
     function handleClearAll(){
         customArcanumName = "";
         customFusionName = "";
@@ -110,6 +110,7 @@
         isRework = false;
     }
 
+    //esporto in json l'oggetto
     async function handleExport(){
         const jsonExport = await arcanumToJson(craftedArcanum);
         downloadFile(jsonExport,`${craftedArcanum.name.replace(/\s+/g, '') || 'arcanum'}.json`,'application/json')
