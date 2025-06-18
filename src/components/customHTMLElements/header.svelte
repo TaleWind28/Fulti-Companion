@@ -56,7 +56,7 @@
             accesso in corso...
           {:else if $user}
             <a href={userHomePage}>{$user.displayName}</a>
-            <button on:click={handleLogout}> <Fa class="flex items-end justify-end cursor-pointer" icon={faRightFromBracket}/></button>
+            <button on:click={handleLogout}> <Fa class="flex items-center justify-end cursor-pointer px-2" icon={faRightFromBracket}/></button>
             {:else}
               <a href={pages[0]} class="rounded bg-emerald-400"> Accedi/Registrati</a>
           {/if}
