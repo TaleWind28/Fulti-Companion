@@ -98,6 +98,7 @@
         customQuality = "";
         customEquipName = "";
         equipImageUrl = null;
+        customQualityCost = 0;
     }
 
     //esporto l'equipaggiamento craftato
