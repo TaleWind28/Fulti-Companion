@@ -20,6 +20,12 @@ export type Armor = {
     pic?:string    
 } & Item
 
+export type Accessory = {
+    quality:QualityFromBase,
+    price:number,
+    pic?:string
+} & Item
+
 export const ShieldList:Shield[] = [
     {
         name:"Scudo di Bronzo",
@@ -114,4 +120,10 @@ export async function equipToJson(equip:any){
     if(equip.pic)equip.pic = await blobUrlToBase64(equip.pic) as string;
     else equip.pic = undefined;
     return JSON.stringify(equip,null,2);
+}
+
+export async function accessoryToJson(accessory:Accessory){
+    if(accessory.pic)accessory.pic = await blobUrlToBase64(accessory.pic) as string;
+    else accessory.pic = undefined;
+    return JSON.stringify(accessory,null,2);
 }

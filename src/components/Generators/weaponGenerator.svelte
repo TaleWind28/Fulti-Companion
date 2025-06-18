@@ -89,10 +89,9 @@
     //effect è purtroppo necessario in quanto devo aggiornare i dati in conseguenza alla selezione dell'arma
     $effect( ()=>{
         //controllo che non sia stata selezionata due volte la stessa arma e che non sia la prima inizializzazione
-        
         if(selectedWeapon === oldWeapon || oldWeapon === baseWeapons[0])return;
         selectedHand.name = selectedWeapon.hands;
-        console.log("sono dentro");  
+        //console.log("sono dentro");  
         [selectedChar1.name,selectedChar2.name] = retrieveAccuracy(selectedWeapon.accuracy);
         oldWeapon = selectedWeapon;
     })

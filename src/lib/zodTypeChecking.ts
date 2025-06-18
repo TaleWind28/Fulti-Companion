@@ -1,6 +1,7 @@
 
 // 1. Importa Zod
-import { z } from "zod";
+import { effect, z } from "zod";
+import type { Item, QualityFromBase } from "./types";
 
 // 2. Definisci lo schema `Item`
 const ItemScheme = z.object({
@@ -47,3 +48,29 @@ export const CharacterSchema = z.object({
 
 // Tipo TypeScript (opzionale)
 type Character = z.infer<typeof CharacterSchema>;
+
+const QualityScheme = ItemScheme.extend({
+  name:z.string(),
+  effect:z.string(),
+  price:z.number(),
+
+})
+
+export const EquipScheme = ItemScheme.extend({
+  def:z.string() || z.number(),
+  mdef:z.string() || z.number(),
+  quality:QualityScheme,
+  martial:z.boolean(),
+  data:z.string(),
+  pic:z.string()
+})
+
+export type Accessory = {
+  quality: QualityFromBase,
+  price: number
+} & Item
+
+export const AccessoryScheme = ItemScheme.extend({
+  quality:QualityScheme,
+  price:z.number()
+})

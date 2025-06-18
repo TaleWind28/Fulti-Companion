@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { BASE_QUALITIES, type Item } from "$lib/types";
+    import { BASE_QUALITIES} from "$lib/types";
     import { exportHtmlToImage } from "$lib/weaponUtility";
     import ImageUploader2 from "../customHTMLElements/imageUploader2.svelte";
     import ModalSelector from "../customHTMLElements/modalSelector.svelte";
@@ -7,20 +7,28 @@
     import GeneratorBox from "./generatorBox.svelte";
     import { EquipList, equipToJson } from "$lib/equipment";
     import { displayName, downloadFile, processSelectedJsonFile } from "$lib/utility";
-    import { json } from "@sveltejs/kit";
-    import { effect } from "zod";
+    import { EquipScheme } from "$lib/zodTypeChecking";
 
+    //variabili reattive per la creazione dell'equipaggiamento
     let equipImageUrl = $state(null);
     let customEquipName = $state("");
     let customQuality = $state("");
     let selectedEquip = $state(EquipList[0]);
     let selectedQuality = $state(BASE_QUALITIES[0]);
-
+    
+    //variabili per i modalSelector
     let isChoosingEquip = $state(false);
     let isChoosingQual = $state(false);
- 
+
+    //variabili per scegliere cosa mostrare all'utente
     let displayEquipName = $derived(displayName(customEquipName,selectedEquip.name)) 
     let displayQuality = $derived(displayName(customQuality,selectedQuality.effect))
+        
+    //imageProcessor
+    let tableHeader = ["DIFESA", "DIF.MAGICA"];
+    let dataRow = $derived([selectedEquip.def,selectedEquip.mdef])
+
+    //Creo la qualità da passare all'equip
     let craftedQuality = $derived.by(()=>{
         return {
             name: selectedEquip.quality.name,
@@ -28,10 +36,8 @@
             cost:0
         }
     })
-    //imageProcessor
-    let tableHeader = ["DIFESA", "DIF.MAGICA"];
-    let dataRow = $derived([selectedEquip.def,selectedEquip.mdef])
-
+    
+    //Creo l'oggetto Equip che poi potrà essere scaricato
     let craftedEquip = $derived.by(()=>{
         return {
                 name:displayEquipName,
@@ -45,51 +51,7 @@
         }
     )
 
-
-     //funzione per gestire il caricamento di un file weaponJson da parte dell'utente
-    // async function handleFileSelect(event:Event){
-
-    //     const target = event.target as HTMLInputElement;
-    //     //recupero il file fornito dall'utente
-    //     let selectedFile = target.files?.[0] || null;
-        
-    //     if(selectedFile == null)return new Error("il file non è valido!");
-        
-    //     // Controlla il tipo di file (opzionale ma buona pratica)
-    //     if (selectedFile.type !== 'application/json' && !selectedFile.name.endsWith('.json')) {
-    //         target.value = "";
-    //         errore = true;
-    //         return;
-    //     }
-    //     //processo il file json
-    //     const jsonImport = await processSelectedJsonFile(selectedFile);
-        
-    //     //controllo il tipo
-    //     let result = WeaponScheme.safeParse(jsonImport);
-        
-    //     if(result.error){
-    //         errore = true;
-    //         target.value = "";
-    //         console.log("errore");
-    //     }
-        
-    //     //craftedWeapon = jsonImport as Weapon;
-    //     console.log(jsonImport,"import");
-
-    //     //modifico i campi di crafted weapon per farla cambiare reattivamente
-    //     selectedWeapon = jsonImport as Weapon;
-        
-    //     [selectedChar1.name,selectedChar2.name] = retrieveAccuracy(jsonImport.accuracy);
-        
-    //     selectedHand.name = jsonImport.hands;
-    //     selectedQuality.effect = jsonImport.quality;
-        
-    //     isMoreAccuracyChecked = checkAccuracyBonus(jsonImport.accuracy,parseInt(accuracyMod));
-        
-    //     equipImageUrl = jsonImport.pic;
-    //     target.value = "";
-    //     selectedFile = null;
-    // }
+    //processo il file dato in input dall'utente
     async function handleFileSelect(event:Event){
         const target = event.target as HTMLInputElement;
         //recupero il file fornito dall'utente
@@ -105,19 +67,20 @@
         //processo il file json
         const jsonImport = await processSelectedJsonFile(selectedFile);
 
+        console.log("provo a parsare");
         //configurare Zod type checking
-        // let result = EquipScheme.safeParse(jsonImport);
-        // if(result.error){
-        //     errore = true;
-        //     target.value = "";
-        //     console.log("file Json non parsato correttamente");
-        // }
+        let result = EquipScheme.safeParse(jsonImport);
+        if(result.error){
+            //aggiungere modale di errore
+            //errore = true;
+            target.value = "";
+            console.log("file Json non parsato correttamente");
+            return;
+        }
 
-        console.log(jsonImport,"import");
-
+        //resetto i campi dell'equipaggiamento
         handleClearAll();
-
-        console.log(jsonImport,"import");
+        //carico i campi dell'oggetto nei campi reattivi dell'oggetto che 
         selectedEquip = jsonImport;
         selectedQuality = jsonImport.quality;
         equipImageUrl = jsonImport.pic;
@@ -125,8 +88,8 @@
         selectedFile = null;
 
     }
-    $inspect(selectedEquip);
 
+    //resetto i campi dell'oggetto
     function handleClearAll(){
         selectedEquip = EquipList[0];
         selectedQuality = BASE_QUALITIES[0];
@@ -135,10 +98,11 @@
         equipImageUrl = null;
     }
 
+    //esporto l'equipaggiamento craftato
     async function handleExport(){
         console.log("esporto");
         const jsonExport = await equipToJson(craftedEquip);
-        downloadFile(jsonExport,`${craftedEquip.name.replace(/\s+/g, '') || 'arma'}.json`,'application/json');
+        downloadFile(jsonExport,`${craftedEquip.name.replace(/\s+/g, '') || 'equipaggiamento'}.json`,'application/json');
     }
    
 </script>
@@ -180,6 +144,7 @@
             <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={handleExport}/>
         </div>
     </div>
+
   <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    
         <div  id={"pino"} class="bg-white">
