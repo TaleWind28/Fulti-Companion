@@ -37,7 +37,7 @@
   }
 </script>
 
-<label for="file-selector">
+<label for={padre+"file-selector"}>
   <img
       src={imageSrc}
       alt="Immagine corrente, clicca per cambiarla"
@@ -45,4 +45,4 @@
     />
 </label>
 
-<input  type="file"  id="file-selector" accept="image/*"  onchange={handleFileSelect}  style="display: none;"  aria-hidden="true"/>
+<input  type="file"  id={padre+"file-selector"} accept="image/*"  onchange={handleFileSelect}  style="display: none;"  aria-hidden="true"/>

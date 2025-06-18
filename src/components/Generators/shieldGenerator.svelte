@@ -147,7 +147,7 @@
 
   <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    
-        <div  id={"pino"} class="bg-white">
+        <div  id={displayEquipName} class="bg-white">
             <div class="bg-cafe_noir-700 grid grid-cols-5">
                 <p class="col-span-2">
                     {craftedEquip.name}
