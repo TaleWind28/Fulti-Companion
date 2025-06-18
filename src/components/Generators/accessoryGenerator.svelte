@@ -129,7 +129,7 @@
 
         <!-- Terza Riga: Pulsanti -->
         <div class="flex gap-4 justify-center w-full h-8 text-white">
-            <label class="bg-cafe_noir-600 rounded p-2 cursor-pointer">
+            <label class="bg-cafe_noir-600 rounded p-2 cursor-pointer items-center flex">
                 <input id="jsonFileSelector" type="file" class="hidden" onchange={handleFileSelect}/>
                 Carica Json
             </label>

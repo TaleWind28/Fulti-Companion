@@ -16,6 +16,7 @@
     let customQuality = $state("");
     let selectedEquip = $state(EquipList[0]);
     let selectedQuality = $state(BASE_QUALITIES[0]);
+    let customQualityCost = $state(0);
     
     //variabili per i modalSelector
     let isChoosingEquip = $state(false);
@@ -26,8 +27,8 @@
     let displayQuality = $derived(displayName(customQuality,selectedQuality.effect))
         
     //imageProcessor
-    let tableHeader = ["DIFESA", "DIF.MAGICA"];
-    let dataRow = $derived([selectedEquip.def,selectedEquip.mdef])
+    let tableHeader = ["DIFESA", "DIF.MAGICA","COSTO"];
+    let dataRow = $derived([selectedEquip.def,selectedEquip.mdef,selectedQuality.price+customQualityCost+"z"])
 
     //Creo la qualità da passare all'equip
     let craftedQuality = $derived.by(()=>{
@@ -130,6 +131,7 @@
             <span class="border rounded">
                 <ModalSelector dimensions="w-35" itemName={selectedQuality.name} itemList={BASE_QUALITIES} bind:selectedItem={selectedQuality} bind:isOpen={isChoosingQual}/>
             </span>
+            <input type="number" bind:value={customQualityCost} class="border rounded w-20 justify-center items-center">
         </div>
 
         <!-- Footer -->
@@ -137,7 +139,7 @@
 
 
         <div class="flex gap-4 justify-center w-full h-8 text-white">
-            <label class="bg-cafe_noir-600 rounded p-2 cursor-pointer">
+            <label class="bg-cafe_noir-600 rounded p-2 cursor-pointer items-center flex">
                 <input id="jsonFileSelector" type="file" class="hidden" onchange={handleFileSelect}/>
                 Carica Json
             </label>
@@ -148,11 +150,11 @@
   <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    
         <div  id={displayEquipName} class="bg-white border">
-            <div class="bg-cafe_noir-700 grid grid-cols-5">
+            <div class="bg-cafe_noir-700 grid grid-cols-6">
                 <p class="col-span-2 px-2">
                     {craftedEquip.name}
                 </p>
-                <span class="grid grid-cols-2  col-span-2 gap-30">
+                <span class="flex col-span-4 justify-between px-1">
                     {#each tableHeader as header}
                         <p> {header} </p>
                     {/each}
@@ -160,10 +162,10 @@
             </div>
             <div class="flex">
                 <div class="flex-shrink-0">
-                    <ImageUploader2 padre="shieldGenerator" dimensions={"w-20 h-20 border-r"} fill={true} bind:imageUrl = {equipImageUrl}/>
+                    <ImageUploader2 padre="shieldGenerator" dimensions={"w-35 h-20 border-r"} fill={true} bind:imageUrl = {equipImageUrl}/>
                 </div>
                 <div class="flex-1">
-                    <div class="justify-around bg-cafe_noir-800 flex">
+                    <div class="justify-between bg-cafe_noir-800 flex px-8">
                         {#each dataRow as data}
                             <p> {data} </p>
                         {/each}

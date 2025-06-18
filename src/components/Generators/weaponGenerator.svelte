@@ -252,7 +252,7 @@
 
 
         <div class="flex gap-4 justify-center w-full h-8 text-white">
-            <label class="bg-cafe_noir-600 rounded p-2 cursor-pointer">
+            <label class="bg-cafe_noir-600 rounded p-2 cursor-pointer items-center flex">
                 <input id="jsonFileSelector" type="file" class="hidden" onchange={handleFileSelect}/>
                 Carica Json
             </label>
@@ -276,7 +276,7 @@
             </div>
             <div class=" flex">
                 <div class="flex-shrink-0">
-                    <ImageUploader2 padre="weaponGenerator" dimensions={"w-20 h-20 border-r"} fill={true} bind:imageUrl = {weaponImageUrl}/>
+                    <ImageUploader2 padre="weaponGenerator" dimensions={"w-25 h-25 border-r"} fill={true} bind:imageUrl = {weaponImageUrl}/>
                 </div>
                 <div class="flex-1">
                     <div class="justify-around bg-cafe_noir-800 flex ">
@@ -291,7 +291,7 @@
                         {/each}
                     </div>
                     <hr>
-                    <div>
+                    <div class="px-2">
                         {displayQuality}
                     </div>
                 </div>
