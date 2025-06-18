@@ -150,11 +150,11 @@
                     {/each}
                 </span>
             </div>
-            <div class=" grid grid-cols-2 gap-4">
-                <div class="col-span-1">
-                    <ImageUploader2 padre="accessoryGenerator" dimensions={"w-40 h-30"} fill={true} bind:imageUrl = {accessoryImageUrl}/>
+            <div class=" flex gap-4">
+                <div class="flex-shrink-0">
+                    <ImageUploader2 padre="accessoryGenerator" dimensions={"w-20 h-20"} fill={true} bind:imageUrl = {accessoryImageUrl}/>
                 </div>
-                <div class="col-span-1">
+                <div class="flex-1">
                     <div class="items-center justify-end px-10  bg-cafe_noir-800 flex">
                         {#each dataRow as data}
                             <p> {data} </p>

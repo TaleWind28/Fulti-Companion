@@ -25,7 +25,8 @@
     let displayArcanumName = $derived(displayName(customArcanumName,"Arcanum"));
     let displayArcanumDomain = $derived(displayName(customArcanumDomain,"Nessun Dominio"));
     let displayArcanumDescription = $derived(displayName(customArcanumDescription,"Nessuna Descrizione"));
-    
+    let arcanumImageUrl = $state(undefined);
+
     let craftedArcanum = $derived.by(()=>{ 
         return{
             name:displayArcanumName,
@@ -49,7 +50,7 @@
     })
 
     //imageProcessor
-    let arcanumImageUrl = $state(undefined);
+    
 
     //gestisco la selezione dei file
     async function handleFileSelect(event:Event){
@@ -110,7 +111,7 @@
         isRework = false;
     }
 
-    //esporto in json l'oggetto
+    //esporto in json
     async function handleExport(){
         const jsonExport = await arcanumToJson(craftedArcanum);
         downloadFile(jsonExport,`${craftedArcanum.name.replace(/\s+/g, '') || 'arcanum'}.json`,'application/json')
@@ -165,11 +166,11 @@
                     {displayArcanumName}
                 </p>
             </div>
-            <div class=" grid grid-cols-2 gap-4">
-                <div class="col-span-1">
-                    <ImageUploader2 padre="arcanumGenerator" dimensions={"w-40 h-30"} fill={true} bind:imageUrl = {arcanumImageUrl}/>
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <ImageUploader2 padre="arcanumGenerator" dimensions={"w-20 h-20"} fill={true} bind:imageUrl = {arcanumImageUrl}/>
                 </div>
-                <div class="col-span-1">
+                <div class="flex-1">
                     <div class="items-center justify-end px-10  bg-cafe_noir-800 flex">
                         {displayArcanumDescription}
                     </div>

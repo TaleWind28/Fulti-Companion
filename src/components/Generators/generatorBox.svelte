@@ -6,7 +6,7 @@
     <!-- Generator -->
     <div>
         <!-- nameTag -->
-        <div class="border bg-cafe_noir-700">
+        <div class="border bg-cafe_noir-700 px-2">
             {nameTag}
         </div>
 

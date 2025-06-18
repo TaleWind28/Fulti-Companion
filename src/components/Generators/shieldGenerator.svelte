@@ -157,11 +157,11 @@
                     {/each}
                 </span>
             </div>
-            <div class=" grid grid-cols-5 gap-4">
-                <div class="col-span-1">
-                    <ImageUploader2 padre="shieldGenerator" dimensions={"w-40 h-30"} fill={true} bind:imageUrl = {equipImageUrl}/>
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <ImageUploader2 padre="shieldGenerator" dimensions={"w-20 h-20"} fill={true} bind:imageUrl = {equipImageUrl}/>
                 </div>
-                <div class="col-span-4">
+                <div class="flex-1">
                     <div class="justify-around bg-cafe_noir-800 flex">
                         {#each dataRow as data}
                             <p> {data} </p>

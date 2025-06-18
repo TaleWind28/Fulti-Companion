@@ -13,6 +13,8 @@
     import GeneratorBox from "./generatorBox.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import Modal from "../customHTMLElements/modal.svelte";
+    import RunesTab from "../customHTMLElements/runesTab.svelte";
+    import { faDownload, faFileExport } from "@fortawesome/free-solid-svg-icons";
 
     //checkbox
     let isMoreDamageChecked = $state(false);
@@ -59,6 +61,8 @@
 
     //Numero di Mani
     let selectedHand = $state(hands[0]);
+
+    let displayCost = $derived(selectedQuality.price+selectedWeapon.cost+qualityCost);
 
     //variabili per apertura modali    
     let isChoosingWeapon = $state(false);
@@ -167,7 +171,7 @@
     let craftedWeapon:Weapon = $derived.by( ()=> {
         return {
             name:displayWeaponName,
-            cost:selectedWeapon.cost,
+            cost:displayCost,
             accuracy:accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),
             damage: damageModifier,
             type: selectedWeapon.type,
@@ -180,8 +184,8 @@
     });
     
     let thirdRowElement = $derived([selectedWeapon.category,"*",craftedWeapon.hands,"*",selectedWeapon.distance]);
-    let formulaRow = $derived([accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),damageFormula(damageModifier,selectedDamageType.name)]);
-    let tableHeader = ["PRECISIONE","DANNO"];
+    let formulaRow = $derived([accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),damageFormula(damageModifier,selectedDamageType.name),displayCost+"z"]);
+    let tableHeader = ["PRECISIONE","DANNO","COSTO"];
     
 
 </script>
@@ -241,7 +245,7 @@
         
         <div class="flex items-center gap-4 justify-between w-full">
             <textarea class="border rounded flex-1" bind:value={customQuality} placeholder="Descrizione qualità custom...">{displayQuality}</textarea>
-            <input placeholder="Custom Cost" class="border rounded w-20 flex-shrink-0" bind:value={qualityCost}>
+            <input placeholder="Custom Cost" type="number" class="border rounded w-20 flex-shrink-0" bind:value={qualityCost}>
         </div>
         
         <hr class="w-full border-cafe_noir-600">
@@ -259,22 +263,22 @@
     
     <!-- Contenuto passato allo snippet 'imageProcessor' -->
     {#snippet imageProcessor()} 
-        <div  id={displayWeaponName} class="bg-white">
-            <div class="bg-cafe_noir-700 grid grid-cols-5">
-                <p class="col-span-2">
+        <div  id={displayWeaponName} class="bg-white border">
+            <div class="bg-cafe_noir-700 grid grid-cols-6">
+                <p class="col-span-1 px-2">
                     {displayWeaponName}
                 </p>
-                <span class="grid grid-cols-2  col-span-2 gap-30">
+                <span class="grid grid-cols-3  col-span-5 gap-30 px-10">
                     {#each tableHeader as header}
                         <p> {header} </p>
                     {/each}
                 </span>
             </div>
-            <div class=" grid grid-cols-3 gap-4">
-                <div class="col-span-1">
-                    <ImageUploader2 padre="weaponGenerator" dimensions={"w-40 h-30"} fill={true} bind:imageUrl = {weaponImageUrl}/>
+            <div class=" flex">
+                <div class="flex-shrink-0">
+                    <ImageUploader2 padre="weaponGenerator" dimensions={"w-20 h-20"} fill={true} bind:imageUrl = {weaponImageUrl}/>
                 </div>
-                <div class="col-span-2">
+                <div class="flex-1">
                     <div class="justify-around bg-cafe_noir-800 flex">
                         {#each formulaRow as formula}
                             <p> {formula} </p>
@@ -293,8 +297,8 @@
                 </div>
             </div>
         </div>
-        <RunesButton text="scarica Json" clickFun={()=> exportHtmlToImage(displayWeaponName)}/>
-        <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={handleExport}/>
+        <RunesButton text="" icon={faDownload} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={()=>exportHtmlToImage(displayWeaponName)}/>
+        <RunesButton text="" icon={faFileExport} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={handleExport}/>
     {/snippet}  
     
     <Modal showModal={errore} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
@@ -308,5 +312,12 @@
         </div>
         
     </Modal>
-</GeneratorBox> 
+</GeneratorBox>
+
+
+<!--  
+
+<CustomButton text="" icon={faTrashCan} style ="cursor-pointer px-2" additionalStyle="" dimensions="w-auto" color="" on:click={ () => requestRemoveConfirmation(car.id)}/>
+
+-->
 
