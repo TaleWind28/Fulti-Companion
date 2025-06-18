@@ -141,7 +141,6 @@
                 Carica Json
             </label>
             <RunesButton text="Pulisci Campi" color="bg-cafe_noir-600" clickFun={handleClearAll}/>
-            <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={handleExport}/>
         </div>
     </div>
 
@@ -176,5 +175,6 @@
             </div>
         </div>
         <RunesButton text="scarica Json" clickFun={()=> exportHtmlToImage(displayEquipName)}/>
+        <RunesButton text="Scarica Json" color="bg-cafe_noir-600" clickFun={handleExport}/>
     {/snippet}
 </GeneratorBox>

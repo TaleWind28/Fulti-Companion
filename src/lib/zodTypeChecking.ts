@@ -74,3 +74,13 @@ export const AccessoryScheme = ItemScheme.extend({
   quality:QualityScheme,
   price:z.number()
 })
+
+export const ArcanumScheme = ItemScheme.extend({
+  domain:z.string(),
+  description:z.string(),
+  fusion:z.object({name:z.string(),effect:z.string()}),
+  impulse:z.object({name:z.string(),effect:z.string()}),
+  discharge:z.object({name:z.string(),effect:z.string()}),
+  reworked:z.boolean(),
+  pic:z.string()
+})

@@ -13,7 +13,7 @@
     }
     return imageUrl;
   });
-  $inspect(imageSrc,padre,"sono io");
+
   let modality = () =>{
     if(fill === true)return "object-fill";
     else return "object-cover";
