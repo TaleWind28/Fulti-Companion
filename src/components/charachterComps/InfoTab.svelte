@@ -3,10 +3,12 @@
     import Fa from "svelte-fa";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import GeneratorBox from "../Generators/generatorBox.svelte";
-    import { faCoins, faFeather, faStar } from "@fortawesome/free-solid-svg-icons";
+    import { faCoins, faFeather, faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
     import ModalSelector from "../customHTMLElements/modalSelector.svelte";
     import RunesInput from "../customHTMLElements/runesInput.svelte";
     import Bond from "./bond.svelte";
+    import RunesTab from "../customHTMLElements/runesTab.svelte";
+    import { icon } from "@fortawesome/fontawesome-svg-core";
 
     let characterName = $state("Pino");
     let characterGender = $state("Maschio Etero Cis");
@@ -34,9 +36,18 @@
     let bondArray = $state(
     [
         {id:0, name:"pino",bonds:["Ammirazione"]},
-        {id:1, name:"pino",bonds:["Ammirazione"]},
+        {id:1, name:"pino",bonds:[]},
     ])
 
+    function createBond(){
+        if(bondArray.length>5){
+            ////gestire con modale di errore
+            //error = true
+            return;
+        }
+        
+        bondArray.push({id:bondArray.length,name:"",bonds:[]});
+    }
     function deleteBond(id:number){
         console.log("ci provo");
         bondArray = bondArray.filter(bond => bond.id != id);
@@ -93,7 +104,10 @@
     </GeneratorBox>
 
     <!-- Terza Box: Legami -->
-    <GeneratorBox nameTag="Legami">
+    <GeneratorBox nameTag="Legami" additionalStyle="flex items-center justify-start gap-58">
+        {#snippet additionalHeaderThings()}
+            <RunesButton icon={faPlus} color="" clickFun={createBond}/>
+        {/snippet}
         <div class="flex flex-col gap-4">
             {#each bondArray as bond}
                 <Bond bondName={bond.name} bind:bonds={bond.bonds} onDelete={ ()=> deleteBond(bond.id)}/>    

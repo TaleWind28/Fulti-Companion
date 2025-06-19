@@ -30,7 +30,6 @@
     <!-- Riga 1: Nome Legame -->
     <span class="flex items-center justify-center gap-2 py-2">
         <RunesButton dimensions="w-auto h-auto" color="" icon={faCancel} clickFun={handleDelete}/>
-        
         <input class="border rounded" placeholder="Nome Legame" bind:value={bondName}>
     </span>
 

@@ -1,5 +1,5 @@
 <script>
-    let {nameTag = "undefinedNameTag", imageProcessor= null ,children} = $props();
+    let {nameTag = "undefinedNameTag", imageProcessor= null,additionalHeaderThings= null,additionalStyle = "" ,children} = $props();
 </script>
 
 {#if imageProcessor !== null}
@@ -28,8 +28,9 @@
 {:else}
     <div>
             <!-- nameTag -->
-            <div class="border bg-cafe_noir-700 px-2">
+            <div class="border bg-cafe_noir-700 px-2 {additionalStyle}">
                 {nameTag}
+                {@render additionalHeaderThings?.()}
             </div>
 
             <!-- children passato dal chiamante -->
