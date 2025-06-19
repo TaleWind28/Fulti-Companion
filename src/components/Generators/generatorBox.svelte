@@ -19,7 +19,7 @@
 
     <!-- Generated Image -->
     
-    {#if generateImage}
+    {#if imageProcessor}
         <div>
             {@render imageProcessor?.()}
         </div>

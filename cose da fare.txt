@@ -5,4 +5,4 @@ Aggiugnere le qualità per accessori ed equipaggiamenti
 CharacterSheet:
   -creare tutti gli oggetti per le classi di fabula, le spell e cose peculiari(tentendo in mente di doverle fare comode per il combat helper).
 
-Scegliere idea esteticas
+Scegliere idea estetica

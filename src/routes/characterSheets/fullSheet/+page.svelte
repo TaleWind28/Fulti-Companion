@@ -9,6 +9,7 @@
     import RunesTab from '../../../components/customHTMLElements/runesTab.svelte';
     import CharacterSheet from '../../../components/sheets/characterSheet.svelte';
     import CustomInput from '../../../components/customHTMLElements/customInput.svelte';
+    import InfoTab from '../../../components/charachterComps/InfoTab.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');
@@ -18,11 +19,9 @@
     {
         id:0,
         label:"Informazioni",
-        comp: Traits,
+        comp: InfoTab,
         props:{
-            identity:"Michele",
-            theme:"ha scoperto",
-            origin:"di voler morire"
+
         }
     },
     {
@@ -114,6 +113,6 @@
 
 {#if character}
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
-        <RunesTab tabs = {tabs.tabs} />
+        <RunesTab show={1}  tabs = {tabs.tabs} />
     </div>
 {/if}

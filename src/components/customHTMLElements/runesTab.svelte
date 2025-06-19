@@ -1,6 +1,6 @@
 <script lang="ts">
-    let { tabs } = $props(); 
-    let show = $state(0)
+    let { tabs ,show = 0} = $props(); 
+   
 
     let ActiveComponent = $derived(tabs[show].comp);
     let activeProps = $derived(tabs[show].props);
