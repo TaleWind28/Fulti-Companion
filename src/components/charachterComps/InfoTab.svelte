@@ -31,11 +31,15 @@
 
 
     //Terza Box
-    let bondArray = $state([{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]}])
-    let bonds = $state(["Ammirazione"]);
-    $inspect(bonds,"Componente InfoTab");
-    function deleteBond(){
-        console.log();
+    let bondArray = $state(
+    [
+        {id:0, name:"pino",bonds:["Ammirazione"]},
+        {id:1, name:"pino",bonds:["Ammirazione"]},
+    ])
+
+    function deleteBond(id:number){
+        console.log("ci provo");
+        bondArray = bondArray.filter(bond => bond.id != id);
     }
     
     //Quarta Box
@@ -92,7 +96,7 @@
     <GeneratorBox nameTag="Legami">
         <div class="flex flex-col gap-4">
             {#each bondArray as bond}
-                <Bond bondName={bond.name} bind:bonds={bond.bonds} />    
+                <Bond bondName={bond.name} bind:bonds={bond.bonds} onDelete={ ()=> deleteBond(bond.id)}/>    
                 <hr class="w-full border-cafe_noir-600">
             {/each}
 

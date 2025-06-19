@@ -24,11 +24,14 @@
 </script>
 
 <button class="{dimensions} {style} {color} {additionalStyle}" onclick={click} onchange={change}>
+ <!-- se uso il bottone come pulsante -->   
 {#if !textIcon && icon== undefined}
     <p class={textColor}>{text}</p>
 {:else if icon!= undefined && !textIcon}
+    <!-- se uso il bottone come icona -->
     <Fa class={iconStyle} icon={icon}/>
 {:else if textIcon && icon!= undefined}
+    <!-- se uso il bottone come icona con del testo-->
     <span class="flex items-center justify-center gap-2">
         <Fa class={iconStyle} icon={icon}/>
         <p class={textColor}>{text}</p>

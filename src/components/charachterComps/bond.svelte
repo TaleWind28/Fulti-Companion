@@ -2,10 +2,11 @@
     import { faCancel } from "@fortawesome/free-solid-svg-icons";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
 
-    let {bondName= $bindable(""), bonds = $bindable([])} = $props();
+    let {bondName= $bindable(""), bonds = $bindable([]), onDelete = ()=>{} } = $props();
 
     const BOND_RELATIONS = ["Ammirazione","Lealtà","Affetto","Inferiorità","Sfiducia","Odio"];
 
+    //mettere in file ts
     function getEquivalentBond(bond:string){
         
         switch(bond){
@@ -19,13 +20,17 @@
         return "";
     }
 
-    $inspect(bonds,"Componente Bonds");
+    function handleDelete() {
+        console.log("entra");
+        onDelete(); // Chiama la funzione del padre
+    }
 </script>
 
 <div>
     <!-- Riga 1: Nome Legame -->
     <span class="flex items-center justify-center gap-2 py-2">
-        <RunesButton dimensions="w-auto h-auto" color="" icon={faCancel} clickFun={()=>{console.log("ammazzami")}}/>
+        <RunesButton dimensions="w-auto h-auto" color="" icon={faCancel} clickFun={handleDelete}/>
+        
         <input class="border rounded" placeholder="Nome Legame" bind:value={bondName}>
     </span>
 
