@@ -15,7 +15,8 @@
     let zenit = $state(0);
     let exp = $state(0);
     let fabulaPoints = $state(0); 
-    console.log("mino");
+
+
     async function urlUploader(){
         console.log("Impementami cazzo");
     }
@@ -24,11 +25,22 @@
         console.log("porca troia implementami");
     }
     
-
-
     //Seconda Box
     const THEMES = [{name:"Ambizione"},{name:"Ira"}, {name:"Appartenenza"}, {name:" Dubbio"} , {name:"Dovere"}, {name:"Colpa"} , {name:"Speranza"}, {name:"Giustizia"}, {name:"Vendetta"}];
     let selectedTheme = $state(THEMES[0]);
+
+
+    //Terza Box
+    let bondArray = $state([{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]},{name:"pino",bonds:["Ammirazione"]}])
+    let bonds = $state(["Ammirazione"]);
+    $inspect(bonds,"Componente InfoTab");
+    function deleteBond(){
+        console.log();
+    }
+    
+    //Quarta Box
+
+
 </script>
     
 <div class="grid grid-cols-2 gap-4">
@@ -78,7 +90,13 @@
 
     <!-- Terza Box: Legami -->
     <GeneratorBox nameTag="Legami">
-        <Bond/>
+        <div class="flex flex-col gap-4">
+            {#each bondArray as bond}
+                <Bond bondName={bond.name} bind:bonds={bond.bonds} />    
+                <hr class="w-full border-cafe_noir-600">
+            {/each}
+
+        </div>
     </GeneratorBox>
 
 
