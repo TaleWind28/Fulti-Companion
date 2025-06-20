@@ -7,17 +7,11 @@
     import ModalSelector from "../customHTMLElements/modalSelector.svelte";
     import RunesInput from "../customHTMLElements/runesInput.svelte";
     import Bond from "./bond.svelte";
-    import RunesTab from "../customHTMLElements/runesTab.svelte";
-    import { icon } from "@fortawesome/fontawesome-svg-core";
-    import { effect } from "zod";
 
-    let characterName = $state("Pino");
-    let characterGender = $state("Maschio Etero Cis");
-    let characterLevel = $state(0);
-    let characterDescription = $state("Nessuna Descrizione");
-    let zenit = $state(0);
-    let exp = $state(0);
-    let fabulaPoints = $state(0);
+    //prop reattivi
+    let {characterName = "", characterGender = "", characterLevel = 0, characterDescription = "Nessuna Descrizione", zenit = 0, exp = 0, fabulaPoints = 0, imageStringUrl=""} = $props();
+
+    //Prima Box
     //controllare se alla fine ci piace ma sembra funzionare a scanso di warning
     let buttonFormatter = $state(
         [
@@ -28,12 +22,14 @@
 
     $inspect(buttonFormatter,"reattività");
 
-    async function urlUploader(){
-        console.log("Impementami cazzo");
+    async function urlUploader(stringUrl:string){
+        console.log(stringUrl,"immagine");
     }
 
-    async function urlDeleter(){
-        console.log("porca troia implementami");
+    async function urlDeleter(stringUrl:string){
+        //cerca l'immagine dal db
+        console.log(stringUrl,"immagine");
+    
     }
     
     //Seconda Box
@@ -54,11 +50,10 @@
             //error = true
             return;
         }
-        
+
         bondArray.push({id:bondArray.length,name:"",bonds:[]});
     }
     function deleteBond(id:number){
-        console.log("ci provo");
         bondArray = bondArray.filter(bond => bond.id != id);
     }
     
@@ -77,9 +72,9 @@
         <div class="flex flex-col gap-4 p-2">
             <!-- Prima Riga: Nome, Genere e Livello -->
             <section class="flex gap-4 ">
-                <input type="text" bind:value={characterName} class="w-40 border rounded">
-                <input type="text" bind:value={characterGender} class="w-40 border rounded">
-                <input type="number" bind:value={characterLevel} class="w-20 border rounded">
+                <input type="text" bind:value={characterName} class="w-40 border rounded" placeholder="Nome Personaggio">
+                <input type="text" bind:value={characterGender} class="w-40 border rounded" placeholder="Genere">
+                <input type="number" bind:value={characterLevel} class="w-20 border rounded" placeholder="Descrizione">
             </section>
             
             <!-- Seconda Riga: Descrizione Personaggio -->
@@ -94,9 +89,9 @@
 
             <!-- Quarta Riga: URL Immagine, con pulsanti -->
             <span class="flex items-center gap-6">
-                <input type="text" class="border rounded" placeholder="URL Immagine">
-                <RunesButton text="Aggiorna Immagine" textColor="text-white" dimensions={"w-20 h-12"} clickFun={urlUploader}/>
-                <RunesButton text="Rimuovi Immagine" textColor="text-white" dimensions={"w-20 h-12"} clickFun={urlDeleter}/>
+                <input type="text" class="border rounded" placeholder="URL Immagine" bind:value={imageStringUrl} >
+                <RunesButton text="Aggiorna Immagine" textColor="text-white" dimensions={"w-20 h-12"} color="bg-cafe_noir-600" clickFun={()=>urlUploader(imageStringUrl)}/>
+                <RunesButton text="Rimuovi Immagine" textColor="text-white" dimensions={"w-20 h-12"} color="bg-cafe_noir-600" clickFun={()=>urlDeleter(imageStringUrl)}/>
             </span>
 
         </div>
