@@ -9,6 +9,7 @@
     import Bond from "./bond.svelte";
     import RunesTab from "../customHTMLElements/runesTab.svelte";
     import { icon } from "@fortawesome/fontawesome-svg-core";
+    import { effect } from "zod";
 
     let characterName = $state("Pino");
     let characterGender = $state("Maschio Etero Cis");
@@ -16,8 +17,16 @@
     let characterDescription = $state("Nessuna Descrizione");
     let zenit = $state(0);
     let exp = $state(0);
-    let fabulaPoints = $state(0); 
+    let fabulaPoints = $state(0);
+    //controllare se alla fine ci piace ma sembra funzionare a scanso di warning
+    let buttonFormatter = $state(
+        [
+            {value:fabulaPoints,icon:faFeather,iconColor:"text-lion-600"},
+            {value:exp,icon:faStar,iconColor:"text-green-900"},
+            {value:zenit,icon:faCoins,iconColor:"text-yellow-500"}
+        ]);
 
+    $inspect(buttonFormatter,"reattività");
 
     async function urlUploader(){
         console.log("Impementami cazzo");
@@ -54,7 +63,11 @@
     }
     
     //Quarta Box
-
+    let quirk = $state({
+        name:"",
+        description:"",
+        effect:""
+    });
 
 </script>
     
@@ -70,25 +83,22 @@
             </section>
             
             <!-- Seconda Riga: Descrizione Personaggio -->
-            <section>
-                <textarea class="border w-full" bind:value={characterDescription}></textarea>
-            </section>
-
+            <textarea class="border w-full" bind:value={characterDescription}></textarea>
+            
             <!-- Terza Riga: Punti Fabula, Punti Exp e Zenit -->
             <section class="flex justify-start gap-18">
-                <RunesInput styleClass= "flex w-auto items-center border rounded p-2" bindValue={fabulaPoints} icon={faFeather} iconColor={"text-lion-600"}/>
-                <RunesInput styleClass= "flex w-auto items-center border rounded p-2" bindValue={exp} icon={faStar} iconColor={"text-green-900"}/>
-                <RunesInput styleClass= "flex w-auto items-center border rounded p-2" bindValue={zenit} icon={faCoins} iconColor={"text-yellow-500"}/>
+                {#each buttonFormatter as formatter}
+                    <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={formatter.value} icon={formatter.icon} iconColor={formatter.iconColor}/>
+                {/each}
             </section>
 
             <!-- Quarta Riga: URL Immagine, con pulsanti -->
-            <section>
-                <span class="flex items-center gap-6">
-                    <input type="text" class="border rounded" placeholder="URL Immagine">
-                    <RunesButton text="Aggiorna Immagine" textColor="text-white" dimensions={"w-20 h-12"} clickFun={urlUploader}/>
-                    <RunesButton text="Rimuovi Immagine" textColor="text-white" dimensions={"w-20 h-12"} clickFun={urlDeleter}/>
-                </span>
-            </section>
+            <span class="flex items-center gap-6">
+                <input type="text" class="border rounded" placeholder="URL Immagine">
+                <RunesButton text="Aggiorna Immagine" textColor="text-white" dimensions={"w-20 h-12"} clickFun={urlUploader}/>
+                <RunesButton text="Rimuovi Immagine" textColor="text-white" dimensions={"w-20 h-12"} clickFun={urlDeleter}/>
+            </span>
+
         </div>
     </GeneratorBox>
 
@@ -103,10 +113,10 @@
         </div> 
     </GeneratorBox>
 
-    <!-- Terza Box: Legami -->
-    <GeneratorBox nameTag="Legami" additionalStyle="flex items-center justify-start gap-58">
+    <!-- Terza Box: Legami --> 
+    <GeneratorBox nameTag="Legami" additionalStyle="flex items-center justify-between">
         {#snippet additionalHeaderThings()}
-            <RunesButton icon={faPlus} color="" clickFun={createBond}/>
+            <RunesButton dimensions ="w-auto" icon={faPlus} color="" clickFun={createBond}/>
         {/snippet}
         <div class="flex flex-col gap-4">
             {#each bondArray as bond}
@@ -117,10 +127,15 @@
         </div>
     </GeneratorBox>
 
-
     <!-- Quarta Box: Peculiarità -->
     <GeneratorBox nameTag="Peculiarità">
-        <div>
+        <div class="gap-2 p-2">
+            <section class="flex flex-col gap-4">
+                <input class="border rounded w-40" placeholder="Nome Peculiarità" bind:value={quirk.name}>
+                <input class="border rounded w-full" placeholder="Descrizione" bind:value={quirk.description}>
+                <input class="border rounded w-full" placeholder="Effetto" bind:value={quirk.effect}>
+            </section>
         </div>  
     </GeneratorBox>
+
 </div>
