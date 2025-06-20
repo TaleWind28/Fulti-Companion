@@ -10,6 +10,7 @@
     import CharacterSheet from '../../../components/sheets/characterSheet.svelte';
     import CustomInput from '../../../components/customHTMLElements/customInput.svelte';
     import InfoTab from '../../../components/charachterComps/InfoTab.svelte';
+    import StatTab from '../../../components/charachterComps/statTab.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');
@@ -27,11 +28,9 @@
     {
         id:1,
         label:"Statistiche",
-        comp: Traits,
+        comp: StatTab,
         props:{
-            identity:"Michele",
-            theme:"vuole",
-            origin:"morire"
+       
         }
     }
     ,{
@@ -113,6 +112,6 @@
 
 {#if character}
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
-        <RunesTab show={1}  tabs = {tabs.tabs} />
+        <RunesTab show={2}  tabs = {tabs.tabs} />
     </div>
 {/if}
