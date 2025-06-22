@@ -28,6 +28,10 @@ export const AFFINITY_CONFIG = {
   physical: { label: "Fisico", color: "#9CA3AF" }
 } as const;
 
+
+//per le affinità vengono usati i nomi inglesi per compatibilità con fultimator
+export type Affinities = Partial<Record<keyof typeof AFFINITY_CONFIG, Affinity>>;
+
 // Deriva automaticamente solo i valori delle label
 export type DamageType = {
   name: typeof AFFINITY_CONFIG[keyof typeof AFFINITY_CONFIG]['label'];
@@ -37,8 +41,6 @@ export const DAMAGE_TYPES: DamageType[] = Object.values(AFFINITY_CONFIG).map(a =
   name: a.label
 }));
 
-//per le affinità vengono usati i nomi inglesi per compatibilità con fultimator
-export type Affinities = Partial<Record<keyof typeof AFFINITY_CONFIG, Affinity>>;
 
 export const QUALITIES_CONFIG = {
   nessuna_qualità:{effect:"Nessuna Qualità", price:0},
