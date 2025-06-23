@@ -5,13 +5,13 @@
     import { onAuthStateChanged } from 'firebase/auth';
     import { auth } from '$lib/authUtility';
     import { type Character, retrieveUserCharacter } from "$lib/characterUtils";
-    import Traits from '../../../components/charachterComps/traits.svelte';
     import RunesTab from '../../../components/customHTMLElements/runesTab.svelte';
     import CharacterSheet from '../../../components/sheets/characterSheet.svelte';
     import CustomInput from '../../../components/customHTMLElements/customInput.svelte';
     import InfoTab from '../../../components/charachterComps/InfoTab.svelte';
     import StatTab from '../../../components/charachterComps/statTab.svelte';
     import NotesTab from '../../../components/charachterComps/notesTab.svelte';
+    import ClassTab from '../../../components/charachterComps/classTab.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');
@@ -37,7 +37,7 @@
     ,{
         id:2,
         label:"Classi",
-        comp: CustomInput,
+        comp: ClassTab,
     }
     ,{
         id:3,
@@ -113,6 +113,6 @@
 
 {#if character}
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
-        <RunesTab show={6}  tabs = {tabs.tabs} />
+        <RunesTab show={3}  tabs = {tabs.tabs} />
     </div>
 {/if}
