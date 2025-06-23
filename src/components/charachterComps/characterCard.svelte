@@ -121,9 +121,7 @@
         mp:0,
         ip:0
     }
-    let maxHp = $derived( car.characteristics[2]*5 + car.level + classBonus.hp);
-    let maxMp = $derived( car.characteristics[3]*5 + car.level + classBonus.hp);
-    let maxIp = $derived( 6 + classBonus.ip);
+    
     let hp = $derived({
         max:car.characteristics[2]*5 + car.level + classBonus.hp,
         actual:car.characteristics[2]*5 + car.level + classBonus.hp

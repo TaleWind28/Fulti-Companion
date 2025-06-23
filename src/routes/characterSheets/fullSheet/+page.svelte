@@ -98,15 +98,15 @@
                     }
                 }
                 tabs.addTab(charachterTab,0);
-                console.log(tabs);
-                console.log(character);
+                // console.log(tabs);
+                // console.log(character);
                 }
             }
             catch(e){
                 console.log(e);
             }
     }
-
+    $inspect(character);
 </script>
 
 
