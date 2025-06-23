@@ -11,6 +11,7 @@
     import CustomInput from '../../../components/customHTMLElements/customInput.svelte';
     import InfoTab from '../../../components/charachterComps/InfoTab.svelte';
     import StatTab from '../../../components/charachterComps/statTab.svelte';
+    import NotesTab from '../../../components/charachterComps/notesTab.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');
@@ -49,7 +50,7 @@
     },{
         id:5,
         label:"Note",
-        comp: CustomInput,
+        comp: NotesTab,
     }]);
 
     onMount(() => {
@@ -112,6 +113,6 @@
 
 {#if character}
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
-        <RunesTab show={2}  tabs = {tabs.tabs} />
+        <RunesTab show={6}  tabs = {tabs.tabs} />
     </div>
 {/if}
