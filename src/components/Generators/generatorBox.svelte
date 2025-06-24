@@ -1,5 +1,5 @@
 <script>
-    let {nameTag = "undefinedNameTag", imageProcessor= null,additionalHeaderThings= null,additionalStyle = "" ,children} = $props();
+    let {nameTag = "undefinedNameTag", imageProcessor= null,additionalHeaderThings= null,additionalStyle = "" ,nameTagStyle ="",children} = $props();
 </script>
 
 {#if imageProcessor !== null}
@@ -8,7 +8,7 @@
         <div>
             <!-- nameTag -->
             <div class="border bg-cafe_noir-700 px-2">
-                {nameTag}
+                <p class={nameTagStyle}>{nameTag}</p>
             </div>
 
             <!-- children passato dal chiamante -->
@@ -29,7 +29,7 @@
     <div>
             <!-- nameTag -->
             <div class="border bg-cafe_noir-700 px-2 {additionalStyle}">
-                {nameTag}
+                <p class={nameTagStyle}>{nameTag}</p>
                 {@render additionalHeaderThings?.()}
             </div>
 

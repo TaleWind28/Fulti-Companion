@@ -1,6 +1,6 @@
 {
   "name": "Fury",
-  "lvl": 0,
+  "lvl": 9,
   "benefits": {
     "hpplus": 5,
     "mpplus": 0,
@@ -19,38 +19,38 @@
   },
   "skills": [
     {
-      "skillName": "Adrenaline",
+      "skillName": "Adrenalina",
       "currentLvl": 5,
       "maxLvl": 5,
-      "description": "Adrenaline_desc",
+      "description": "Finché sei in Crisi, infliggi 【LA × 2】 danni extra (che sia con attacchi, incantesimi, Arcana, oggetti o qualsiasi altro metodo). ",
       "specialSkill": ""
     },
     {
-      "skillName": "Frenzy",
+      "skillName": "Frenesia",
       "currentLvl": 1,
       "maxLvl": 1,
-      "description": "Frenzy_desc",
+      "description": "I tuoi Test di Precisione con flagelli, armi da lancio, pugnali e armi da rissa generano un successo critico se i due dadi mostrano lo stesso numero (e non è un fallimento critico).",
       "specialSkill": ""
     },
     {
-      "skillName": "Indomitable Spirit",
+      "skillName": "Spirito Indomabile",
       "currentLvl": 0,
       "maxLvl": 4,
-      "description": "IndomitableSpirit_desc",
+      "description": "Quando spendi uno o più Punti Fabula, ottieni un beneficio aggiuntivo, scegliendo un’opzione tra: recuperi 【LA × 5】 Punti Vita; oppure recuperi 【LA × 5】 Punti Mente; oppure guarisci da un singolo status a tua scelta.",
       "specialSkill": ""
     },
     {
-      "skillName": "Provoke",
+      "skillName": "Provocazione",
       "currentLvl": 3,
       "maxLvl": 5,
-      "description": "Provoke_desc",
+      "description": "Puoi usare un’azione e spendere 5 Punti Mente per effettuare un Test Contrapposto di 【VIG + VOL】 contro una creatura a te visibile (descrivi in che modo la provochi!). Se hai successo, il bersaglio subisce lo status furente e deve concentrare la sua attenzione su di te (i suoi attacchi e incantesimi offensivi devono includerti tra i bersagli se possibile). Questo obbligo termina se perdi i sensi o lasci la scena, se la creatura non è più furente, o se viene provocata con successo da qualcun altro. Inoltre, ottieni un bonus pari a 【LA】 ai tuoi Test di 【VIG + VOL】 per questa Abilità.",
       "specialSkill": ""
     },
     {
-      "skillName": "Withstand",
+      "skillName": "Sopportazione",
       "currentLvl": 0,
       "maxLvl": 5,
-      "description": "Withstand_desc",
+      "description": "Quando esegui l’azione di Guardia, se scegli di non coprire un’altra creatura, recuperi Punti Vita pari a 【LA, moltiplicato per la forza più alta tra i tuoi Legami】 e scegli Vigore o Volontà: fino al termine del tuo prossimo turno, consideri la Caratteristica scelta incrementata di una taglia di dado (massimo d12).",
       "specialSkill": ""
     }
   ],

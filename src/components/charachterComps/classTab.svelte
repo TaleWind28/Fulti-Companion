@@ -14,12 +14,16 @@
 
     $inspect(furia);
 </script>
+<div class="flex flex-col gap-4 ">
+
 
 <GeneratorBox nameTag={"Classi"}>
     <!-- Selettore per aggiungere classi al personaggio -->
     <ModalSelector itemName={"class"} itemList={[{}]} selectedItem={{name:""}}/>
-    <!-- Mostro le Classi del personaggio -->
-    {#each classList as classe }
-        <ClassDescriptor chosenClass={classe.data}/>
-    {/each}
 </GeneratorBox>
+<hr class="w-full border-cafe_noir-600">
+<!-- Mostro le Classi del personaggio -->
+    {#each classList as classe }
+        <ClassDescriptor bind:chosenClass={classe.data}/>
+    {/each}
+</div>
