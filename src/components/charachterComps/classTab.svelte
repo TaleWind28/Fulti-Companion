@@ -55,6 +55,7 @@
     {/each}
 </div>
 
+<!-- Errore: Superato il Numero Massimo di Classi -->
 <Modal bind:showModal={classNumberExceeded} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
     <div>
         <h1 class="text-red-400 text-2xl">
@@ -66,6 +67,7 @@
     </div>
 </Modal>
 
+<!-- Errore: Classe già Posseduta -->
 <Modal bind:showModal={classAlreadyPresent} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
     <div>
         <h1 class="text-red-400 text-2xl">
@@ -74,6 +76,7 @@
     </div>
 </Modal>
 
+<!-- Conferma: Classe Aggiunta con Successo -->
 <Modal bind:showModal={classAddedSuccessfully} modalText={"chiudi"} divStyle={"flex flex-col gap-4"}>
     <div>
         <h1 class="text-green-400 text-2xl">
