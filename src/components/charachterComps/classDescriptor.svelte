@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { createEmptyCharacterClass, type CharacterClass } from "$lib/characterClasses.svelte";
-    import { faPlus } from "@fortawesome/free-solid-svg-icons";
-    import RunesButton from "../customHTMLElements/runesButton.svelte";
+    import { type CharacterClass } from "$lib/characterClasses.svelte";
+
     import GeneratorBox from "../Generators/generatorBox.svelte";
     import SkillDescriptor from "./skillDescriptor.svelte";
 

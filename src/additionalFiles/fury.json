@@ -1,6 +1,6 @@
 {
-  "name": "Fury",
-  "lvl": 9,
+  "name": "Furia",
+  "lvl": 0,
   "benefits": {
     "hpplus": 5,
     "mpplus": 0,
@@ -20,14 +20,14 @@
   "skills": [
     {
       "skillName": "Adrenalina",
-      "currentLvl": 5,
+      "currentLvl":0,
       "maxLvl": 5,
       "description": "Finché sei in Crisi, infliggi 【LA × 2】 danni extra (che sia con attacchi, incantesimi, Arcana, oggetti o qualsiasi altro metodo). ",
       "specialSkill": ""
     },
     {
       "skillName": "Frenesia",
-      "currentLvl": 1,
+      "currentLvl": 0,
       "maxLvl": 1,
       "description": "I tuoi Test di Precisione con flagelli, armi da lancio, pugnali e armi da rissa generano un successo critico se i due dadi mostrano lo stesso numero (e non è un fallimento critico).",
       "specialSkill": ""
@@ -41,7 +41,7 @@
     },
     {
       "skillName": "Provocazione",
-      "currentLvl": 3,
+      "currentLvl": 0,
       "maxLvl": 5,
       "description": "Puoi usare un’azione e spendere 5 Punti Mente per effettuare un Test Contrapposto di 【VIG + VOL】 contro una creatura a te visibile (descrivi in che modo la provochi!). Se hai successo, il bersaglio subisce lo status furente e deve concentrare la sua attenzione su di te (i suoi attacchi e incantesimi offensivi devono includerti tra i bersagli se possibile). Questo obbligo termina se perdi i sensi o lasci la scena, se la creatura non è più furente, o se viene provocata con successo da qualcun altro. Inoltre, ottieni un bonus pari a 【LA】 ai tuoi Test di 【VIG + VOL】 per questa Abilità.",
       "specialSkill": ""
