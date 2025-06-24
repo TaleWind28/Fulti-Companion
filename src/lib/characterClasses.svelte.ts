@@ -1,3 +1,19 @@
+import fury from "../additionalFiles/fury.json";
+import entropist from "../additionalFiles/entropist.json";
+import arcanist from "../additionalFiles/arcanist.json";
+import tinkerer from "../additionalFiles/tinkerer.json";
+import darkblade from "../additionalFiles/darkblade.json";
+import elementalist from "../additionalFiles/elementalist.json";
+import guardian from "../additionalFiles/guardian.json";
+import loremaster from "../additionalFiles/loremaster.json";
+import orator from "../additionalFiles/orator.json";
+import rogue from "../additionalFiles/rogue.json";
+import sharpshooter from "../additionalFiles/sharpshooter.json";
+import spiritist from "../additionalFiles/spiritist.json";
+import wayfarer from "../additionalFiles/wayfarer.json";
+import weaponmaster from "../additionalFiles/weaponmaster.json";
+import chimerist from "../additionalFiles/chimerist.json";
+
 
 export interface Skill {
   skillName: string;
@@ -40,6 +56,40 @@ export interface CharacterClass {
   dataType: 'class';
 }
 
+export const furia = safeParseCharacterClass(fury);
+export const entropista = safeParseCharacterClass(entropist);
+export const arcanista = safeParseCharacterClass(arcanist);
+export const lama_oscura = safeParseCharacterClass(darkblade);
+export const elementalista = safeParseCharacterClass(elementalist);
+export const guardiano = safeParseCharacterClass(guardian);
+export const sapiente = safeParseCharacterClass(loremaster);
+export const oratore = safeParseCharacterClass(orator);
+export const canaglia = safeParseCharacterClass(rogue);
+export const tiratore = safeParseCharacterClass(sharpshooter);
+export const spiritista = safeParseCharacterClass(spiritist);
+export const viandante = safeParseCharacterClass(wayfarer);
+export const maestro_armi = safeParseCharacterClass(weaponmaster);
+export const artefice = safeParseCharacterClass(tinkerer);
+export const chimerista = safeParseCharacterClass(chimerist);
+
+//classi del Manuale Base
+export const baseBookClasses = [
+  {name:"arcanista",class:arcanista},
+  {name:"artefice",class:artefice},
+  {name:"canaglia",class:canaglia},
+  {name:"chimerista",class:chimerista},
+  {name:"elementalista",class:elementalista},
+  {name:"entropista",class:entropista},
+  {name:"furia",class:furia},
+  {name:"guardiano",class:guardiano},
+  {name:"lama oscura",class:lama_oscura},
+  {name:"maestro d'armi",class:maestro_armi},
+  {name:"oratore",class:oratore},
+  {name:"sapiente",class:sapiente},
+  {name:"spiritista",class:spiritista},
+  {name:"tiratore",class:tiratore},
+  {name:"viandante",class:viandante}
+];
 // Type guard per validazione runtime
 export function isCharacterClass(obj: unknown): obj is CharacterClass {
   return (
@@ -93,15 +143,15 @@ export function createEmptyCharacterClass(): CharacterClass {
 }
 
  // Esempio di utilizzo in Svelte 5 Runes
-  export function createFuryRune(initialData?: Partial<CharacterClass>) {
-      let fury = $state<CharacterClass>({
+  export function createClassRune(initialData?: Partial<CharacterClass>) {
+      let character_class = $state<CharacterClass>({
           ...createEmptyCharacterClass(),
           ...initialData
       });
 
       return {
-          get data() { return fury; },
-          set data(value: CharacterClass) { fury = value; },
+          get data() { return character_class; },
+          set data(value: CharacterClass) { character_class = value; },
           updateSkill(skillName: string, level: number) {
           const skill = fury.skills.find(s => s.skillName === skillName);
           if (skill) {

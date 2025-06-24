@@ -1,1 +1,59 @@
-{"name":"Elementalist","lvl":1,"benefits":{"hpplus":0,"mpplus":5,"ipplus":0,"isCustomBenefit":false,"martials":{"armor":false,"shields":false,"melee":false,"ranged":false},"rituals":{"ritualism":true},"spellClasses":["default"]},"skills":[{"skillName":"Cataclysm","currentLvl":0,"maxLvl":3,"description":"Cataclysm_desc","specialSkill":""},{"skillName":"Elemental Magic","currentLvl":0,"maxLvl":10,"description":"ElementalMagic_desc","specialSkill":""},{"skillName":"Magic Artillery","currentLvl":0,"maxLvl":3,"description":"MagicArtillery_desc","specialSkill":""},{"skillName":"Ritual Elementalism","currentLvl":0,"maxLvl":1,"description":"RitualElementalism_desc","specialSkill":"Ritual Elementalism"},{"skillName":"Spellblade","currentLvl":0,"maxLvl":4,"description":"Spellblade_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Elementalista",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 0,
+    "mpplus": 5,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": false,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": { "ritualism": true },
+    "spellClasses": ["elementalist"]
+  },
+  "skills": [
+    {
+      "skillName": "Cataclisma",
+      "currentLvl": 0,
+      "maxLvl": 3,
+      "description": "Quando lanci un incantesimo con durata “Istantanea”, se hai un’arma arcana equipaggiata, puoi incrementare il costo totale in PM di quell’incantesimo di un ammontare pari o inferiore a【 LA × 10】 Punti Mente. Se lo fai e l’incantesimo infligge danni a una o più creature, l’incantesimo infligge 5 danni extra a ciascuna di esse per ogni 10 Punti Mente di cui ne hai incrementato il costo.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Magia Elementale",
+      "currentLvl": 0,
+      "maxLvl": 10,
+      "description": "Ogni volta che acquisisci questa Abilità, impari un incantesimo da Elementalista (vedi prossime pagine). Gli incantesimi offensivi (r) da Elementalista utilizzano 【INT + VOL】 per il Test di Magia",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Artiglieria Magica",
+      "currentLvl": 0,
+      "maxLvl": 3,
+      "description": "Quando lanci un incantesimo offensivo (r), se hai un’arma arcana equipaggiata,ottieni un bonus pari a【 LA × 2】 al Test di Magia.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Elementalismo Rituale",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Puoi eseguire Rituali i cui effetti rientrino nella disciplina di Elementalismo. I Rituali di Elementalismo utilizzano【 INT + VOL】 per il Test di Magia",
+      "specialSkill": "Ritual Elementalism"
+    },
+    {
+      "skillName": "Incantalame",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "Quando lanci un incantesimo offensivo (r) e bersagli una sola creatura, se l’incantesimo ha un costo totale in Punti Mente pari o inferiore a【 LA × 10】 e hai una o più armi equipaggiate della Categoria arco, flagello, lancia, pugnale, da rissa o spada, puoi scegliere una di queste armi. Se lo fai, il tuo Test di Magia per l’incantesimo utilizza la formula del Test di Precisione dell’arma; per esempio, il Test di Magia per un incantesimo da Elementalista lanciato attraverso una spada di bronzo (pag. 131) è【DES + VIG】 +1 invece d【i INT + VOL】",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}

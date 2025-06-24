@@ -1,1 +1,66 @@
-{"name":"Chimerist","lvl":1,"benefits":{"hpplus":0,"mpplus":5,"ipplus":0,"isCustomBenefit":false,"martials":{"armor":false,"shields":false,"melee":false,"ranged":false},"rituals":{"ritualism":true},"spellClasses":["default"]},"skills":[{"skillName":"Consume","currentLvl":0,"maxLvl":5,"description":"Consume_desc","specialSkill":""},{"skillName":"Feral Speech","currentLvl":0,"maxLvl":1,"description":"FeralSpeech_desc","specialSkill":""},{"skillName":"Pathogenesis","currentLvl":0,"maxLvl":1,"description":"Pathogenesis_desc","specialSkill":""},{"skillName":"Ritual Chimerism","currentLvl":0,"maxLvl":1,"description":"RitualChimerism_desc","specialSkill":"Ritual Chimerism"},{"skillName":"Spell Mimic","currentLvl":0,"maxLvl":10,"description":"SpellMimic_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Chimerista",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 0,
+    "mpplus": 5,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": false,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": {
+      "ritualism": true
+    },
+    "spellClasses": [
+      "chimerist"
+    ]
+  },
+  "skills": [
+    {
+      "skillName": "Divorare",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Dopo che infliggi danno a una o più creature con un incantesimo, se hai un’arma della Categoria arcana, flagello o pugnale equipaggiata, recuper【i LA × 2】 Punti Mente.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Voce Ferale",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Puoi comunicare verbalmente con creature delle Specie bestia, mostro e pianta.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Patogenesi",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Quando infliggi danno a una o più creature con uno dei tuoi incantesimi da Chimerista, infliggi lo status avvelenato a ciascuna tra di esse che condivida la Specie con quella della creatura da cui hai originariamente appreso l’incantesimo",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Ritual Chimerism",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "RitualChimerism_desc",
+      "specialSkill": "Ritual Chimerism"
+    },
+    {
+      "skillName": "Magimimesi",
+      "currentLvl": 0,
+      "maxLvl": 10,
+      "description": "Quando vedi una creatura della Specie bestia, mostro o pianta lanciare un incantesimo, puoi scegliere di imparare immediatamente quell’incantesimo come incantesimo da Chimerista: se lo fai, prendi nota della Specie della creatura da cui lo hai appreso. Quando acquisisci questa Abilità, scegli【 INT + VOL】 oppure【 VIG + VOL】. D’ora in poi, i tuoi incantesimi offensivi (r) di Chimerismo utilizzano le Caratteristiche scelte per il Test di Magia, a prescindere da quelle usate dalle creature da cui li hai appresi. Puoi avere fino a【 LA + 2】 incantesimi da Chimerista differenti memorizzati in questo modo. Se vuoi memorizzare un nuovo incantesimo da Chimerista ma hai già raggiunto il limite, devi dimenticare uno dei vecchi incantesimi e sostituirlo con quello nuovo.",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": {
+    "name": "",
+    "description": ""
+  },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}

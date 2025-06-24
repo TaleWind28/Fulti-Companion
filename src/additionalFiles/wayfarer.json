@@ -1,1 +1,60 @@
-{"name":"Wayfarer","lvl":1,"benefits":{"hpplus":0,"mpplus":0,"ipplus":2,"isCustomBenefit":false,"martials":{"armor":false,"shields":false,"melee":false,"ranged":false},"rituals":{"ritualism":false},"spellClasses":[]},"skills":[{"skillName":"Faithful Companion","currentLvl":0,"maxLvl":5,"description":"FaithfulCompanion_desc","specialSkill":"Faithful Companion"},{"skillName":"Resourceful","currentLvl":0,"maxLvl":4,"description":"Resourceful_desc","specialSkill":""},{"skillName":"Tavern Talk","currentLvl":0,"maxLvl":3,"description":"TavernTalk_desc","specialSkill":""},{"skillName":"Treasure Hunter","currentLvl":0,"maxLvl":2,"description":"TreasureHunter_desc","specialSkill":""},{"skillName":"Well-Traveled","currentLvl":0,"maxLvl":1,"description":"WellTraveled_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Viandante",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 0,
+    "mpplus": 0,
+    "ipplus": 2,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": false,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": { "ritualism": false },
+    "spellClasses": []
+  },
+  "skills": [
+    {
+      "skillName": "Compagno Fedele",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Insieme, tu e il Game Master create il tuo compagno: una creatura di livello 5 di Specie bestia, costrutto, elementale o pianta (vedi pag. 302). La creatura non ha punteggio di Iniziativa e non sale di livello, può avere fino a due attacchi base, ottiene un bonus pari a【 LA】 ai Test di Precisione e di Magia, e possiede Punti Vita massimi pari a【 (LA moltiplicato per la taglia base del dado di Vigore del compagno) + metà del tuo livello】. Durante i conflitti, il tuo compagno non svolge un turno individuale, ma nel tuo turno puoi cedergli la tua azione per fargliene eseguire una (solo una volta per turno). Se abbandoni una scena, il tuo compagno la abbandona insieme a te. Se il tuo compagno viene ridotto a 0 Punti Vita, fugge dalla scena e si ricongiunge con te all’inizio della prossima scena di cui fai parte, con PV pari al suo valore di Crisi. Quando riposi, anche il tuo compagno riceve tutti i benefici del riposo.",
+      "specialSkill": "Faithful Companion"
+    },
+    {
+      "skillName": "Intraprendente",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "Ricarich【i LA】 Punti Inventario dopo ciascun tiro di viaggio (vedi pag. 106).",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Chiacchere da Taverna",
+      "currentLvl": 0,
+      "maxLvl": 3,
+      "description": "Quando ti riposi in un ostello o taverna, puoi porre al Game Master fino a【LA】 domande sui dintorni e sulle persone che ci vivono; il Game Master risponderà dicendo la verità e tu descriverai in che modo hai ottenuto queste informazioni.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Cacciatesori",
+      "currentLvl": 0,
+      "maxLvl": 2,
+      "description": "Quando il tuo gruppo viaggia sulla mappa del mondo, fate una scoperta con un esito pari o inferiore a【 LA + 1】 sul tiro di viaggio (anziché soltanto con 1).",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Giramondo",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Riduci di una taglia il dado usato nei tiri di viaggio (minimo d6). Se due o più personaggi hanno questa Abilità, l’effetto non è cumulativo.",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}
+

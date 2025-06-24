@@ -136,7 +136,7 @@
         </div>
 
         <!-- Footer -->
-         <hr class="w-full border-cafe_noir-600">
+        <hr class="w-full border-cafe_noir-600">
 
 
         <div class="flex gap-4 justify-center w-full h-8 text-white">

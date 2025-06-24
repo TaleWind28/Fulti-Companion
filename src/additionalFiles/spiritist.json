@@ -1,1 +1,59 @@
-{"name":"Spiritist","lvl":1,"benefits":{"hpplus":0,"mpplus":5,"ipplus":0,"isCustomBenefit":false,"martials":{"armor":false,"shields":false,"melee":false,"ranged":false},"rituals":{"ritualism":false},"spellClasses":["default"]},"skills":[{"skillName":"Healing Power","currentLvl":0,"maxLvl":2,"description":"HealingPower_desc","specialSkill":""},{"skillName":"Ritual Spiritism","currentLvl":0,"maxLvl":1,"description":"RitualSpiritism_desc","specialSkill":"Ritual Spiritism"},{"skillName":"Spiritual Magic","currentLvl":0,"maxLvl":10,"description":"SpiritualMagic_desc","specialSkill":""},{"skillName":"Support Magic","currentLvl":0,"maxLvl":1,"description":"SupportMagic_desc","specialSkill":""},{"skillName":"Vismagus","currentLvl":0,"maxLvl":1,"description":"Vismagus_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Spiritista",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 0,
+    "mpplus": 5,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": false,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": { "ritualism": false },
+    "spellClasses": ["spiritist"]
+  },
+  "skills": [
+    {
+      "skillName": "Potere Curativo",
+      "currentLvl": 0,
+      "maxLvl": 2,
+      "description": "Quando lanci un incantesimo che bersaglia uno o più alleati, se hai un’arma arcana equipaggiata, puoi far sì che ciascuno di quegli alleati recuperi un ammontare di Punti Vita pari a【 LA moltiplicato per il numero di Legami che possiedi】. Questo effetto di recupero è separato da quelli causati dall’incantesimo (se presenti).",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Spiritismo Rituale",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Puoi eseguire Rituali i cui effetti rientrino nella disciplina di Spiritismo. I Rituali di Spiritismo utilizzano【 INT + VOL】 per il Test di Magia.",
+      "specialSkill": "Ritual Spiritism"
+    },
+    {
+      "skillName": "Magia Spirituale",
+      "currentLvl": 0,
+      "maxLvl": 10,
+      "description": "Ogni volta che acquisisci questa Abilità, impari un incantesimo da Spiritista (vedi prossime pagine). Gli incantesimi offensivi (r) da Spiritista utilizzano【 INT + VOL】 per il Test di Magia.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": " Magia di Supporto",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Quando lanci un incantesimo che bersaglia uno o più alleati, se hai un’arma arcanaequipaggiata, puoi scegliere uno di quegli alleati con cui hai un Legame. Se lo fai, quell’alleato ottiene un bonus pari alla forza del tuo Legame con esso al prossimo Test che effettua nella scena corrente.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Vismagus",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Quando lanci un incantesimo, se non hai abbastanza Punti Mente da pagarne il costo totale, puoi invece decidere di spendere Punti Vita pari al doppio del costo totale. Non puoi usare questa Abilità se farlo ridurrebbe a 0 i tuoi Punti Vita. Se un incantesimo lanciato in questo modo ti consentirebbe di recuperare Punti Vita, invece non ne recuperi (l’incantesimo funziona normalmente su eventuali altri bersagli).",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}

@@ -1,1 +1,66 @@
-{"name":"Arcanist","lvl":1,"benefits":{"hpplus":0,"mpplus":5,"ipplus":0,"isCustomBenefit":false,"martials":{"armor":false,"shields":false,"melee":false,"ranged":false},"rituals":{"ritualism":false},"spellClasses":["arcanist"]},"skills":[{"skillName":"Arcane Circle","currentLvl":0,"maxLvl":4,"description":"ArcaneCircle_desc","specialSkill":""},{"skillName":"Arcane Regeneration","currentLvl":0,"maxLvl":2,"description":"ArcaneRegeneration_desc","specialSkill":""},{"skillName":"Bind and Summon","currentLvl":0,"maxLvl":1,"description":"BindAndSummon_desc","specialSkill":""},{"skillName":"Emergency Arcanum","currentLvl":0,"maxLvl":6,"description":"EmergencyArcanum_desc","specialSkill":""},{"skillName":"Ritual Arcanism","currentLvl":0,"maxLvl":1,"description":"RitualArcanism_desc","specialSkill":"Ritual Arcanism"}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Arcanista",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 0,
+    "mpplus": 5,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": false,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": {
+      "ritualism": false
+    },
+    "spellClasses": [
+      "arcanist"
+    ]
+  },
+  "skills": [
+    {
+      "skillName": "Cerchio Arcano",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "Dopo aver congedato volontariamente un Arcanum nel tuo turno durante un conflitto (vedi prossima pagina), se quell’Arcanum non era stato evocato durante il medesimo turno e hai un’arma della Categoria arcana equipaggiata, puoi eseguire gratuitamente l’azione di Incantesimo. L’incantesimo che lanci in questo modo deve avere un costo totale in Punti Mente pari o inferiore a【 LA × 5】 (devi comunque pagarne il costo in Punti Mente).",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Rigenerazione Arcana",
+      "currentLvl": 0,
+      "maxLvl": 2,
+      "description": "Quando evochi un Arcanum, recuperi immediatamente【 LA × 5】 Punti Vita.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Vincola ed Evoca",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Puoi vincolare gli Arcana alla tua anima per evocarli in seguito. Quando incontri un nuovo Arcanum, il Game Master ti svela cosa dovrai fare per vincolarlo. Puoi usare un’azione e spendere 40 Punti Mente per evocare un Arcanum che hai vincolato: i dettagli di questo processo sono spiegati nella prossima pagina. Se acquisisci questa Abilità durante la creazione del personaggio, inizi il gioco con un Arcanum già vincolato, scelto tra quelli descritti nelle prossime pagine. Dopodiché, puoi ottenere nuovi Arcana soltanto con l’esplorazione e il progredire della storia.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Arcanum D'emergenza",
+      "currentLvl": 0,
+      "maxLvl": 6,
+      "description": "Finché sei in Crisi, il costo per evocare i tuoi Arcana è ridotto d【i LA × 5】 Punti Mente.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Arcanismo Rituale",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Puoi eseguire Rituali della disciplina di Arcanismo, a patto che i loro effetti rientrino nei domini di uno o più Arcana tra quelli che hai vincolato (vedi prossime pagine). Rituali di Arcanismo utilizzano【 VOL + VOL】 per il Test di Magia.",
+      "specialSkill": "Ritual Arcanism"
+    }
+  ],
+  "heroic": {
+    "name": "",
+    "description": ""
+  },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}

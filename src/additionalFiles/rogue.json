@@ -1,1 +1,60 @@
-{"name":"Rogue","lvl":1,"benefits":{"hpplus":0,"mpplus":0,"ipplus":2,"isCustomBenefit":false,"martials":{"armor":false,"shields":false,"melee":false,"ranged":false},"rituals":{"ritualism":false},"spellClasses":[]},"skills":[{"skillName":"Cheap Shot","currentLvl":0,"maxLvl":5,"description":"CheapShot_desc","specialSkill":""},{"skillName":"Dodge","currentLvl":0,"maxLvl":3,"description":"Dodge_desc","specialSkill":"Dodge"},{"skillName":"High Speed","currentLvl":0,"maxLvl":3,"description":"HighSpeed_desc","specialSkill":""},{"skillName":"See You Later","currentLvl":0,"maxLvl":1,"description":"SeeYouLater_desc","specialSkill":""},{"skillName":"Soul Steal","currentLvl":0,"maxLvl":5,"description":"SoulSteal_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Canaglia",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 0,
+    "mpplus": 0,
+    "ipplus": 2,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": false,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": { "ritualism": false },
+    "spellClasses": []
+  },
+  "skills": [
+    {
+      "skillName": "Colpo Basso",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Quando colpisci una creatura con un attacco, se quell’attacco bersagliava soltanto quella creatura ed essa è afflitta da uno o più status, puoi far sì che l’attacco infliggadanni extra pari a【 LA + il numero di status presenti sulla creatura】",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Schivata",
+      "currentLvl": 0,
+      "maxLvl": 3,
+      "description": "Finché non hai armature marziali né scudi equipaggiati, il tuo punteggio di Difesa viene aumentato d【i LA】",
+      "specialSkill": "Dodge"
+    },
+    {
+      "skillName": "Alta Velocità",
+      "currentLvl": 0,
+      "maxLvl": 3,
+      "description": "All’inizio di un conflitto, puoi spendere 10 Punti Mente. Se lo fai, scegli un’opzione e applicala prima dell’inizio del primo round: esegui un attacco gratuito con un’arma equipaggiata; oppure esegui un’azione di Intralcio o Obiettivo. Inoltre, ottieni un bonus pari a【 LA】 ai Test che effettui come parte dell’opzione scelta.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Ci si Vede",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Puoi usare un’azione e spendere 1 Punto Fabula per sparire dalla scena in corso, riapparendo dovunque tu voglia in una scena diversa in cui sia presente un altro Personaggio Giocante. Descrivi come sei fuggito e miracolosamente finito qui!",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Rubaspirito",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Puoi usare un’azione per effettuare un Test di【DES + VOL】 contro la Difesa Magica di una creatura a te visibile. Se hai successo e il bersaglio è di rango soldato, ricarichi 【LA】 Punti Inventario; se invece è di rango élite o campione, il Game Master ti consegna il suo tesoro spirituale, un oggetto dal valore in zenit pari o inferiore a【 il livello del bersaglio moltiplicato per 30, o per 50 se è un Cattivo】. Questo tesoro spirituale appare nel tuo zaino; una creatura può essere derubata con successo da questa Abilità soltanto una volta. Inoltre, ottieni un bonus pari a【 LA】 ai tuoi Test d【i DES + VOL】 per questa Abilità.",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}
+

@@ -1,1 +1,59 @@
-{"name":"Entropist","lvl":1,"benefits":{"hpplus":0,"mpplus":5,"ipplus":0,"isCustomBenefit":false,"martials":{"armor":false,"shields":false,"melee":false,"ranged":false},"rituals":{"ritualism":true},"spellClasses":["default","gamble"]},"skills":[{"skillName":"Absorb MP","currentLvl":0,"maxLvl":5,"description":"AbsorbMP_desc","specialSkill":""},{"skillName":"Entropic Magic","currentLvl":0,"maxLvl":10,"description":"EntropicMagic_desc","specialSkill":""},{"skillName":"Lucky Seven","currentLvl":0,"maxLvl":1,"description":"LuckySeven_desc","specialSkill":""},{"skillName":"Ritual Entropism","currentLvl":0,"maxLvl":1,"description":"RitualEntropism_desc","specialSkill":"Ritual Entropism"},{"skillName":"Stolen Time","currentLvl":0,"maxLvl":4,"description":"StolenTime_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Entropista",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 0,
+    "mpplus": 5,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": false,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": { "ritualism": true },
+    "spellClasses": ["entropist", "gamble"]
+  },
+  "skills": [
+    {
+      "skillName": "Assorbimente",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Dopo che subisci danni, puoi immediatamente recuperare【 LA × 2】 Punti Mente.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Magia Entropica",
+      "currentLvl": 0,
+      "maxLvl": 10,
+      "description": "Ogni volta che acquisisci questa Abilità, impari un incantesimo da Entropista (vedi prossime pagine). Gli incantesimi offensivi (r) da Entropista utilizzano【 INT + VOL】 per il Test di Magia.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Settebello",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "All’inizio di ogni sessione, hai un numero fortunato pari a 7. Una volta per scena, dopo che hai effettuato un Test, puoi sostituire il valore mostrato da uno dei dadi con il tuo numero fortunato (anche se portasse a un esito impossibile, come 7 su un d6). Se lo fai, il numero sostituito diventa il tuo nuovo numero fortunato.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Entroismo Rituale",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Puoi eseguire Rituali i cui effetti rientrino nella disciplina di Entropismo. I Rituali di Entropismo utilizzano【 INT + VOL】 per il Test di Magia",
+      "specialSkill": "Ritual Entropism"
+    },
+    {
+      "skillName": "Rubatempo",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "Durante un conflitto, puoi usare un’azione e spendere fino a【 LA × 5】 Punti Mente per interferire con il flusso temporale. Per ogni 5 Punti Mente spesi in questo modo, scegli un’opzione (non puoi scegliere più volte la stessa opzione): una creatura a te visibile subisce lo status lento; oppure una creatura a te visibile guarisce dallo status lento; oppure una creatura a te visibile può immediatamente e gratuitamente eseguirel’azione di Equipaggiamento; oppure un alleato a te visibile a tua scelta che deveancora svolgere il suo turno in questo round può invece svolgerlo subito dopo il tuo.",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}

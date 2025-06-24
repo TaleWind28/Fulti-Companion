@@ -11,7 +11,8 @@
 		children, 
 		divStyle = "m-auto",
 		ariaLabel = "Modal dialog",
-		ariaDescribedBy = undefined
+		ariaDescribedBy = undefined,
+		canClickOutside= false
 	} = $props();
 
 	let modalVisible = $derived(showModal);
@@ -21,11 +22,12 @@
 	}
 
 	function handleOverlayClick(e: any) {
-		if (e.target === e.currentTarget) closeModal();
+		if (e.target === e.currentTarget && !canClickOutside) closeModal();
 	}
 
 	function handleOverlayKey(e: any) {
-		if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget) {
+		
+		if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget && !canClickOutside) {
 			e.preventDefault();
 			closeModal();
 		}

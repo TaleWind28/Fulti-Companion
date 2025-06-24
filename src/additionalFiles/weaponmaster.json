@@ -1,1 +1,59 @@
-{"name":"Weaponmaster","lvl":1,"benefits":{"hpplus":5,"mpplus":0,"ipplus":0,"isCustomBenefit":false,"martials":{"armor":false,"shields":true,"melee":true,"ranged":false},"rituals":{"ritualism":false},"spellClasses":[]},"skills":[{"skillName":"Bladestorm","currentLvl":0,"maxLvl":1,"description":"Bladestorm_desc","specialSkill":""},{"skillName":"Bone Crusher","currentLvl":0,"maxLvl":4,"description":"BoneCrusher_desc","specialSkill":""},{"skillName":"Breach","currentLvl":0,"maxLvl":3,"description":"Breach_desc","specialSkill":""},{"skillName":"Counterattack","currentLvl":0,"maxLvl":1,"description":"Counterattack_desc","specialSkill":""},{"skillName":"Melee Weapon Mastery","currentLvl":0,"maxLvl":4,"description":"MeleeWeaponMastery_desc","specialSkill":"Melee Weapon Mastery"}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Maestro d'Armi",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 5,
+    "mpplus": 0,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": true,
+      "melee": true,
+      "ranged": false
+    },
+    "rituals": { "ritualism": false },
+    "spellClasses": []
+  },
+  "skills": [
+    {
+      "skillName": "Tempesta di Lame",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Quando esegui un attacco in mischia, puoi spendere 10 Punti Mente per scegliere un’opzione: l’attacco ottiene multi (2); oppure aumenti la proprietà multi dell’attacco di un punto, fino a un massimo di multi (3).",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Spezzaossa",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "Quando colpisci uno o più bersagli con un attacco in mischia che infliggerebbe danno, puoi invece decidere di non infliggere danno. Se lo fai, scegli un’opzione: infliggi lo status confuso a ciascun bersaglio colpito; oppure infliggi lo status debole a ciascun bersaglio colpito; oppure ciascun bersaglio colpito perde【 LA × 10】 Punti Mente.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Breccia",
+      "currentLvl": 0,
+      "maxLvl": 3,
+      "description": "Puoi usare un’azione e spendere 5 Punti Mente per eseguire un attacco gratuito con un’arma da mischia equipaggiata. L’attacco deve bersagliare una singola creatura. Se ha successo, non infligge danno e scegli un’opzione: distruggi uno scudo equipaggiato dal bersaglio; oppure distruggi l’armatura equipaggiata dal bersaglio; oppure ogni volta che il bersaglio subisce danni da una qualsiasi fonte prima dell’inizio del tuo prossimo turno, quella fonte gli infligge【 LA × 2】 danni extra.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Contrattacco",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Dopo che un nemico ti colpisce o ti manca con un attacco in mischia, se il Risultato del suo Test di Precisione è un numero pari, puoi eseguire un attacco gratuito con un’arma da mischia equipaggiata contro quel nemico (dopo che il suo attacco è stato risolto). Questo attacco può bersagliare solamente quel nemico; considera il tuo Tiro Maggiore (TM) pari a 0 quando calcoli il danno inflitto da questo attacco.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Maestria con Armi da Mischia",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "Ottieni un bonus pari a【 LA】 a tutti i Test di Precisione con armi da mischia.",
+      "specialSkill": "Melee Weapon Mastery"
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}

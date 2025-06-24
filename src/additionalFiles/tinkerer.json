@@ -1,1 +1,64 @@
-{"name":"Tinkerer","lvl":1,"benefits":{"hpplus":0,"mpplus":0,"ipplus":2,"isCustomBenefit":false,"martials":{"armor":false,"shields":false,"melee":false,"ranged":false},"rituals":{"ritualism":false},"spellClasses":["tinkerer-alchemy","tinkerer-infusion","tinkerer-magitech","default"]},"skills":[{"skillName":"Emergency Item","currentLvl":0,"maxLvl":1,"description":"EmergencyItem_desc","specialSkill":""},{"skillName":"Gadgets","currentLvl":0,"maxLvl":5,"description":"Gadgets_desc","specialSkill":""},{"skillName":"Potion Rain","currentLvl":0,"maxLvl":2,"description":"PotionRain_desc","specialSkill":""},{"skillName":"Secret Formula","currentLvl":0,"maxLvl":5,"description":"SecretFormula_desc","specialSkill":""},{"skillName":"Visionary","currentLvl":0,"maxLvl":5,"description":"Visionary_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Artefice",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 0,
+    "mpplus": 0,
+    "ipplus": 2,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": false,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": { "ritualism": false },
+    "spellClasses": [
+      "tinkerer-alchemy",
+      "tinkerer-infusion",
+      "tinkerer-magitech",
+      "default"
+    ]
+  },
+  "skills": [
+    {
+      "skillName": "Oggetto di Emergenza",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Una volta per conflitto, se sei in Crisi, puoi eseguire un’azione aggiuntiva durante il tuo turno. Questa azione deve essere un’azione di Inventario",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Tecnologie",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Quando acquisisci questa Abilità per la prima volta, scegli un tipo di tecnologia: alchimia, infusione o magitech (vedi prossime pagine). Ne ottieni i benefici base. Ogni volta che acquisisci nuovamente questa Abilità, scegli un’opzione: ottieni i benefici base di un nuovo tipo di tecnologia; oppure ottieni i benefici avanzati di un tipo di tecnologia di cui hai già ottenuto i benefici base; oppure ottieni i benefici superiori di un tipo di tecnologia di cui hai già ottenuto i benefici avanzati",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Pioggia di Pozioni",
+      "currentLvl": 0,
+      "maxLvl": 2,
+      "description": "Quando spendi Punti Inventario per creare una pozione o magisfera che permette di recuperare PV e/o PM, ciascun effetto di recupero viene incrementato d【i LA × 5】. Quando spendi Punti Inventario per creare una scheggia elementale, pozione o magisfera che infligge danno, quell’oggetto infligge【 LA】 danni extra",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Formula Segreta",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Quando spendi Punti Inventario per creare una pozione o magisfera che permette di recuperare PV e/o PM, ciascun effetto di recupero viene incrementato d【i LA × 5】. Quando spendi Punti Inventario per creare una scheggia elementale, pozione o magisfera che infligge danno, quell’oggetto infligge【 LA】 danni extra",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Visionario",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Quando lavori a un Progetto, fino a【 LA × 100】 zenit di materiali vengono pagati automaticamente; inoltre, ogni giorno generi progresso addizionale pari a【 LA】. Se più personaggi con questa Abilità lavorano allo stesso Progetto, gli effetti sono cumulativi.",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}

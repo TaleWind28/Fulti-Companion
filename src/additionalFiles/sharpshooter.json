@@ -1,1 +1,59 @@
-{"name":"Sharpshooter","lvl":1,"benefits":{"hpplus":5,"mpplus":0,"ipplus":0,"isCustomBenefit":false,"martials":{"armor":false,"shields":true,"melee":false,"ranged":true},"rituals":{"ritualism":false},"spellClasses":[]},"skills":[{"skillName":"Barrage","currentLvl":0,"maxLvl":1,"description":"Barrage_desc","specialSkill":""},{"skillName":"Crossfire","currentLvl":0,"maxLvl":1,"description":"Crossfire_desc","specialSkill":""},{"skillName":"Hawkeye","currentLvl":0,"maxLvl":5,"description":"Hawkeye_desc","specialSkill":""},{"skillName":"Ranged Weapon Mastery","currentLvl":0,"maxLvl":4,"description":"RangedWeaponMastery_desc","specialSkill":"Ranged Weapon Mastery"},{"skillName":"Warning Shot","currentLvl":0,"maxLvl":4,"description":"WarningShot_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Tiratore",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 5,
+    "mpplus": 0,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": true,
+      "melee": false,
+      "ranged": true
+    },
+    "rituals": { "ritualism": false },
+    "spellClasses": []
+  },
+  "skills": [
+    {
+      "skillName": "Raffica",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Quando esegui un attacco a distanza, puoi spendere 10 Punti Mente per scegliere un’opzione: l’attacco ottiene multi (2); oppure aumenti la proprietà multi dell’attacco di un punto, fino a un massimo di multi (3).",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Fuoco Incrociato",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Dopo che una creatura a te visibile esegue un attacco a distanza, puoi spendere un ammontare di Punti Mente pari al Risultato del suo Test di Precisione per far sì che l’attacco manchi tutti i bersagli. Puoi usare questa Abilità solo se hai un’arma a distanza equipaggiata, ma non ha effetto se il Test di Precisione era un successo critico.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Occhio di Falco",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Quando esegui l’azione di Guardia, se scegli di non coprire un’altra creatura, puoi scegliere un’opzione: il prossimo attacco a distanza che esegui prima del termine della scena corrente infligge【 LA × 2】 danni extra; oppure puoi eseguire immediatamente un attacco gratuito con un’arma equipaggiata della Categoria arco o da fuoco, considerando il tuo Tiro Maggiore (TM) pari a 0 quando calcoli il danno inflitto da questo attacco.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Maestria con Armi a Distanza",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "Ottieni un bonus pari a【 LA】 a tutti i Test di Precisione con armi a distanza.",
+      "specialSkill": "Ranged Weapon Mastery"
+    },
+    {
+      "skillName": "Colpo di Avvertimento",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "Quando colpisci uno o più bersagli con un attacco a distanza che infliggerebbe danno, puoi invece decidere di non infliggere danno. Se lo fai, scegli un’opzione: infliggi lo status lento a ciascun bersaglio colpito; oppure infliggi lo status scosso a ciascun bersaglio colpito; oppure ciascun bersaglio colpito perde【 LA × 10】 Punti Mente.",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}

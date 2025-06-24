@@ -1,1 +1,59 @@
-{"name":"Orator","lvl":1,"benefits":{"hpplus":0,"mpplus":5,"ipplus":0,"isCustomBenefit":false,"martials":{"armor":false,"shields":false,"melee":false,"ranged":false},"rituals":{"ritualism":false},"spellClasses":[]},"skills":[{"skillName":"Condemn","currentLvl":0,"maxLvl":4,"description":"Condemn_desc","specialSkill":""},{"skillName":"Encourage","currentLvl":0,"maxLvl":6,"description":"Encourage_desc","specialSkill":""},{"skillName":"My Trust In You","currentLvl":0,"maxLvl":2,"description":"MyTrustInYou_desc","specialSkill":""},{"skillName":"Persuasive","currentLvl":0,"maxLvl":2,"description":"Persuasive_desc","specialSkill":""},{"skillName":"Unexpected Ally","currentLvl":0,"maxLvl":1,"description":"UnexpectedAlly_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Oratore",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 0,
+    "mpplus": 5,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": false,
+      "shields": false,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": { "ritualism": false },
+    "spellClasses": []
+  },
+  "skills": [
+    {
+      "skillName": "Condanna",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "Puoi usare un’azione e spendere 5 Punti Mente per effettuare un Test Contrapposto di 【INT + VOL】 contro una creatura in grado di sentirti e comprenderti (descrivi la tua accusa!). Se hai successo, il bersaglio perde【 LA × 10】 Punti Mente e subisce uno status a tua scelta tra confuso e scosso. Inoltre, ottieni un bonus pari a【 LA】 ai tuoi Test d【i INT + VOL】 per questa Abilità.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Incoraggiamento",
+      "currentLvl": 0,
+      "maxLvl": 6,
+      "description": "Durante un conflitto, puoi usare un’azione e spendere 5 Punti Mente per scegliere un’altra creatura in grado di sentirti e comprenderti. La creatura recupera【 LA × 5】 Punti Vita e sceglie Destrezza, Intuito, Vigore o Volontà. Fino all’inizio del tuo prossimo turno, essa considera la Caratteristica scelta incrementata di una taglia di dado (massimo d12).",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Mi Fido di Te",
+      "currentLvl": 0,
+      "maxLvl": 2,
+      "description": "Dopo che un altro PG in grado di sentirti effettua un Test, puoi spendere 1 Punto Fabula e invocare uno dei suoi Tratti o Legami per dargli la possibilità di ritirare i dadi o aumentare il Risultato del Test (come da regole standard). Poi, se hai un Legame verso quel personaggio, questi recupera【 LA × 10】 Punti Mente.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Persuasione",
+      "currentLvl": 0,
+      "maxLvl": 2,
+      "description": "Quando hai successo su un Test per riempire o svuotare un Orologio, se il tuo approccio si basava su diplomazia, fascino, inganno o intimidazione, puoi spendere fino a【 LA × 20】 Punti Mente. Se lo fai, riempi o svuota una sezione aggiuntiva di quell’Orologio per ogni 20 Punti Mente spesi in questo modo.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Alleato Inaspettato",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Puoi usare un’azione e spendere 1 Punto Fabula per scegliere una creatura non ostile in grado di sentirti e comprenderti. Se lo fai, la creatura sarà disposta ad aiutarti finché ti comporti con gentilezza e rispetto e le tue richieste sono ragionevoli.",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}

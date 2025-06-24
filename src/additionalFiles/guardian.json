@@ -1,1 +1,59 @@
-{"name":"Guardian","lvl":1,"benefits":{"hpplus":5,"mpplus":0,"ipplus":0,"isCustomBenefit":false,"martials":{"armor":true,"shields":true,"melee":false,"ranged":false},"rituals":{"ritualism":false},"spellClasses":[]},"skills":[{"skillName":"Bodyguard","currentLvl":0,"maxLvl":1,"description":"Bodyguard_desc","specialSkill":""},{"skillName":"Defensive Mastery","currentLvl":0,"maxLvl":5,"description":"DefensiveMastery_desc","specialSkill":"Defensive Mastery"},{"skillName":"Dual Shieldbearer","currentLvl":0,"maxLvl":1,"description":"DualShieldbearer_desc","specialSkill":"Dual Shieldbearer"},{"skillName":"Fortress","currentLvl":0,"maxLvl":5,"description":"Fortress_desc","specialSkill":"Fortress"},{"skillName":"Protect","currentLvl":0,"maxLvl":1,"description":"Protect_desc","specialSkill":""}],"heroic":{"name":"","description":""},"spells":[],"isHomebrew":false,"dataType":"class"}
+{
+  "name": "Guardiano",
+  "lvl": 1,
+  "benefits": {
+    "hpplus": 5,
+    "mpplus": 0,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": true,
+      "shields": true,
+      "melee": false,
+      "ranged": false
+    },
+    "rituals": { "ritualism": false },
+    "spellClasses": []
+  },
+  "skills": [
+    {
+      "skillName": "Guardia del Corpo",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Quando esegui l’azione di Guardia e scegli di coprire un’altra creatura, quella creatura ottiene Resistenza a tutti i tipi di danno fino all’inizio del tuo prossimo turno.",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Maestria Difensiva",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Finché hai un’armatura marziale o uno scudo equipaggiati, tutto il danno che subisci viene ridotto d【i LA】 (prima di applicare eventuali Affinità).",
+      "specialSkill": "Defensive Mastery"
+    },
+    {
+      "skillName": "Doppio Scudo",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Puoi equipaggiare uno scudo nel tuo slot mano principale. Finché hai due scudi equipaggiati, ottieni i benefici di entrambi gli oggetti e puoi considerarli come l'arma Scudi Gemelli",
+      "specialSkill": "Dual Shieldbearer"
+    },
+    {
+      "skillName": "Fortezza",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Aumenti permanentemente i tuoi Punti Vita massimi d【i LA × 3】",
+      "specialSkill": "Fortress"
+    },
+    {
+      "skillName": "Protezione",
+      "currentLvl": 0,
+      "maxLvl": 1,
+      "description": "Quando un’altra creatura è minacciata da un attacco, incantesimo o altro pericolo, puoi prenderne il posto (eventuali Test che fanno parte del pericolo verranno effettuati contro di te; puoi dichiarare l’uso di questa Abilità prima o dopo che tali Test sono stati effettuati). Se eri già coinvolto nel pericolo, lo subirai due volte (risolvi ciascuna istanza separatamente); puoi proteggere una sola creatura dal medesimo pericolo. Se usi questa Abilità in un conflitto, non puoi usarla di nuovo fino all’inizio del tuo prossimo turno.",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": { "name": "", "description": "" },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}
