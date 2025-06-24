@@ -1,0 +1,64 @@
+{
+  "name": "Fury",
+  "lvl": 0,
+  "benefits": {
+    "hpplus": 5,
+    "mpplus": 0,
+    "ipplus": 0,
+    "isCustomBenefit": false,
+    "martials": {
+      "armor": true,
+      "shields": false,
+      "melee": true,
+      "ranged": false
+    },
+    "rituals": {
+      "ritualism": false
+    },
+    "spellClasses": []
+  },
+  "skills": [
+    {
+      "skillName": "Adrenaline",
+      "currentLvl": 5,
+      "maxLvl": 5,
+      "description": "Adrenaline_desc",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Frenzy",
+      "currentLvl": 1,
+      "maxLvl": 1,
+      "description": "Frenzy_desc",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Indomitable Spirit",
+      "currentLvl": 0,
+      "maxLvl": 4,
+      "description": "IndomitableSpirit_desc",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Provoke",
+      "currentLvl": 3,
+      "maxLvl": 5,
+      "description": "Provoke_desc",
+      "specialSkill": ""
+    },
+    {
+      "skillName": "Withstand",
+      "currentLvl": 0,
+      "maxLvl": 5,
+      "description": "Withstand_desc",
+      "specialSkill": ""
+    }
+  ],
+  "heroic": {
+    "name": "",
+    "description": ""
+  },
+  "spells": [],
+  "isHomebrew": false,
+  "dataType": "class"
+}
