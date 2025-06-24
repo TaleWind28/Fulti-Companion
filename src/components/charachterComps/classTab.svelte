@@ -2,7 +2,7 @@
     import ModalSelector from "../customHTMLElements/modalSelector.svelte";
     import GeneratorBox from "../Generators/generatorBox.svelte";
   
-    import { createClassRune, baseBookClasses, type CharacterClass } from "$lib/characterClasses.svelte";
+    import {baseBookClasses} from "$lib/characterClasses.svelte";
     import ClassDescriptor from "./classDescriptor.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
   import Modal from "../customHTMLElements/modal.svelte";
