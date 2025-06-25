@@ -1,6 +1,5 @@
 <script lang="ts">
   import { damageFormula } from "$lib/combatUtility";
-  import type { Weapon } from "$lib/weaponUtility";
   import Modal from "../customHTMLElements/modal.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
   import AccessoryGenerator from "../Generators/accessoryGenerator.svelte";
@@ -8,15 +7,14 @@
   import ShieldGenerator from "../Generators/shieldGenerator.svelte";
   import WeaponGenerator from "../Generators/weaponGenerator.svelte";
 
-    let { weaponList = $bindable([]), accessoryList = $bindable([]),armorList = $bindable([]),shieldList = $bindable([])} = $props(); 
+    let { weaponList = $bindable([]), accessoryList = $bindable([]),shieldList = $bindable([])} = $props(); 
     let createWeapon = $state(false);
     let createAccessory = $state(false);
     let createArmor = $state(false);
 
     function addWeapon(weapon:any) {
-        console.log(weapon);
         weaponList = [...weaponList,weapon];
-        createWeapon = false; // Chiude il modale
+        createWeapon = false;
     }
 
      function addAccessory(accessory:any) {
@@ -48,7 +46,7 @@
     <GeneratorBox nameTag="Equipaggiamento">
         <div class="flex gap-5 p-5">
             <RunesButton text="Nuova Arma" color="bg-cafe_noir-600" dimensions="w-35 h-10" clickFun = {()=> createWeapon = true}/>
-            <RunesButton text="Nuova Armatura" color="bg-cafe_noir-600" dimensions="w-35" clickFun = {()=> createArmor = true}/>
+            <RunesButton text="Nuova Armatura/Scudo" color="bg-cafe_noir-600" dimensions="w-35" clickFun = {()=> createArmor = true}/>
             <RunesButton text="Nuovo Accessorio" color="bg-cafe_noir-600" dimensions="w-35" clickFun = {()=> createAccessory = true}/>
         </div>
     </GeneratorBox>
@@ -203,39 +201,3 @@
    
 </Modal>
 
-<!-- {#snippet weaponProcessor(weapon:Weapon)}
-    <div  id={weapon.name} class="bg-white border">
-            <div class="bg-cafe_noir-700 grid grid-cols-6">
-                <p class="col-span-1 px-2">
-                    {weapon}
-                </p>
-                <span class="grid grid-cols-3  col-span-5 gap-30 px-10">
-                    {#each tableHeader as header}
-                        <p> {header} </p>
-                    {/each}
-                </span>
-            </div>
-            <div class=" flex">
-                <div class="flex-shrink-0">
-                    <ImageUploader2 padre="weaponGenerator" dimensions={"w-25 h-25 border-r"} fill={true} bind:imageUrl = {weaponImageUrl}/>
-                </div>
-                <div class="flex-1">
-                    <div class="justify-around bg-cafe_noir-800 flex ">
-                        {#each formulaRow as formula}
-                            <p> {formula} </p>
-                        {/each}
-                    </div>
-                    <hr>
-                    <div class="flex flex-row items-center justify-between px-2 ">
-                        {#each thirdRowElement as element }
-                            <p> {element} </p>
-                        {/each}
-                    </div>
-                    <hr>
-                    <div class="px-2">
-                        {displayQuality}
-                    </div>
-                </div>
-            </div>
-        </div>
-{/snippet} -->
