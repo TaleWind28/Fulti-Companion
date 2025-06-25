@@ -108,6 +108,14 @@
         downloadFile(jsonExport,`${craftedEquip.name.replace(/\s+/g, '') || 'equipaggiamento'}.json`,'application/json');
     }
    
+
+    let {onCreation = undefined} = $props();
+    // Aggiungi questa nuova funzione per ssalvare l'arma nell'array
+    function handleSaveWeapon() {
+        if (onCreation) {
+            onCreation(craftedEquip);
+        }
+    }
 </script>
 
 
@@ -145,6 +153,9 @@
                 Carica Json
             </label>
             <RunesButton text="Pulisci Campi" color="bg-cafe_noir-600" clickFun={handleClearAll}/>
+            {#if onCreation}
+                <RunesButton text="Salva Modifiche" clickFun={handleSaveWeapon} color="bg-cafe_noir-600" dimensions="w-30"/>
+            {/if}
         </div>
     </div>
 
