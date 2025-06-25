@@ -192,7 +192,7 @@
     }
 
     let thirdRowElement = $derived([selectedWeapon.category,"*",craftedWeapon.hands,"*",selectedWeapon.distance]);
-    let formulaRow = $derived([accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),damageFormula(damageModifier,selectedDamageType.name),displayCost+"z"]);
+    let formulaRow =$derived([accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),damageFormula(damageModifier,selectedDamageType.name),displayCost+"z"]);
     let tableHeader = ["PRECISIONE","DANNO","COSTO"];
     
 

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { damageFormula } from "$lib/combatUtility";
+  import type { Weapon } from "$lib/weaponUtility";
   import Modal from "../customHTMLElements/modal.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
   import AccessoryGenerator from "../Generators/accessoryGenerator.svelte";
@@ -24,6 +26,7 @@
 
     function addShield(shield:any) {
         shieldList = [...shieldList, shield];
+        console.log(shield);
         createArmor = false;
     }
 
@@ -56,27 +59,44 @@
         {:else}
             <div class="flex flex-col gap-2 p-4">
                 {#each weaponList as weapon, index}
-                    <div class="flex justify-between items-center p-2 border rounded">
-                        <div>
-                            <strong>{weapon.name}</strong>
-                            <span class="text-sm text-gray-600">- {weapon.cost}z</span>
+                        <div  id={weapon.name} class="bg-white border">
+                            <div class="bg-cafe_noir-700 grid grid-cols-6">
+                                <strong>{weapon.name}</strong>
+                                <span class="grid grid-cols-3  col-span-5 gap-30 px-10">
+                                    {#each ["PRECISIONE","DANNO","COSTO"] as header}
+                                        <p> {header} </p>
+                                    {/each}
+                                </span>
+                            </div>
+                            <div class=" flex">
+
+                                <div class="flex-1">
+                                    <div class="justify-around bg-cafe_noir-800 flex ">
+                                        {#each [weapon.accuracy,damageFormula(weapon.damage,weapon.type),weapon.cost] as formula}
+                                            <p> {formula} </p>
+                                        {/each}
+                                    </div>
+                                    <hr>
+                                    <div class="flex flex-row items-center justify-between px-2 ">
+                                        {#each [weapon.category,"*",weapon.hands,"*",weapon.distance] as element }
+                                            <p> {element} </p>
+                                        {/each}
+                                    </div>
+                                    <hr>
+                                    <div class="px-2">
+                                        {weapon.quality}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <RunesButton 
-                            text="Rimuovi" 
-                            color="bg-red-600" 
-                            dimensions="w-20 h-8" 
-                            clickFun={() => removeWeapon(index)}
-                        />
-                    </div>
+                         
+                        <span class="flex items-center justify-end">
+                            <RunesButton text="Rimuovi" color="bg-red-600" dimensions="w-20 h-8" clickFun={() => removeWeapon(index)}/>
+                        </span>
+                        
                 {/each}
             </div>
         {/if}
-    </GeneratorBox>
-
-    <GeneratorBox nameTag="Armature">
-        {#each armorList as armor }
-            {armor}
-        {/each}
     </GeneratorBox>
 
     <GeneratorBox nameTag="Scudi">
@@ -85,18 +105,40 @@
         {:else}
             <div class="flex flex-col gap-2 p-4">
                 {#each shieldList as shield, index}
-                    <div class="flex justify-between items-center p-2 border rounded">
-                        <div>
-                            <strong>{shield.name}</strong>
-                            <span class="text-sm text-gray-600">- Def: {shield.def}, MDef: {shield.mdef}</span>
-                        </div>
-                        <RunesButton 
+                    
+                            <div  id={shield.name} class="bg-white border">
+                                <div class="bg-cafe_noir-700 grid grid-cols-6">
+                                    <p class="col-span-2 px-2">
+                                        {shield.name}
+                                    </p>
+                                    <span class="flex col-span-4 justify-between px-1">
+                                        {#each ["DIFESA", "DIF.MAGICA","COSTO"] as header}
+                                            <p> {header} </p>
+                                        {/each}
+                                    </span>
+                                </div>
+                                <div class="flex">
+                                    <div class="flex-1">
+                                        <div class="justify-between bg-cafe_noir-800 flex px-8">
+                                            {#each [shield.def,shield.mdef,shield.quality.cost] as data}
+                                                <p> {data} </p>
+                                            {/each}
+                                        </div>
+                                        <hr>
+                                        <div class="px-2">
+                                            {shield.quality.effect}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <span class="flex items-center justify-end">
+                            <RunesButton 
                             text="Rimuovi" 
                             color="bg-red-600" 
                             dimensions="w-20 h-8" 
                             clickFun={() => removeShield(index)}
                         />
-                    </div>
+                        </span>
                 {/each}
             </div>
         {/if}
@@ -108,18 +150,36 @@
         {:else}
             <div class="flex flex-col gap-2 p-4">
                 {#each accessoryList as accessory, index}
-                    <div class="flex justify-between items-center p-2 border rounded">
-                        <div>
-                            <strong>{accessory.name}</strong>
-                            <span class="text-sm text-gray-600">- {accessory.price}z</span>
+                    <div  id={accessory.name} class="bg-white border">
+                        <div class="bg-cafe_noir-700 grid grid-cols-5">
+                            <p class="col-span-4 px-2">
+                                {accessory.name}
+                            </p>
+                            <span class="flex justify-end px-4 gap-30">
+                                {#each ["Costo"] as header}
+                                    <p> {header} </p>
+                                {/each}
+                            </span>
                         </div>
-                        <RunesButton 
-                            text="Rimuovi" 
-                            color="bg-red-600" 
-                            dimensions="w-20 h-8" 
-                            clickFun={() => removeAccessory(index)}
-                        />
+                        <div class="flex">
+    
+                            <div class="flex-1">
+                                <div class="items-center justify-end px-5  bg-cafe_noir-800 flex">
+                                    {#each [accessory.price+"z"] as data}
+                                        <p> {data} </p>
+                                    {/each}
+                                </div>
+                                <hr>
+                                <div class="px-2">
+                                    {accessory.quality.effect}
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <span class="flex items-center justify-end">
+                        <RunesButton text="Rimuovi" color="bg-red-600" dimensions="w-20 h-8" clickFun={() => removeAccessory(index)}/>
+                    </span>
+                    
                 {/each}
             </div>
         {/if}   
@@ -132,19 +192,50 @@
     </Modal>
 
 <Modal bind:showModal={createArmor} modalText="Creazione Armatura" canClickOutside={true}>
-    <ShieldGenerator>
+    <ShieldGenerator onCreation={addShield}>
         
     </ShieldGenerator>
-    <span class="flex items-center justify-end gap-5">
-        <RunesButton text="Salva ed esci" clickFun={()=>createArmor = false} color="bg-cafe_noir-600" dimensions="w-30 h-7" ></RunesButton>
-        <RunesButton text="Esci senza Salvare" clickFun={()=>createArmor = false} color="bg-cafe_noir-600" dimensions="w-40 h-7"></RunesButton>
-    </span>
+   
 </Modal>
 
 <Modal bind:showModal={createAccessory} modalText="Creazione Accessorio" canClickOutside={true}>
-    <AccessoryGenerator></AccessoryGenerator>
-   <span class="flex items-center justify-end gap-5">
-        <RunesButton text="Salva ed esci" clickFun={()=>createAccessory = false} color="bg-cafe_noir-600" dimensions="w-30 h-7" ></RunesButton>
-        <RunesButton text="Esci senza Salvare" clickFun={()=>createAccessory = false} color="bg-cafe_noir-600" dimensions="w-40 h-7"></RunesButton>
-    </span>
+    <AccessoryGenerator onCreation={addAccessory}></AccessoryGenerator>
+   
 </Modal>
+
+<!-- {#snippet weaponProcessor(weapon:Weapon)}
+    <div  id={weapon.name} class="bg-white border">
+            <div class="bg-cafe_noir-700 grid grid-cols-6">
+                <p class="col-span-1 px-2">
+                    {weapon}
+                </p>
+                <span class="grid grid-cols-3  col-span-5 gap-30 px-10">
+                    {#each tableHeader as header}
+                        <p> {header} </p>
+                    {/each}
+                </span>
+            </div>
+            <div class=" flex">
+                <div class="flex-shrink-0">
+                    <ImageUploader2 padre="weaponGenerator" dimensions={"w-25 h-25 border-r"} fill={true} bind:imageUrl = {weaponImageUrl}/>
+                </div>
+                <div class="flex-1">
+                    <div class="justify-around bg-cafe_noir-800 flex ">
+                        {#each formulaRow as formula}
+                            <p> {formula} </p>
+                        {/each}
+                    </div>
+                    <hr>
+                    <div class="flex flex-row items-center justify-between px-2 ">
+                        {#each thirdRowElement as element }
+                            <p> {element} </p>
+                        {/each}
+                    </div>
+                    <hr>
+                    <div class="px-2">
+                        {displayQuality}
+                    </div>
+                </div>
+            </div>
+        </div>
+{/snippet} -->
