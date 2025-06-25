@@ -49,7 +49,7 @@
 
 <div class="flex flex-col gap-6">
     <!-- CharacterCard -->
-    <CharacterCard car ={character} hidden={true}/>
+    <CharacterCard bind:car={character} hidden={true}/>
     
     <!-- Barra Punti -->
     <div class="flex items-center justify-evenly border-2 border-amber-50 bg-amber-50 rounded">   

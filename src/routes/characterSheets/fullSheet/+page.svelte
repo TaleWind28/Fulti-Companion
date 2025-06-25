@@ -18,62 +18,28 @@
     const id = page.url.searchParams.get('id');
     let canLoad= $state(false);
     let character:Character | null = $state(null);
-    let tabs = new Tabs([
-    {
-        id:0,
-        label:"Informazioni",
-        comp: InfoTab,
-        props:{
-
-        }
-    },
-    {
-        id:1,
-        label:"Statistiche",
-        comp: StatTab,
-        props:{
-       
-        }
-    }
-    ,{
-        id:2,
-        label:"Classi",
-        comp: ClassTab,
-    }
-    ,{
-        id:3,
-        label:"Incantesimi",
-        comp: SpellTab,
-    },{
-        id:4,
-        label:"Equipaggiamento",
-        comp: EquipTab,
-    },{
-        id:5,
-        label:"Note",
-        comp: NotesTab,
-    }]);
+    let tabs = new Tabs([]);
 
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
     
-            // L'utente è loggato
-            handleRetrieval().then( () =>{
+            // // L'utente è loggato
+            // handleRetrieval().then( () =>{
                 
-                console.log("characters loaded successfully",);
-            })
-            .catch(() =>{
-                console.log("characters loading failed");
-                }
-            )
-            .finally(() =>{
-                canLoad = true;
-            })
+            //     console.log("characters loaded successfully",);
+            // })
+            // .catch(() =>{
+            //     console.log("characters loading failed");
+            //     }
+            // )
+            // .finally(() =>{
+            //     canLoad = true;
+            // })
         
 	});
 
     onAuthStateChanged(auth, (user) => {
-        if (user &&  canLoad) {
+        if (user) {
             // L'utente è loggato
             console.log("Utente loggato:", user.uid);
             handleRetrieval().then( () =>{
@@ -99,9 +65,57 @@
                         character:character,
                     }
                 }
-                tabs.addTab(charachterTab,0);
-                // console.log(tabs);
-                // console.log(character);
+
+                const infoTab:Tab = {
+                    id:0,
+                    label:"Informazioni",
+                    comp: InfoTab,
+                    props:{
+                        characterName:character.name,
+                        characterLevel:character.level
+                    }
+                }
+                const statTab:Tab = {
+                    id:1,
+                    label:"Statistiche",
+                    comp: StatTab,
+                    props:{
+                        characteristics:character.characteristics,
+                        characterAffinitiesRaw:character.elementalAffinity,
+                        statuses:character.statuses
+                    }
+                }
+
+                const classTab = {
+                    id:2,
+                    label:"Classi",
+                    comp: ClassTab,
+                }
+                
+                const spellTab:Tab = {
+                    id:3,
+                    label:"Incantesimi",
+                    comp: SpellTab,
+                }
+
+                const equipTab:Tab = {
+                    id:4,
+                    label:"Equipaggiamento",
+                    comp: EquipTab,
+                }
+
+                const notesTab:Tab = {
+                    id:5,
+                    label:"Note",
+                    comp: NotesTab,
+                }
+                tabs.addTab(charachterTab);
+                tabs.addTab(infoTab);
+                tabs.addTab(statTab);
+                tabs.addTab(classTab);
+                tabs.addTab(spellTab);
+                tabs.addTab(equipTab);
+                tabs.addTab(notesTab);
                 }
             }
             catch(e){
@@ -114,6 +128,6 @@
 
 {#if character}
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
-        <RunesTab show={5}  tabs = {tabs.tabs} />
+        <RunesTab  tabs = {tabs.tabs} />
     </div>
 {/if}

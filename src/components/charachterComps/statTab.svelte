@@ -6,45 +6,85 @@
 
     //props
     let{ 
-        characteristics = $bindable([{name:"DES",value:8},{name:"INT",value:8},{name:"VIG",value:8},{name:"VOL",value:8}]),
+        characteristics = $bindable([8,8,8,8]),
         characterAffinitiesRaw = $bindable([0,0,0,0,0,0,0,0,0]),
         statuses = $bindable([false,false,false,false,false,false,false,false,false,false])
     } = $props();
 
     //Prima Box
     let standardStatSpread = $state(["Tuttofare: d8,d8,d8,d8","Standard: d10,d8,d8,d6","Specializzato: d10,d10,d6,d6"])
+
+    function updateRealchars(){
+        characteristics = [characteristicTranslated[0].value,characteristicTranslated[1].value,characteristicTranslated[2].value,characteristicTranslated[3].value,]
+    }
     //Seconda Box
+
     
+    const valoreMapping: Record<string, number> = {
+        "vu": 0,
+        "nu": 1,
+        "rs": 2,
+        "im": 3,
+        "ab": 4
+        };
+    const reverseMapping: Record<number, string> = {
+        0:"vu",
+        1:"nu",
+        2:"rs",
+        3:"im",
+        4:"ab"
+        };
+    
+
+
+    const translatedAffinities= Object.values(characterAffinitiesRaw).map(str => valoreMapping[str]);
+    console.log(translatedAffinities,"translated");
+
     //uso la prop solo per comodità di passaggio dati
     let affinities = $state([
-        {name:"Fisico",affinity:characterAffinitiesRaw[0],glam:elemGlams.physical},
-        {name:"Fulmine",affinity:characterAffinitiesRaw[1],glam:elemGlams.bolt},
-        {name:"Vento",affinity:characterAffinitiesRaw[2],glam:elemGlams.wind},
-        {name:"Terra",affinity:characterAffinitiesRaw[3],glam:elemGlams.earth},
-        {name:"Fuoco",affinity:characterAffinitiesRaw[4],glam:elemGlams.fire},
-        {name:"Ghiaccio",affinity:characterAffinitiesRaw[5],glam:elemGlams.ice},
-        {name:"Oscurità",affinity:characterAffinitiesRaw[6],glam:elemGlams.dark},
-        {name:"Luce",affinity:characterAffinitiesRaw[7],glam:elemGlams.light},
-        {name:"Veleno",affinity:characterAffinitiesRaw[8],glam:elemGlams.poison}
+        {name:"Fisico",affinity:translatedAffinities[0],glam:elemGlams.physical},
+        {name:"Fulmine",affinity:translatedAffinities[1],glam:elemGlams.bolt},
+        {name:"Vento",affinity:translatedAffinities[2],glam:elemGlams.wind},
+        {name:"Terra",affinity:translatedAffinities[3],glam:elemGlams.earth},
+        {name:"Fuoco",affinity:translatedAffinities[4],glam:elemGlams.fire},
+        {name:"Ghiaccio",affinity:translatedAffinities[5],glam:elemGlams.ice},
+        {name:"Oscurità",affinity:translatedAffinities[6],glam:elemGlams.dark},
+        {name:"Luce",affinity:translatedAffinities[7],glam:elemGlams.light},
+        {name:"Veleno",affinity:translatedAffinities[8],glam:elemGlams.poison}
     ]);
-    // $inspect(characteristics);
-    // $inspect(affinities);
-    // $inspect(characterAffinitiesRaw);
+    $inspect(characteristics,"chars");
+    $inspect(affinities,"affinity");
+    $inspect(characterAffinitiesRaw,"affinity Raw");
+
+    let characteristicTranslated = $state([{name:"DES",value:characteristics[0]},{name:"INT",value:characteristics[0]},{name:"VIG",value:characteristics[2]},{name:"VOL",value:characteristics[3]}])
      
     function handleAffinitySliderChange(input:any){
         switch(input.name){
-            case "Fisico": return characterAffinitiesRaw[0] = input.affinity;
-            case "Fulmine": return characterAffinitiesRaw[1] = input.affinity;
-            case "Vento": return characterAffinitiesRaw[2] = input.affinity;
-            case "Terra": return characterAffinitiesRaw[3] = input.affinity;
-            case "Fuoco": return characterAffinitiesRaw[4] = input.affinity;
-            case "Ghiaccio": return characterAffinitiesRaw[5] = input.affinity;
-            case "Oscurità": return characterAffinitiesRaw[6] = input.affinity;
-            case "Luce": return characterAffinitiesRaw[7] = input.affinity;
-            case "Veleno": return characterAffinitiesRaw[8] = input.affinity;
-
+            case "Fisico":  translatedAffinities[0] = input.affinity;break;
+            case "Fulmine": translatedAffinities[1] = input.affinity;break;
+            case "Vento":   translatedAffinities[2] = input.affinity;break;
+            case "Terra":   translatedAffinities[3] = input.affinity;break;
+            case "Fuoco":   translatedAffinities[4] = input.affinity;break;
+            case "Ghiaccio":  translatedAffinities[5] = input.affinity;break;
+            case "Oscurità":  translatedAffinities[6] = input.affinity;break;
+            case "Luce":    translatedAffinities[7] = input.affinity;break;
+            case "Veleno":  translatedAffinities[8] = input.affinity;break;
         }
-    }
+
+
+        //questo aggiorna la reattività di svelte
+        const reverseMap = translatedAffinities.map(nbr => reverseMapping[nbr]);
+
+        characterAffinitiesRaw.physical = reverseMap[0];
+        characterAffinitiesRaw.bolt = reverseMap[1];
+        characterAffinitiesRaw.wind = reverseMap[2];
+        characterAffinitiesRaw.earth = reverseMap[3];
+        characterAffinitiesRaw.fire = reverseMap[4];
+        characterAffinitiesRaw.ice = reverseMap[5];
+        characterAffinitiesRaw.light = reverseMap[6];
+        characterAffinitiesRaw.dark = reverseMap[7];
+        characterAffinitiesRaw.poison = reverseMap[8];
+     }
     
     //Terza Box
     let statusArray = $state([
@@ -66,8 +106,8 @@
     function handleStatusChecked(input:any){
         switch(input.name){
             case "Lento": return statuses[0] = input.isSuffering;
-            case "Confuso": return statuses[1] = input.isSuffering;
-            case "Furente": return statuses[2] = input.isSuffering;
+            case "Furente": return statuses[1] = input.isSuffering;
+            case "Confuso": return statuses[2] = input.isSuffering;
             case "Scosso": return statuses[3] = input.isSuffering;
             case "Debole": return statuses[4] = input.isSuffering;
             case "Avvelenato" : return statuses[5] = input.isSuffering
@@ -93,12 +133,12 @@
         <div class=" grid grid-cols-2 items-center justify-center p-2">
             <!-- Sezione Sx: Selettori di Caratteristiche -->
             <section class="">
-                {#each characteristics as char,i}
+                {#each characteristicTranslated as char,i}
                     
                     <div class="flex items-center justify-start">
                         <p class="w-15">{char.name}</p>
                         <span>
-                            <input type="range" max="12" min="6" step="2" bind:value={char.value} class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
+                            <input type="range" max="12" min="6" step="2" bind:value={char.value} class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider" onchange={updateRealchars}>
                             {#if i === 3}
                                 <!-- Scale markers -->
                                 <footer class="flex justify-between mt-1 px-1">

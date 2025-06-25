@@ -1,6 +1,4 @@
 <script lang="ts">
-
-    import Fa from "svelte-fa";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import GeneratorBox from "../Generators/generatorBox.svelte";
     import { faCoins, faFeather, faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
