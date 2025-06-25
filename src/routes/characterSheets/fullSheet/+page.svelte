@@ -12,6 +12,7 @@
     import StatTab from '../../../components/charachterComps/statTab.svelte';
     import NotesTab from '../../../components/charachterComps/notesTab.svelte';
     import ClassTab from '../../../components/charachterComps/classTab.svelte';
+  import SpellTab from '../../../components/charachterComps/spellTab.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');
@@ -42,7 +43,7 @@
     ,{
         id:3,
         label:"Incantesimi",
-        comp: CustomInput,
+        comp: SpellTab,
     },{
         id:4,
         label:"Equipaggiamento",
@@ -113,6 +114,6 @@
 
 {#if character}
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
-        <RunesTab show={3}  tabs = {tabs.tabs} />
+        <RunesTab show={4}  tabs = {tabs.tabs} />
     </div>
 {/if}
