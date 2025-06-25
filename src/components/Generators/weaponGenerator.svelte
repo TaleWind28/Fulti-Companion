@@ -21,7 +21,6 @@
     let isMoreAccuracyChecked = $state(false);
     //imagSource
     let weaponImageUrl = $state(null);
-
     //questo deve diventare un import
     let char:Item[] = [{name:"DES"},{name:"VIG"},{name:"INT"},{name:"VOL"}];
     let hands:Item[] = [{name:"Una mano"},{name:"Due mani"}]
@@ -73,6 +72,7 @@
     let isChoosingHand = $state(false);
     let errore = $state(false);
     let isMartial = $state(false);
+    
 
     //funzione per mostrare il dato corretto
     function displayName(customName:string, originalName:string){
@@ -190,11 +190,11 @@
 
 </script>
 
-<GeneratorBox nameTag="Arma">
+<GeneratorBox nameTag="Arma" border="border">
     
     <!-- Contenuto passato allo slot 'children' del GeneratorBox -->
     <!-- Ho rimosso 'justify-evenly' e 'items-center' per un allineamento più standard -->
-    <div class="flex flex-col gap-5 p-4">
+    <div class="flex flex-col gap-5 p-4 ">
         <!-- Riga 1: Nome Arma -->         <!-- Sostituito 'justify-center' con 'justify-between' per distribuire gli elementi. -->
         <div class="flex gap-4 w-full justify-between items-center">
             <span class="border rounded flex-1 max-w-xsd">

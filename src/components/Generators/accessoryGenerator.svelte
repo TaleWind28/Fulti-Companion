@@ -105,7 +105,7 @@
     let dataRow = $derived([craftedAccessory.price+"z"]);
 </script>
 
-<GeneratorBox nameTag={"Accessorio"}>
+<GeneratorBox nameTag={"Accessorio"} border="border">
     <!-- container principale -->
     <div class="flex flex-col gap-5 p-4">
         <!-- Prima Riga: Nome e Quaità base -->

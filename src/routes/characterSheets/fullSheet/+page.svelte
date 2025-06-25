@@ -5,14 +5,14 @@
     import { onAuthStateChanged } from 'firebase/auth';
     import { auth } from '$lib/authUtility';
     import { type Character, retrieveUserCharacter } from "$lib/characterUtils";
-    import RunesTab from '../../../components/customHTMLElements/runesTab.svelte';
     import CharacterSheet from '../../../components/sheets/characterSheet.svelte';
-    import CustomInput from '../../../components/customHTMLElements/customInput.svelte';
+    import RunesTab from '../../../components/customHTMLElements/runesTab.svelte';
     import InfoTab from '../../../components/charachterComps/InfoTab.svelte';
     import StatTab from '../../../components/charachterComps/statTab.svelte';
     import NotesTab from '../../../components/charachterComps/notesTab.svelte';
     import ClassTab from '../../../components/charachterComps/classTab.svelte';
-  import SpellTab from '../../../components/charachterComps/spellTab.svelte';
+    import SpellTab from '../../../components/charachterComps/spellTab.svelte';
+    import EquipTab from '../../../components/charachterComps/equipTab.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');
@@ -47,7 +47,7 @@
     },{
         id:4,
         label:"Equipaggiamento",
-        comp: CustomInput,
+        comp: EquipTab,
     },{
         id:5,
         label:"Note",
@@ -114,6 +114,6 @@
 
 {#if character}
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
-        <RunesTab show={4}  tabs = {tabs.tabs} />
+        <RunesTab show={5}  tabs = {tabs.tabs} />
     </div>
 {/if}

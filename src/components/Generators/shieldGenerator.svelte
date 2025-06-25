@@ -111,7 +111,7 @@
 </script>
 
 
-<GeneratorBox nameTag={"Scudo"}>
+<GeneratorBox nameTag={"Scudo"} border="border">
     <!-- container principale -->
     <div class="flex flex-col gap-5 p-4">
         <!-- Prima Riga: Nome equipaggiamento e selezione Qualità standard -->
