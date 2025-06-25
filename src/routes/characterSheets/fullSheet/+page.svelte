@@ -90,18 +90,28 @@
                     id:2,
                     label:"Classi",
                     comp: ClassTab,
+                    props:{
+                        classList: character.classes
+
+                    }
                 }
                 
                 const spellTab:Tab = {
                     id:3,
                     label:"Incantesimi",
                     comp: SpellTab,
+                    props:{
+                        //mettere spellList
+                    }
                 }
 
                 const equipTab:Tab = {
                     id:4,
                     label:"Equipaggiamento",
                     comp: EquipTab,
+                    props: {
+                        //mettere liste di strumenti
+                    }
                 }
 
                 const notesTab:Tab = {

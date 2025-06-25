@@ -6,6 +6,7 @@
     import ClassDescriptor from "./classDescriptor.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
   import Modal from "../customHTMLElements/modal.svelte";
+  import RunesInput from "../customHTMLElements/runesInput.svelte";
 
     //debug
     //[createClassRune(furia),createClassRune(arcanista),createClassRune(entropista),createClassRune(lama_oscura),createClassRune(elementalista),createClassRune(guardiano),createClassRune(sapiente),createClassRune(oratore),createClassRune(canaglia),createClassRune(tiratore),createClassRune(spiritista),createClassRune(viandante),createClassRune(maestro_armi),createClassRune(artefice)]
@@ -32,6 +33,11 @@
     }
     $inspect(classList);
     $inspect(classAlreadyPresent,classNumberExceeded)
+    
+    function removeClass(clas:any){
+        classList = classList.filter(cls => cls !== clas);
+    }
+    
 </script>
 <div class="flex flex-col gap-4 ">
 
@@ -52,6 +58,7 @@
     {#each {length:classList.length}, index }
         <hr class="w-full border-cafe_noir-600">
         <ClassDescriptor bind:chosenClass={classList[index]}/>
+        <RunesButton text="Rimuovi" color="bg-red-500" clickFun={()=>removeClass(classList[index])}/>
     {/each}
 </div>
 
