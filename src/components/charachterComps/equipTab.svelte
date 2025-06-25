@@ -6,7 +6,7 @@
   import ShieldGenerator from "../Generators/shieldGenerator.svelte";
   import WeaponGenerator from "../Generators/weaponGenerator.svelte";
 
-    let { equip = $bindable()} = $props(); 
+    let { weaponList = $bindable(), accessoryList = $bindable(),armorList = $bindable(),shieldList = $bindable()} = $props(); 
     let createWeapon = $state(false);
     let createAccessory = $state(false);
     let createArmor = $state(false);
@@ -22,34 +22,53 @@
     </GeneratorBox>
 
     <GeneratorBox nameTag="Armi">
-    none
+        {#each weaponList as weapon }
+            {weapon}
+        {/each}
     </GeneratorBox>
 
     <GeneratorBox nameTag="Armature">
-    none
+        {#each armorList as armor }
+            {armor}
+        {/each}
     </GeneratorBox>
 
     <GeneratorBox nameTag="Scudi">
-    none
+        {#each shieldList as shield }
+            {shield}
+        {/each}
     </GeneratorBox>
 
     <GeneratorBox nameTag="Accessori">
-    none
+        {#each accessoryList as accessory }
+            {accessory}
+        {/each}
     </GeneratorBox>
 
 </div>
 
-<Modal bind:showModal={createWeapon} modalText="Creazione Arma">
+<Modal bind:showModal={createWeapon} modalText="Creazione Arma" canClickOutside={true}>
     <WeaponGenerator></WeaponGenerator>
-    
+    <span class="flex items-center justify-end gap-5">
+        <RunesButton text="Salva ed esci" clickFun={()=>createWeapon = false} color="bg-cafe_noir-600" dimensions="w-30 h-7" ></RunesButton>
+        <RunesButton text="Esci senza Salvare" clickFun={()=>createWeapon = false} color="bg-cafe_noir-600" dimensions="w-40 h-7"></RunesButton>
+    </span>
 </Modal>
 
-<Modal bind:showModal={createArmor} modalText="Creazione Armatura">
+<Modal bind:showModal={createArmor} modalText="Creazione Armatura" canClickOutside={true}>
     <ShieldGenerator>
         
     </ShieldGenerator>
+    <span class="flex items-center justify-end gap-5">
+        <RunesButton text="Salva ed esci" clickFun={()=>createArmor = false} color="bg-cafe_noir-600" dimensions="w-30 h-7" ></RunesButton>
+        <RunesButton text="Esci senza Salvare" clickFun={()=>createArmor = false} color="bg-cafe_noir-600" dimensions="w-40 h-7"></RunesButton>
+    </span>
 </Modal>
 
-<Modal bind:showModal={createAccessory} modalText="Creazione Accessorio">
+<Modal bind:showModal={createAccessory} modalText="Creazione Accessorio" canClickOutside={true}>
     <AccessoryGenerator></AccessoryGenerator>
+   <span class="flex items-center justify-end gap-5">
+        <RunesButton text="Salva ed esci" clickFun={()=>createAccessory = false} color="bg-cafe_noir-600" dimensions="w-30 h-7" ></RunesButton>
+        <RunesButton text="Esci senza Salvare" clickFun={()=>createAccessory = false} color="bg-cafe_noir-600" dimensions="w-40 h-7"></RunesButton>
+    </span>
 </Modal>
