@@ -37,7 +37,7 @@
     <section class=" grid grid-cols-3 py-3">
         {#each BOND_RELATIONS as relation}
             <span class="flex items-center justify-start w-auto gap-2 px-2">
-                <input type="checkbox" bind:group={bonds} value={relation} disabled={bonds.includes(getEquivalentBond(relation)) ? true : false}>
+                <input type="checkbox" bind:group={bonds} value={relation} disabled={Object.values(bonds).some(()=>getEquivalentBond(relation)) ? true : false}>
                 {relation}
             </span>  
         {/each}

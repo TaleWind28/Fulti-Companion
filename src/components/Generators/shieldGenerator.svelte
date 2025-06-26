@@ -9,6 +9,7 @@
     import { displayName, downloadFile, processSelectedJsonFile } from "$lib/utility";
     import { EquipScheme } from "$lib/zodTypeChecking";
     import { faDownload, faFileExport } from "@fortawesome/free-solid-svg-icons";
+  import Modal from "../customHTMLElements/modal.svelte";
 
     //variabili reattive per la creazione dell'equipaggiamento
     let equipImageUrl = $state(null);
@@ -74,7 +75,7 @@
         let result = EquipScheme.safeParse(jsonImport);
         if(result.error){
             //aggiungere modale di errore
-            //errore = true;
+            errore = true;
             target.value = "";
             console.log("file Json non parsato correttamente");
             return;
@@ -116,6 +117,9 @@
             onCreation(craftedEquip);
         }
     }
+
+    //modale di errore
+    let errore = $state(false);
 </script>
 
 
@@ -158,6 +162,18 @@
             {/if}
         </div>
     </div>
+
+      <Modal bind:showModal={errore} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
+        <div>
+            <h1 class="text-red-400 text-2xl">
+                È stato selezionato un formato di file non supportato, sono accettati solo file in formato Json
+            </h1>
+            <h2>
+                premi sulla pagina per chiudere questa finestra
+            </h2>
+        </div>
+        
+    </Modal>
 
   <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    

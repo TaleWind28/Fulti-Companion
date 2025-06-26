@@ -7,7 +7,7 @@
     import Bond from "./bond.svelte";
 
     //prop reattivi
-    let {characterName = "", characterGender = "", characterLevel = 0, characterDescription = "Nessuna Descrizione", zenit = 0, exp = 0, fabulaPoints = 0, imageStringUrl=""} = $props();
+    let {characterName = "", characterGender = "", characterLevel = 0, characterDescription = "Nessuna Descrizione", zenit = 0, exp = 0, fabulaPoints = 0, imageStringUrl="",bondArray = $bindable([])} = $props();
 
     //Prima Box
     //controllare se alla fine ci piace ma sembra funzionare a scanso di warning
@@ -36,11 +36,11 @@
 
 
     //Terza Box
-    let bondArray = $state(
-    [
-        {id:0, name:"pino",bonds:["Ammirazione"]},
-        {id:1, name:"pino",bonds:[]},
-    ])
+    // let bondArray = $state(
+    // [
+    //     {name:"pino",bonds:["Ammirazione"]},
+    //     {name:"pino",bonds:[]},
+    // ])
 
     function createBond(){
         if(bondArray.length>5){
@@ -51,8 +51,8 @@
 
         bondArray.push({id:bondArray.length,name:"",bonds:[]});
     }
-    function deleteBond(id:number){
-        bondArray = bondArray.filter(bond => bond.id != id);
+    function deleteBond(name:string){
+        bondArray = bondArray.filter(bond => bond.name != name);
     }
     
     //Quarta Box
@@ -61,6 +61,8 @@
         description:"",
         effect:""
     });
+
+    $inspect(bondArray,"bonds");
 
 </script>
     
@@ -113,11 +115,10 @@
         {/snippet}
         <div class="flex flex-col gap-4">
             {#each bondArray as bond}
-                <Bond bondName={bond.name} bind:bonds={bond.bonds} onDelete={ ()=> deleteBond(bond.id)}/>    
+                <Bond bondName={bond.name} bind:bonds={bond.bonds} onDelete={ ()=> deleteBond(bond.name)}/>    
                 <hr class="w-full border-cafe_noir-600">
             {/each}
-
-        </div>
+        </div>  
     </GeneratorBox>
 
     <!-- Quarta Box: Peculiarità -->

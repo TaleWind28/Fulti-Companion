@@ -7,6 +7,7 @@
     import ImageUploader2 from "../customHTMLElements/imageUploader2.svelte";
     import RunesButton from "../customHTMLElements/runesButton.svelte";
     import GeneratorBox from "./generatorBox.svelte";
+  import Modal from "../customHTMLElements/modal.svelte";
 
     let customArcanumName = $state("");
 
@@ -72,7 +73,7 @@
         let result = ArcanumScheme.safeParse(jsonImport);
         if(result.error){
             //aggiungere modale di errore
-            //errore = true;
+            errore = true;
             target.value = "";
             console.log("file Json non parsato correttamente");
             return;
@@ -119,6 +120,8 @@
         
     }
 
+    let errore = $state(false);
+
 </script>
 
 <GeneratorBox nameTag="Arcanum">
@@ -158,7 +161,17 @@
             
         </div>
     </div>
-
+    <Modal bind:showModal={errore} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
+        <div>
+            <h1 class="text-red-400 text-2xl">
+                È stato selezionato un formato di file non supportato, sono accettati solo file in formato Json
+            </h1>
+            <h2>
+                premi sulla pagina per chiudere questa finestra
+            </h2>
+        </div>
+        
+    </Modal>
   <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    
         <div  id={displayArcanumName} class="bg-white border">

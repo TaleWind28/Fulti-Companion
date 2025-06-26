@@ -72,7 +72,8 @@
                     comp: InfoTab,
                     props:{
                         characterName:character.name,
-                        characterLevel:character.level
+                        characterLevel:character.level,
+                        bondArray:character.bonds
                     }
                 }
                 const statTab:Tab = {
@@ -101,7 +102,7 @@
                     label:"Incantesimi",
                     comp: SpellTab,
                     props:{
-                        //mettere spellList
+                        //mettere spellList     
                     }
                 }
 

@@ -125,7 +125,7 @@
         if(result.error){
             errore = true;
             target.value = "";
-            console.log("errore");
+            return;
         }
         
         //craftedWeapon = jsonImport as Weapon;
@@ -195,7 +195,7 @@
     let formulaRow =$derived([accuracyFormula(selectedChar1.name,selectedChar2.name,additionalAccuracy),damageFormula(damageModifier,selectedDamageType.name),displayCost+"z"]);
     let tableHeader = ["PRECISIONE","DANNO","COSTO"];
     
-
+    $inspect(errore);
 </script>
 
 <GeneratorBox nameTag="Arma" border="border">
@@ -312,7 +312,7 @@
         <RunesButton text="" icon={faFileExport} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={handleExport}/>
     {/snippet}  
     
-    <Modal showModal={errore} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
+    <Modal bind:showModal={errore} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
         <div>
             <h1 class="text-red-400 text-2xl">
                 È stato selezionato un formato di file non supportato, sono accettati solo file in formato Json

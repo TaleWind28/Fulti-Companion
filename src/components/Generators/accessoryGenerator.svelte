@@ -10,6 +10,7 @@
     import { accessoryToJson } from "$lib/equipment";
     import { AccessoryScheme } from "$lib/zodTypeChecking";
     import { faDownload, faFileExport } from "@fortawesome/free-solid-svg-icons";
+  import Modal from "../customHTMLElements/modal.svelte";
 
     //qualità selezionata
     let selectedQuality = $state(BASE_QUALITIES[0]);
@@ -68,7 +69,7 @@
         let result = AccessoryScheme.safeParse(jsonImport);
         if(result.error){
             //aggiungere modale di errore
-            //errore = true;
+            errore = true;
             target.value = "";
             console.log("file Json non parsato correttamente",jsonImport);
             return;
@@ -111,6 +112,8 @@
             onCreation(craftedAccessory);
         }
     }
+
+    let errore = $state(false);
 </script>
 
 <GeneratorBox nameTag={"Accessorio"} border="border">
@@ -148,6 +151,16 @@
         </div>
     </div>
     
+    <Modal bind:showModal={errore} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
+        <div>
+            <h1 class="text-red-400 text-2xl">
+                È stato selezionato un formato di file non supportato, sono accettati solo file in formato Json
+            </h1>
+            <h2>
+                premi sulla pagina per chiudere questa finestra
+            </h2>
+        </div>
+    </Modal>
   <!-- Contenuto passato allo snippet 'imageProcessor' -->  
     {#snippet imageProcessor()}    
         <div  id={displayAccessoryName} class="bg-white border">
@@ -182,3 +195,4 @@
         <RunesButton text="" icon={faFileExport} style="cursor-pointer px-2" additionalStyle="w-auto" color= "" clickFun={handleExport}/>
     {/snippet}
 </GeneratorBox>
+
