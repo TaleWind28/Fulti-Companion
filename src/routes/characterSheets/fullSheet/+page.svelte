@@ -159,35 +159,14 @@
 
 
 {#if character}
-    <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
-        <RunesTab  tabs = {tabs.tabs} />
-    </div>
-{/if}
-
-<!-- modale relativo angolo basso dx che non blocca la view -->
-<Modal bind:showModal={hasChanged} modalText="Salva">
-    pippo
-</Modal>
-
-
-<Modal modalText="Pino" 
-    bind:showModal={hasChanged} 
-    relative={true}
-    fixedPosition={true}
-    canClickOutside={true}
-    ariaLabel="Notifica modifiche non salvate"
->
-    <div class="flex items-center gap-3 p-3 min-w-64">
-        <div class="flex items-center gap-2">
-            <span class="text-amber-500 text-lg">⚠️</span>
-            <span class="text-sm font-medium text-gray-700">Modifiche non salvate</span>
-        </div>
-        <div class="flex gap-2 ml-auto">
+   {#if hasChanged}
+    <div class="flex gap-2 ml-auto">
             <button 
                 class="bg-gray-200 text-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-300 transition-colors"
                 onclick={() => {
                     // Scarta le modifiche
-                    character = structuredClone(initialCharacter);
+                    // character = structuredClone(initialCharacter);
+                    //implementare
                 }}
             >
                 Annulla
@@ -204,5 +183,9 @@
                 Salva
             </button>
         </div>
+{/if}
+    <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
+        <RunesTab  tabs = {tabs.tabs} />
     </div>
-</Modal>
+{/if}
+
