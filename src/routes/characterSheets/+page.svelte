@@ -12,12 +12,14 @@
     import { CharacterSchema } from "$lib/zodTypeChecking";
 
     let selectedFile:File|null = null; 
-
+    let canReset = false;
     let rows = $state(Math.floor($personaggiStore.length));
       // Esegui prima della navigazione
     beforeNavigate(({ to, from, cancel }) => {
         // Cancella i dati qui          
         console.log('Sto per navigare da', from?.url.pathname, 'a', to?.url.pathname);
+        if(to?.url.pathname !== "/characterSheets/fullSheet")canReset = true;
+        
         //personaggiStore.reset();
     });
 
@@ -43,8 +45,13 @@
             armor: [],
             notes: [],
             modifiers: [0,0,0,0],
-            bonds: null,
-            shields: null
+            bonds: [],
+            shields: null,
+            zenit:0,
+            exp:0,
+            fabulaPoints:3,
+            spell:[],
+            accessories:[]
         }
         
         handleAdd(char).then(() => {
@@ -127,8 +134,7 @@
     
     onDestroy(()=>{
         console.log("component destroyed. Starting cleanup");
-        personaggiStore.reset();
-        console.log("store reset");
+        if(canReset)personaggiStore.reset();
         console.log("-------------------------------");
     })
 

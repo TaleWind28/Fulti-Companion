@@ -13,9 +13,9 @@
     import ClassTab from '../../../components/charachterComps/tabs/classTab.svelte';
     import SpellTab from '../../../components/charachterComps/tabs/spellTab.svelte';
     import EquipTab from '../../../components/charachterComps/tabs/equipTab.svelte';
-  import Modal from '../../../components/customHTMLElements/modal.svelte';
+    import { personaggiStore } from '../../../stores/characterStore';
     
-    // Recupera l'ID dell'auto dal parametro di query
+    // Recupera l'ID dell'utente dal parametro di query
     const id = page.url.searchParams.get('id');
     let canLoad= $state(false);
     let character:Character | null = $state(null);
@@ -28,7 +28,7 @@
             : false
     );
 
-    $inspect(hasChanged,"è cagnato");   
+   
 
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
@@ -63,6 +63,11 @@
         }
     });
 
+    function saveData(character:any){
+        personaggiStore.updateCharacter(character);
+        console.log("salvato");
+        return
+    }
     const handleRetrieval = async () => {
         try{
             if(id){
@@ -169,7 +174,7 @@
                     //implementare
                 }}
             >
-                Annulla
+                Annulla         
             </button>
             <button 
                 class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition-colors"
@@ -177,7 +182,9 @@
                     // Qui aggiungi la logica per salvare
                     console.log('Salvataggio...', character);
                     // Dopo il salvataggio, aggiorna initialCharacter
+                    saveData(character);
                     initialCharacter = $state.snapshot(character);
+                    
                 }}
             >
                 Salva

@@ -16,6 +16,17 @@ function createCharacterStore(){
                 })
             }
         },
+
+    updateCharacter: (updatedChar: Character) => {
+            if (!updatedChar || !updatedChar.id) return;
+
+            update(characters =>
+                characters.map(char =>
+                    char.id === updatedChar.id ? updatedChar : char
+                )
+            );
+        }
+,
         //rimuovo un personaggio 
         removeCharacter:(id:string) =>{
             
