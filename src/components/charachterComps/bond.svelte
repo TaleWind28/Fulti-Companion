@@ -24,8 +24,8 @@
         console.log("entra");
         onDelete(); // Chiama la funzione del padre
     }
-    
-    $inspect(bonds,"legami in Bonds.svelte");
+
+    $inspect(bonds,"[Bonds]Legami");
 
     // Mapping da italiano a inglese per le chiavi dell'oggetto
     function translateBond(bond:string):string{
@@ -48,11 +48,6 @@
         return bonds[equivalentKey] === true;
     }
 
-    // Funzione per ottenere la chiave inglese dal nome italiano
-    function getBondKey(relation: string): string {
-        return translateBond(relation);
-    }
-
 </script>
 
 <div>
@@ -67,8 +62,8 @@
         {#each BOND_RELATIONS as relation}
             <span class="flex items-center justify-start w-auto gap-2 px-2">
                 <input 
-                    type="checkbox" 
-                    bind:checked={bonds[getBondKey(relation)]}
+                    type="checkbox"
+                    bind:checked={bonds[translateBond(relation)]}
                     disabled={isEquivalentBondPresent(relation)}
                 >
                 {relation}

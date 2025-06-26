@@ -42,7 +42,7 @@
     let index = $state(0);
     let ActiveComponent = $derived(tabs[index].comp);
     let activeProps = $derived(tabs[index].props);
-    $inspect(character);
+    //$inspect(character,"[CharacterSheet] personaggio");
 
 </script>
 

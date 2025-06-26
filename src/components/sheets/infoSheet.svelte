@@ -3,17 +3,14 @@
     let { statusArray = $bindable(), bonds} = $props();
 
     let status = ["Lento","Furente","Confuso","skip","Scosso","Avvelenato","Debole"];
-    $inspect(bonds,"bonds Raw");
+    // $inspect(bonds,"bonds Raw");
     function getTrueBonds(bondObject:any[]) {
-        $inspect(bondObject);
+        // $inspect(bondObject);
         if (bondObject == undefined) return null;
         let bonding = [];
-        $inspect(bondObject,"bobj")  
+
         for(let i = 0;i<bondObject.length;i++){
-            // $inspect(bondObject[i],"mio");
-            // $inspect(bondObject[i].bonds,"dentro for");
-            // $inspect(Object.entries(bondObject[i].bonds).filter(([key,value]) => key!== 'name' && value === true),"filter");
-            // $inspect(bondObject[i].bonds, "obj");
+ 
             bonding.push({
                     name: bondObject[i].name,
                     bond: Object.entries(bondObject[i].bonds).filter(([key,value]) => key!== 'name' && value === true).map( ([key]) => key )
@@ -23,7 +20,7 @@
     }
 
     let trueBonds = getTrueBonds(bonds);
-    $inspect(trueBonds, "legami");
+    // $inspect(trueBonds, "legami");
 </script>
 
 <div class="flex flex-col gap-y-4 ">

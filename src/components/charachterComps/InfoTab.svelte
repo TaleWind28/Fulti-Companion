@@ -18,7 +18,6 @@
             {value:zenit,icon:faCoins,iconColor:"text-yellow-500"}
         ]);
 
-    $inspect(buttonFormatter,"reattività");
 
     async function urlUploader(stringUrl:string){
         console.log(stringUrl,"immagine");
@@ -36,11 +35,6 @@
 
 
     //Terza Box
-    // let bondArray = $state(
-    // [
-    //     {name:"pino",bonds:["Ammirazione"]},
-    //     {name:"pino",bonds:[]},
-    // ])
 
     function createBond(){
         if(bondArray.length>5){
@@ -49,20 +43,23 @@
             return;
         }
 
-        bondArray.push({id:bondArray.length,name:"",bonds:[]});
+        bondArray.push({name:"",bonds:{}});
     }
+
     function deleteBond(name:string){
-        bondArray = bondArray.filter(bond => bond.name != name);
+        console.log("bondArray deleting..."+name);
+        let index = bondArray.findIndex(bond => bond.name === name);
+        console.log("deleting at index", index);
+        bondArray.splice(index,1);
     }
-    
+
+    $inspect(bondArray,"[InfoTab]bondArray");
     //Quarta Box
     let quirk = $state({
         name:"",
         description:"",
         effect:""
     });
-
-    $inspect(bondArray,"bonds");
 
 </script>
     
@@ -115,7 +112,7 @@
         {/snippet}
         <div class="flex flex-col gap-4">
             {#each bondArray as bond}
-                <Bond bondName={bond.name} bind:bonds={bond.bonds} onDelete={ ()=> deleteBond(bond.name)}/>    
+                <Bond bind:bondName={bond.name} bind:bonds={bond.bonds} onDelete={ ()=> deleteBond(bond.name)}/>    
                 <hr class="w-full border-cafe_noir-600">
             {/each}
         </div>  

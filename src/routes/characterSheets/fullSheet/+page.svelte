@@ -133,7 +133,7 @@
                 console.log(e);
             }
     }
-    $inspect(character);
+    // $inspect(character,"[characterSheet page] Personaggio");
 </script>
 
 
