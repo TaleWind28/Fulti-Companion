@@ -18,9 +18,16 @@
     const id = page.url.searchParams.get('id');
     let canLoad= $state(false);
     let character:Character | null = $state(null);
+    let initialCharacter:Character | null = null;
     let tabs = new Tabs([]);
 
-    let proxyCharacter = $state({});
+    let hasChanged = $derived.by(()=>{
+        if(!character || !initialCharacter) return false;
+        return JSON.stringify(character) !== JSON.stringify(initialCharacter);
+    })
+    
+    $inspect(hasChanged,"è cagnato");   
+
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
     
@@ -58,6 +65,7 @@
         try{
             if(id){
                 character = await retrieveUserCharacter(id);
+                initialCharacter = $state.snapshot(character);
                 const charachterTab:Tab = {
                     id:0,
                     label:"Scheda Personaggio",
@@ -139,14 +147,12 @@
                 tabs.addTab(spellTab);
                 tabs.addTab(equipTab);
                 tabs.addTab(notesTab);
-                proxyCharacter = character;
                 
             }
             }
             catch(e){
             }
     }
-    $inspect(proxyCharacter,"proxy");
 </script>
 
 
@@ -154,8 +160,9 @@
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
         <RunesTab  tabs = {tabs.tabs} />
     </div>
+
 {/if}
 
-{#if proxyCharacter !== character}
+{#if hasChanged}
     pino
 {/if}
