@@ -35,10 +35,9 @@
             stats: [60, 60, 60, 60, 60, 60],
             characteristics: [6, 6, 6, 6],
             traits: ["", "", ""],
-            statuses: [false],
+            statuses: [false,false,false,false,false,false,false,false,false],
             elementalAffinity: {},
             pic: "",
-
             id: "",
             classes: [],
             weapons: [],
@@ -112,7 +111,7 @@
 
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
-
+        
 	});
 
     onAuthStateChanged(auth, (user) => {

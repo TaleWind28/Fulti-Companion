@@ -4,7 +4,7 @@
     import { Tabs, type Tab } from '$lib/utility';
     import { onAuthStateChanged } from 'firebase/auth';
     import { auth } from '$lib/authUtility';
-    import { type Character, retrieveUserCharacter } from "$lib/characterUtils";
+    import { type Character, retrieveUserCharacter, updateUserCharacter } from "$lib/characterUtils";
     import CharacterSheet from '../../../components/sheets/characterSheet.svelte';
     import RunesTab from '../../../components/customHTMLElements/runesTab.svelte';
     import InfoTab from '../../../components/charachterComps/tabs/InfoTab.svelte';
@@ -14,6 +14,7 @@
     import SpellTab from '../../../components/charachterComps/tabs/spellTab.svelte';
     import EquipTab from '../../../components/charachterComps/tabs/equipTab.svelte';
     import { personaggiStore } from '../../../stores/characterStore';
+  import { beforeNavigate } from '$app/navigation';
     
     // Recupera l'ID dell'utente dal parametro di query
     const id = page.url.searchParams.get('id');
@@ -28,7 +29,13 @@
             : false
     );
 
-   
+    beforeNavigate(({ to, from, cancel }) => {
+        // Cancella i dati qui          
+        console.log('Sto per navigare da', from?.url.pathname, 'a', to?.url.pathname);
+        personaggiStore.reset();
+        //personaggiStore.reset();
+    });
+
 
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
@@ -63,10 +70,18 @@
         }
     });
 
-    function saveData(character:any){
-        personaggiStore.updateCharacter(character);
-        console.log("salvato");
-        return
+    const handleUpdate = async (character:Character) => {
+        await updateUserCharacter(character);
+    }
+
+    async function saveData(character:Character){
+        handleUpdate(character).then(() => {
+            personaggiStore.updateCharacter(character);
+            console.log("character successfully added");
+     })
+     .catch( () => {
+            console.log("character couldn't be added");
+        })
     }
     const handleRetrieval = async () => {
         try{
@@ -181,8 +196,13 @@
                 onclick={() => {
                     // Qui aggiungi la logica per salvare
                     console.log('Salvataggio...', character);
-                    // Dopo il salvataggio, aggiorna initialCharacter
+                    if(!character){
+                        alert("personggio non valido");
+                        return;
+                    }
+                    console.log(character);
                     saveData(character);
+                    // Dopo il salvataggio, aggiorna initialCharacter
                     initialCharacter = $state.snapshot(character);
                     
                 }}

@@ -151,6 +151,22 @@ export async function addUserCharacter(character:Character){
   }
 }
 
+export async function updateUserCharacter(character:Character) {
+    const user = getAuth().currentUser;
+    if(!user) throw new Error("Utente non Autenticato");
+    if (!character.id) throw new Error("Id non disponibile");
+    const characterRef = doc(db,'users',user.uid,'characters',character.id);
+
+    try{
+      const characterToUpdate = {...character};
+      console.log(characterToUpdate);
+      await updateDoc(characterRef,characterToUpdate);
+    }catch(error){
+      alert("Something went wrong while updating the character..." + error);
+    }
+    
+}
+
 export async function removeUserCharacter(characterId: string) {
   const user = getAuth().currentUser;
   if (!user) throw new Error("Utente non autenticato");
