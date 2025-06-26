@@ -13,19 +13,21 @@
     import ClassTab from '../../../components/charachterComps/tabs/classTab.svelte';
     import SpellTab from '../../../components/charachterComps/tabs/spellTab.svelte';
     import EquipTab from '../../../components/charachterComps/tabs/equipTab.svelte';
+  import Modal from '../../../components/customHTMLElements/modal.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');
     let canLoad= $state(false);
     let character:Character | null = $state(null);
-    let initialCharacter:Character | null = null;
+    let initialCharacter:Character | null = $state(null);
     let tabs = new Tabs([]);
 
-    let hasChanged = $derived.by(()=>{
-        if(!character || !initialCharacter) return false;
-        return JSON.stringify(character) !== JSON.stringify(initialCharacter);
-    })
-    
+     let hasChanged = $derived(
+        character && initialCharacter 
+            ? JSON.stringify(character) !== JSON.stringify(initialCharacter)
+            : false
+    );
+
     $inspect(hasChanged,"è cagnato");   
 
     onMount(() => {
@@ -160,9 +162,10 @@
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
         <RunesTab  tabs = {tabs.tabs} />
     </div>
-
 {/if}
 
-{#if hasChanged}
-    pino
-{/if}
+<!-- modale relativo angolo basso dx che non blocca la view -->
+<Modal bind:showModal={hasChanged} modalText="Salva">
+    pippo
+</Modal>
+
