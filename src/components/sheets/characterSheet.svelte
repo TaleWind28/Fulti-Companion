@@ -20,6 +20,7 @@
             props:{
                 statusArray:character.statuses,
                 bonds:character.bonds
+
             }
         },
         //BattleSheet
@@ -35,14 +36,14 @@
     ];
     //rendere un tuoi/classe perchè così fa pena
     let item = ["Punti Fabula","Punti Esperienza","Zenit"];
-    let item2 = [0,0,0];
+    let item2 = [character.fabulaPoints,character.exp,character.zenit];
     let item3 = [faFeather,faStar,faCoins];
 
     //variabili reattive per rendering della scheda richiesta
     let index = $state(0);
     let ActiveComponent = $derived(tabs[index].comp);
     let activeProps = $derived(tabs[index].props);
-    $inspect(character,"[CharacterSheet] personaggio");
+    $inspect(character,character.zenit,character.exp,character.fabulaPoints,"[CharacterSheet] personaggio");
 
 </script>
 

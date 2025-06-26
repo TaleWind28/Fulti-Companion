@@ -5,29 +5,25 @@
     import ModalSelector from "../../customHTMLElements/modalSelector.svelte";
     import RunesInput from "../../customHTMLElements/runesInput.svelte";
     import Bond from "../bond.svelte";
+  import Modal from "../../customHTMLElements/modal.svelte";
 
     //prop reattivi
     let {
-        characterName = "", 
-        characterGender = "",
-        characterLevel = 0,
-        characterDescription = "Nessuna Descrizione",
-        zenit = 0,
-        exp = 0,
-        fabulaPoints = 0,
-        imageStringUrl="",
-        bondArray = $bindable([])
+        characterName = $bindable(""), 
+        characterGender = $bindable(""),
+        characterLevel = $bindable(0),
+        characterDescription = $bindable("Nessuna Descrizione"),
+        zenit = $bindable(0),
+        exp = $bindable(0),
+        fabulaPoints = $bindable(0),
+        imageStringUrl=$bindable(""),
+        bondArray = $bindable([]),
+
     } = $props();
 
-    //Prima Box
-    //controllare se alla fine ci piace ma sembra funzionare a scanso di warning
-    let buttonFormatter = $state(
-        [
-            {value:fabulaPoints,icon:faFeather,iconColor:"text-lion-600"},
-            {value:exp,icon:faStar,iconColor:"text-green-900"},
-            {value:zenit,icon:faCoins,iconColor:"text-yellow-500"}
-        ]);
+    $inspect(zenit,exp,fabulaPoints, "cose passate");
 
+    //Prima Box
 
     async function urlUploader(stringUrl:string){
         console.log(stringUrl,"immagine");
@@ -45,16 +41,17 @@
 
 
     //Terza Box
-
     function createBond(){
         if(bondArray.length>5){
             ////gestire con modale di errore
-            //error = true
+            error = true
             return;
         }
 
         bondArray.push({name:"",bonds:{}});
     }
+
+    let error = $state(false);
 
     function deleteBond(name:string){
         console.log("bondArray deleting..."+name);
@@ -89,9 +86,9 @@
             
             <!-- Terza Riga: Punti Fabula, Punti Exp e Zenit -->
             <section class="flex justify-start gap-18">
-                {#each buttonFormatter as formatter}
-                    <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={formatter.value} icon={formatter.icon} iconColor={formatter.iconColor}/>
-                {/each}
+                <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={fabulaPoints} icon={faFeather} iconColor={"text-lion-900"}/>
+                <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={exp} icon={faStar} iconColor={"text-green-900"}/>
+                <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={zenit} icon={faCoins} iconColor={"text-yellow-500"}/>
             </section>
 
             <!-- Quarta Riga: URL Immagine, con pulsanti -->
@@ -139,4 +136,8 @@
         </div>  
     </GeneratorBox>
 
+    <!-- Modale di Errore -->
+    <Modal bind:showModal={error} modalText="Errore">
+        <h1 class="text-red-500 text-2xl"> Numero massimo di Legami Raggiunto</h1>
+    </Modal>
 </div>

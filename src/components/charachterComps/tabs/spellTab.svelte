@@ -4,7 +4,7 @@
     import ModalSelector from "../../customHTMLElements/modalSelector.svelte";
     import GeneratorBox from "../../Generators/generatorBox.svelte";
     import RunesButton from "../../customHTMLElements/runesButton.svelte";
-  import Modal from "../../customHTMLElements/modal.svelte";
+    import Modal from "../../customHTMLElements/modal.svelte";
 
     let {spellsKnown = $bindable([]),classes = [entropista,elementalista,spiritista]} = $props();
     
@@ -38,11 +38,19 @@
             spellAlreadyKnown = true;
             return;
         }
+        if(selectedSpell.name === "Scegli un'incantesimo dalla lista"){
+            noSpellSelected = true;
+            return;
+        }
         spellsKnown.push(spell);
+        selectedList = {name:"Scegli una lista di Incantesimi", list:""};
+        selectedSpell = {name:"Scegli un'incantesimo dalla lista",effect:""};
         return;
     }
-    $inspect(spellsKnown);
+    $inspect(spellsKnown,"[SpellTab] spellKnown");
+    let noSpellSelected = $state(false);
     let selectedSpell = $state({name:"Scegli un'incantesimo dalla lista",effect:""});
+
 </script>
 
 <div class=" flex flex-col gap-5">
@@ -111,4 +119,8 @@
 
 <Modal modalText="Errore" bind:showModal={spellAlreadyKnown}>
     <h1 class="text-red-500 text-3xl"> Possiedi già quest'incantesimo </h1>
+</Modal>
+
+<Modal modalText="Errore" bind:showModal={noSpellSelected}>
+    <h1 class="text-red-500 text-3xl"> Non hai selezionato nessun'incantesimo </h1>
 </Modal>

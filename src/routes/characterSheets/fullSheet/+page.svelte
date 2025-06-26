@@ -74,7 +74,11 @@
                         characterName:character.name,
                         characterLevel:character.level,
                         bondArray:character.bonds,
-                        imageStringUrl:character.pic
+                        imageStringUrl:character.pic,
+                        zenit:character.zenit,
+                        exp: character.exp,
+                        fabulaPoints:character.fabulaPoints,
+                        
                     }
                 }
                 const statTab:Tab = {
@@ -84,7 +88,7 @@
                     props:{
                         characteristics:character.characteristics,
                         characterAffinitiesRaw:character.elementalAffinity,
-                        statuses:character.statuses
+                        statuses:character.statuses,
                     }
                 }
 
@@ -103,6 +107,7 @@
                     label:"Incantesimi",
                     comp: SpellTab,
                     props:{
+                        spellsKnown:character.spell
                         //mettere spellList     
                     }
                 }
@@ -112,6 +117,9 @@
                     label:"Equipaggiamento",
                     comp: EquipTab,
                     props: {
+                        weaponList:character.weapons,
+                        shieldList:character.armor,
+                        accessoryList:character.accessories
                         //mettere liste di strumenti
                     }
                 }
@@ -131,10 +139,10 @@
                 tabs.addTab(spellTab);
                 tabs.addTab(equipTab);
                 tabs.addTab(notesTab);
+                
                 }
             }
             catch(e){
-                console.log(e);
             }
     }
     // $inspect(character,"[characterSheet page] Personaggio");

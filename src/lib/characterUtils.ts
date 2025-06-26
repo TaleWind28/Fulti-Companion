@@ -7,6 +7,7 @@ import type { Affinities } from "./types";
 import { createObjectWithKeysInReversedOrder } from "./utility";
 
 import type {  IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import type { Spell } from "./spells";
 
 export interface Modifiers{
 
@@ -27,9 +28,13 @@ export interface Character{
     elementalAffinity:Affinities;
     pic:string
     id:string
-    bonds:any[]|null;
+    bonds:any[];
     shields:any[]|null;
     spell: any[] | null;
+    zenit:number;
+    fabulaPoints:number;
+    exp:number;
+    accessories:any[];
 }
 
 export interface FultimatorJson{
@@ -75,6 +80,7 @@ export interface FultimatorJson{
   weapons: any[];
   armor: any[];
   notes: any[];
+  accessories:any[];
   modifiers: {
     hp: number;
     mp: number;
@@ -157,6 +163,16 @@ export async function removeUserCharacter(characterId: string) {
   }
 }
 
+function parseSpells(classes:any[]){
+  let spells:Spell[] = [];
+  for(let i =0;i<classes.length;i++){
+    for(let j =0;j<classes[i].spells.length;j++){
+      spells.push(classes[i].spells[j]);
+    }
+  }
+  return spells;
+}
+
 export function convertToCharacterFormat(original: FultimatorJson): Character {
   // Estrai gli stati come array di boolean nell'ordine desiderato
   const statusesArray = [
@@ -215,6 +231,8 @@ export function convertToCharacterFormat(original: FultimatorJson): Character {
   if(original.id)id = original.id.toString();
   let bonds = [];
 
+  let spells = parseSpells(original.classes);
+
 // Controlla che bonds esista e sia un array
 if (original.info.bonds!== null) {
   for(let i = 0; i < original.info.bonds.length; i++){
@@ -225,6 +243,8 @@ if (original.info.bonds!== null) {
       bonds.push(bond);
     }
   }
+  let accessories = []
+  if (original.accessories !== undefined) accessories = original.accessories;
   return {
   name: original.name || "-",
   level: original.lvl,
@@ -242,7 +262,11 @@ if (original.info.bonds!== null) {
   modifiers: [],
   bonds: bonds,
   shields: null,
-  spell:null
+  spell:spells,
+  zenit:original.info.zenit,
+  fabulaPoints:original.info.fabulapoints,
+  exp:original.info.exp,
+  accessories:accessories
 };
 }
 

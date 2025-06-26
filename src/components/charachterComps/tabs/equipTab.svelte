@@ -7,7 +7,12 @@
   import ShieldGenerator from "../../Generators/shieldGenerator.svelte";
   import WeaponGenerator from "../../Generators/weaponGenerator.svelte";
 
-    let { weaponList = $bindable([]), accessoryList = $bindable([]),shieldList = $bindable([])} = $props(); 
+    let {
+            weaponList = $bindable([]),
+            accessoryList = $bindable([]),
+            shieldList = $bindable([])
+        } = $props(); 
+        
     let createWeapon = $state(false);
     let createAccessory = $state(false);
     let createArmor = $state(false);
