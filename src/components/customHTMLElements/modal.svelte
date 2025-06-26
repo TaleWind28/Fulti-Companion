@@ -12,7 +12,8 @@
 		divStyle = "m-auto",
 		ariaLabel = "Modal dialog",
 		ariaDescribedBy = undefined,
-		canClickOutside= false
+		canClickOutside= false,
+		fixedPosition = false
 	} = $props();
 
 	let modalVisible = $derived(showModal);
@@ -36,6 +37,7 @@
 
 {#if modalVisible}
 	{#if relative}
+		{#if !fixedPosition}
 		<!-- Overlay trasparente per modal relativi -->
 		<div
 			class="fixed inset-0 z-40"
@@ -46,6 +48,7 @@
 			in:fade={{ duration: 200 }}
 			out:fade={{ duration: 150 }}
 		></div>
+		{/if}
 		
 		<!-- Modal content con posizione absolute -->
 		<div

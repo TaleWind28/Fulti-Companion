@@ -169,3 +169,40 @@
     pippo
 </Modal>
 
+
+<Modal modalText="Pino" 
+    bind:showModal={hasChanged} 
+    relative={true}
+    fixedPosition={true}
+    canClickOutside={true}
+    ariaLabel="Notifica modifiche non salvate"
+>
+    <div class="flex items-center gap-3 p-3 min-w-64">
+        <div class="flex items-center gap-2">
+            <span class="text-amber-500 text-lg">⚠️</span>
+            <span class="text-sm font-medium text-gray-700">Modifiche non salvate</span>
+        </div>
+        <div class="flex gap-2 ml-auto">
+            <button 
+                class="bg-gray-200 text-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-300 transition-colors"
+                onclick={() => {
+                    // Scarta le modifiche
+                    character = structuredClone(initialCharacter);
+                }}
+            >
+                Annulla
+            </button>
+            <button 
+                class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition-colors"
+                onclick={() => {
+                    // Qui aggiungi la logica per salvare
+                    console.log('Salvataggio...', character);
+                    // Dopo il salvataggio, aggiorna initialCharacter
+                    initialCharacter = $state.snapshot(character);
+                }}
+            >
+                Salva
+            </button>
+        </div>
+    </div>
+</Modal>
