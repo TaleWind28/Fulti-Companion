@@ -120,6 +120,9 @@
                     id:5,
                     label:"Note",
                     comp: NotesTab,
+                    props:{
+                        charactherNotes:character.notes
+                    }
                 }
                 tabs.addTab(charachterTab);
                 tabs.addTab(infoTab);

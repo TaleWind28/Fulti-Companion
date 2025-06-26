@@ -237,7 +237,7 @@ if (original.info.bonds!== null) {
   classes: [],
   weapons: [],
   armor: [],
-  notes: [],
+  notes: original.notes,
   modifiers: [],
   bonds: bonds,
   shields: null
