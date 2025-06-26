@@ -36,7 +36,7 @@
             characteristics: [6, 6, 6, 6],
             traits: ["", "", ""],
             statuses: [false,false,false,false,false,false,false,false,false],
-            elementalAffinity: {},
+            elementalAffinity: {physical:"nu",bolt:"nu",wind:"nu",earth:"nu",fire:"nu",ice:"nu",dark:"nu",light:"nu",poison:"nu"},
             pic: "",
             id: "",
             classes: [],
@@ -45,12 +45,14 @@
             notes: [],
             modifiers: [0,0,0,0],
             bonds: [],
-            shields: null,
+            shields: [],
             zenit:0,
             exp:0,
             fabulaPoints:3,
             spell:[],
-            accessories:[]
+            accessories:[],
+            description:"",
+            gender:""
         }
         
         handleAdd(char).then(() => {

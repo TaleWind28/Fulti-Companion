@@ -14,7 +14,7 @@ let {charactherNotes = $bindable([{id:0,name:"",description:""}])} = $props();
     }
 
     function deleteNote(id:number){
-        charactherNotes = charactherNotes.filter(note => note.id != id);
+        charactherNotes.splice(charactherNotes.findIndex( note => note.id === id));
     }
 </script>
 

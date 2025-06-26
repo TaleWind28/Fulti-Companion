@@ -1,48 +1,17 @@
 <script lang="ts">
-    import { faCoins, faDiceFive, faFeather, faStar } from "@fortawesome/free-solid-svg-icons";
+    import { faCoins, faFeather, faStar } from "@fortawesome/free-solid-svg-icons";
     import CharacterCard from "../charachterComps/characterCard.svelte";
-    import CustomButton from "../customHTMLElements/customButton.svelte";
-    import type { Tab } from "$lib/utility";
-    import InfoSheet from "./infoSheet.svelte";
+
     import Fa from "svelte-fa";
    
     //Prop richiesti
     let { character } = $props();
     
-    // $inspect(character,"characterSheet");
-    //Tabs che rappresentano le due schede: Informativa e Battaglia
-    let tabs:Tab[] = [
-        //InfoSheet
-        {
-            id:0,
-            label:"InfoSheet",
-            comp:InfoSheet,
-            props:{
-                statusArray:character.statuses,
-                bonds:character.bonds
-
-            }
-        },
-        //BattleSheet
-        {
-            id:1,
-            label:"BattleSheet",
-            comp:CharacterCard,
-            props: {
-                car: character,
-                hidden:false
-            }
-        }
-    ];
     //rendere un tuoi/classe perchè così fa pena
     let item = ["Punti Fabula","Punti Esperienza","Zenit"];
     let item2 = [character.fabulaPoints,character.exp,character.zenit];
     let item3 = [faFeather,faStar,faCoins];
-
-    //variabili reattive per rendering della scheda richiesta
-    let index = $state(0);
-    let ActiveComponent = $derived(tabs[index].comp);
-    let activeProps = $derived(tabs[index].props);
+    
     $inspect(character,character.zenit,character.exp,character.fabulaPoints,"[CharacterSheet] personaggio");
 
 </script>
@@ -67,23 +36,5 @@
             </div>
         {/each}
     </div>
-
-    <!-- Barra intermedia -->
-    <span class="flex items-center justify-center gap-4">
-        <!-- Pulsante per rendering dinamico tra schede  -->
-        <CustomButton text="Mostra Scheda di Battaglia" dimensions="w-200 h-8" color="bg-cafe_noir-600" on:click={() => {
-            switch(index){
-                case 0: index = 1;break;
-                case 1: index = 0;break;
-            }
-            }}/>
-        <!-- Pulsante Dice Roller -->
-        <CustomButton text="roll" dimensions="w-15 h-8" color="bg-cafe_noir-600" textIcon={true} icon={faDiceFive}/>
-    </span>
-    <!-- Componente Dinamico per visualizzazione Scheda -->
-    <div class="flex  justify-center gap-4">
-        <ActiveComponent {...activeProps}/> 
-    </div>
-
 </div>
 

@@ -18,32 +18,33 @@
     let createArmor = $state(false);
 
     function addWeapon(weapon:any) {
-        weaponList = [...weaponList,weapon];
+        weaponList.push(weapon);
         createWeapon = false;
     }
 
      function addAccessory(accessory:any) {
-        accessoryList = [...accessoryList, accessory];
+        accessoryList.push(accessory);
         createAccessory = false;
     }
 
     function addShield(shield:any) {
-        shieldList = [...shieldList, shield];
+        shieldList.push(shield);
         console.log(shield);
         createArmor = false;
     }
 
     // Funzioni per rimuovere gli oggetti
     function removeWeapon(index:any) {
-        weaponList = weaponList.filter((_, i) => i !== index);
+        weaponList.splice(index,1);
+        
     }
 
     function removeAccessory(index:any) {
-        accessoryList = accessoryList.filter((_, i) => i !== index);
+       accessoryList.splice(index,1);
     }
 
     function removeShield(index:any) {
-        shieldList = shieldList.filter((_, i) => i !== index);
+        shieldList.splice(index,1);
     }
 </script>
 

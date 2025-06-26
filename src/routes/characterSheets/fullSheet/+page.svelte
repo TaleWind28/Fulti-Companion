@@ -129,7 +129,8 @@
                     label:"Classi",
                     comp: ClassTab,
                     props:{
-                        classList: character.classes
+                        character: character
+
 
                     }
                 }
@@ -139,6 +140,7 @@
                     label:"Incantesimi",
                     comp: SpellTab,
                     props:{
+                        classes:character.classes,
                         spellsKnown:character.spell
                     }
                 }

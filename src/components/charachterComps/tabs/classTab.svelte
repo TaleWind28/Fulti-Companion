@@ -9,35 +9,38 @@
   import RunesInput from "../../customHTMLElements/runesInput.svelte";
 
     //debug
-    //[createClassRune(furia),createClassRune(arcanista),createClassRune(entropista),createClassRune(lama_oscura),createClassRune(elementalista),createClassRune(guardiano),createClassRune(sapiente),createClassRune(oratore),createClassRune(canaglia),createClassRune(tiratore),createClassRune(spiritista),createClassRune(viandante),createClassRune(maestro_armi),createClassRune(artefice)]
-    let {classList = $bindable([])} = $props();
+    let {character = $bindable({})} = $props();
 
     let selectedClass = $state({name:"Scegli una classe",class:""});
     let classNumberExceeded = $state(false);
     let classAlreadyPresent = $state(false);
     let classAddedSuccessfully = $state(false);
-
+    let classNotSelected = $state(false);
     function addClassToCharacter(){
-        if(classList.length>4){
+        if(selectedClass.name === "Scegli una classe"){
+            classNotSelected = true;
+            return;
+        }
+        if(character.classes.length>4){
             classNumberExceeded = true;
             return;
         }
-        if(classList.includes(selectedClass.class)){
+        if(character.classes.includes(selectedClass.class)){
             //modale errore
             classAlreadyPresent = true;
             return;
         }
-        classList.push(selectedClass.class);
+        character.classes.push(selectedClass.class);
         //modale aggiunta
         classAddedSuccessfully = true;
     }
-    $inspect(classList);
+    $inspect(character.classes);
     $inspect(classAlreadyPresent,classNumberExceeded)
     
     function removeClass(clas:any){
-        classList = classList.filter(cls => cls !== clas);
+        character.classes = character.classes.filter(cls => cls !== clas);
     }
-    
+    $inspect(selectedClass,"classe",character.classes);
 </script>
 <div class="flex flex-col gap-4 ">
 
@@ -55,10 +58,10 @@
 </GeneratorBox>
 
 <!-- Mostro le Classi del personaggio -->
-    {#each {length:classList.length}, index }
+    {#each {length:character.classes.length}, index }
         <hr class="w-full border-cafe_noir-600">
-        <ClassDescriptor bind:chosenClass={classList[index]}/>
-        <RunesButton text="Rimuovi" color="bg-red-500" clickFun={()=>removeClass(classList[index])}/>
+        <ClassDescriptor bind:chosenClass={character.classes[index]}/>
+        <RunesButton text="Rimuovi" color="bg-red-500" clickFun={()=>removeClass(character.classes[index])}/>
     {/each}
 </div>
 
@@ -79,6 +82,15 @@
     <div>
         <h1 class="text-red-400 text-2xl">
            Hai già questa classe
+        </h1>
+    </div>
+</Modal>
+
+<!-- Errore: Classe già Posseduta -->
+<Modal bind:showModal={classNotSelected} modalText={"errore"} divStyle={"flex flex-col gap-4"}>
+    <div>
+        <h1 class="text-red-400 text-2xl">
+           Seleziona una classe
         </h1>
     </div>
 </Modal>

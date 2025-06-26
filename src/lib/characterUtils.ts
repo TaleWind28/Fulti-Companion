@@ -35,6 +35,8 @@ export interface Character{
     fabulaPoints:number;
     exp:number;
     accessories:any[];
+    gender:string;
+    description:string;
 }
 
 export interface FultimatorJson{
@@ -242,6 +244,7 @@ export function convertToCharacterFormat(original: FultimatorJson): Character {
   if (original.info.identity) traitsArray.push(original.info.identity);
   if (original.info.theme) traitsArray.push(original.info.theme);
   if (original.info.origin) traitsArray.push(original.info.origin);
+  
   console.log(original.id);
   let id:string = "00";
   if(original.id)id = original.id.toString();
@@ -282,7 +285,9 @@ if (original.info.bonds!== null) {
   zenit:original.info.zenit,
   fabulaPoints:original.info.fabulapoints,
   exp:original.info.exp,
-  accessories:accessories
+  accessories:accessories,
+  gender:original.info.pronouns,
+  description:original.info.description
 };
 }
 
@@ -400,27 +405,22 @@ export function convertToFultimatorJson(character: Character): FultimatorJson {
     ip: { current: character.stats[4], max: character.stats[5] },
   };
 
-  // Ricostruisci affinities.
-  // Applichiamo di nuovo createObjectWithKeysInReversedOrder per ripristinare
-  // l'ordine delle chiavi che si presume avesse rawAffinity nella funzione originale.
-  // Il risultato sarà un oggetto Affinities (non null), poiché Character.elementalAffinity è sempre un oggetto completo.
+ 
   const fultimatorAffinities: Affinities = createObjectWithKeysInReversedOrder(
     character.elementalAffinity
-  ) as Affinities; // Cast esplicito perché createObjectWithKeysInReversedOrder è generico, ma sappiamo che il risultato è compatibile con Affinities
+  ) as Affinities;
 
-  // Ricostruisci l'oggetto info. Molti campi non sono presenti in Character
-  // e necessitano di valori predefiniti.
   const fultimatorInfo = {
-    pronouns: "", // Valore predefinito, non presente in Character
-    identity: character.traits[0] || "", // Da Character.traits, default stringa vuota se non presente
-    theme: character.traits[1] || "",    // Da Character.traits, default stringa vuota se non presente
-    origin: character.traits[2] || "",   // Da Character.traits, default stringa vuota se non presente
-    bonds: character.bonds, // Valore predefinito, non presente in Character
-    description: "", // Valore predefinito, non presente in Character
-    fabulapoints: 0, // Valore predefinito, non presente in Character
-    exp: 0, // Valore predefinito, non presente in Character
-    zenit: 0, // Valore predefinito, non presente in Character
-    imgurl: character.pic, // Da Character.pic
+    pronouns: character.gender, 
+    identity: character.traits[0] || "", 
+    theme: character.traits[1] || "",   
+    origin: character.traits[2] || "",   
+    bonds: character.bonds, 
+    description: character.description, 
+    fabulapoints: character.fabulaPoints, 
+    exp: character.exp, 
+    zenit: character.zenit, 
+    imgurl: character.pic, 
   };
 
   // Ricostruisci l'oggetto modifiers (valori predefiniti)
@@ -444,22 +444,16 @@ export function convertToFultimatorJson(character: Character): FultimatorJson {
     attributes: fultimatorAttributes,
     stats: fultimatorStats,
     statuses: fultimatorStatuses,
-    classes: [], // Valore predefinito, non presente in Character
-    weapons: [], // Valore predefinito, non presente in Character
-    armor: [], // Valore predefinito, non presente in Character
-    notes: [], // Valore predefinito, non presente in Character
+    classes: character.classes, 
+    weapons: character.weapons, 
+    armor: character.armor, 
+    notes: character.notes, 
     modifiers: fultimatorModifiers,
     id: parseInt(character.id, 10), // Converti string id da Character a number
     affinities: fultimatorAffinities, // Sarà un oggetto Affinities, non null
+    accessories:character.accessories,
     bonds:character.bonds,
     shields: null, // Valore predefinito (come da tipo any[] | null), non presente in Character
     dataType: "FultimatorCharacterSheet", // Valore predefinito/placeholder, non presente in Character
   };
-}
-//funzione di print per debug
-export function printCharacterInfo(character:Character){
-  
-  for(let i =0;i<4;i++)console.log(character.characteristics[i]);
-  for(let i = 0;i<6;i++)console.log(character.stats[i])
-
 }
