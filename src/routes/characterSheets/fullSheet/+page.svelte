@@ -20,6 +20,7 @@
     let character:Character | null = $state(null);
     let tabs = new Tabs([]);
 
+    let proxyCharacter = $state({});
     onMount(() => {
 		console.log('component mounted. Starting initial fetch.');
     
@@ -78,7 +79,7 @@
                         zenit:character.zenit,
                         exp: character.exp,
                         fabulaPoints:character.fabulaPoints,
-                        
+                        character:character,
                     }
                 }
                 const statTab:Tab = {
@@ -89,6 +90,7 @@
                         characteristics:character.characteristics,
                         characterAffinitiesRaw:character.elementalAffinity,
                         statuses:character.statuses,
+                        character:character
                     }
                 }
 
@@ -108,7 +110,6 @@
                     comp: SpellTab,
                     props:{
                         spellsKnown:character.spell
-                        //mettere spellList     
                     }
                 }
 
@@ -120,7 +121,6 @@
                         weaponList:character.weapons,
                         shieldList:character.armor,
                         accessoryList:character.accessories
-                        //mettere liste di strumenti
                     }
                 }
 
@@ -139,13 +139,14 @@
                 tabs.addTab(spellTab);
                 tabs.addTab(equipTab);
                 tabs.addTab(notesTab);
+                proxyCharacter = character;
                 
-                }
+            }
             }
             catch(e){
             }
     }
-    // $inspect(character,"[characterSheet page] Personaggio");
+    $inspect(proxyCharacter,"proxy");
 </script>
 
 
@@ -153,4 +154,8 @@
     <div class=" bg-cafe_noir-900 items-center flex  pt-6 pb-6  flex-col px-28 gap-6 ">
         <RunesTab  tabs = {tabs.tabs} />
     </div>
+{/if}
+
+{#if proxyCharacter !== character}
+    pino
 {/if}

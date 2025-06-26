@@ -18,6 +18,7 @@
         fabulaPoints = $bindable(0),
         imageStringUrl=$bindable(""),
         bondArray = $bindable([]),
+        character = $bindable({}),
 
     } = $props();
 
@@ -68,6 +69,8 @@
         effect:""
     });
 
+    $inspect(character,"pippo");
+
 </script>
     
 <div class="grid grid-cols-2 gap-4">
@@ -76,9 +79,9 @@
         <div class="flex flex-col gap-4 p-2">
             <!-- Prima Riga: Nome, Genere e Livello -->
             <section class="flex gap-4 ">
-                <input type="text" bind:value={characterName} class="w-40 border rounded" placeholder="Nome Personaggio">
+                <input type="text" bind:value={character.name} class="w-40 border rounded" placeholder="Nome Personaggio">
                 <input type="text" bind:value={characterGender} class="w-40 border rounded" placeholder="Genere">
-                <input type="number" bind:value={characterLevel} class="w-20 border rounded" placeholder="Descrizione">
+                <input type="number" bind:value={character.level} class="w-20 border rounded" placeholder="Descrizione">
             </section>
             
             <!-- Seconda Riga: Descrizione Personaggio -->
@@ -86,9 +89,9 @@
             
             <!-- Terza Riga: Punti Fabula, Punti Exp e Zenit -->
             <section class="flex justify-start gap-18">
-                <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={fabulaPoints} icon={faFeather} iconColor={"text-lion-900"}/>
-                <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={exp} icon={faStar} iconColor={"text-green-900"}/>
-                <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={zenit} icon={faCoins} iconColor={"text-yellow-500"}/>
+                <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={character.fabulaPoints} icon={faFeather} iconColor={"text-lion-900"}/>
+                <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={character.exp} icon={faStar} iconColor={"text-green-900"}/>
+                <RunesInput styleClass = "flex w-auto items-center border rounded p-2" bind:bindValue={character.zenit} icon={faCoins} iconColor={"text-yellow-500"}/>
             </section>
 
             <!-- Quarta Riga: URL Immagine, con pulsanti -->

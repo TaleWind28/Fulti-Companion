@@ -8,14 +8,17 @@
     let{ 
         characteristics = $bindable([8,8,8,8]),
         characterAffinitiesRaw = $bindable([0,0,0,0,0,0,0,0,0]),
-        statuses = $bindable([false,false,false,false,false,false,false,false,false,false])
+        statuses = $bindable([false,false,false,false,false,false,false,false,false,false]),
+        character = $bindable({})
     } = $props();
-
+    
     //Prima Box
     let standardStatSpread = $state(["Tuttofare: d8,d8,d8,d8","Standard: d10,d8,d8,d6","Specializzato: d10,d10,d6,d6"])
 
     function updateRealchars(){
-        characteristics = [characteristicTranslated[0].value,characteristicTranslated[1].value,characteristicTranslated[2].value,characteristicTranslated[3].value,]
+         
+
+        character.characteristics = [characteristicTranslated[0].value,characteristicTranslated[1].value,characteristicTranslated[2].value,characteristicTranslated[3].value]
     }
     //Seconda Box
 
@@ -56,7 +59,7 @@
     $inspect(affinities,"affinity");
     $inspect(characterAffinitiesRaw,"affinity Raw");
 
-    let characteristicTranslated = $state([{name:"DES",value:characteristics[0]},{name:"INT",value:characteristics[0]},{name:"VIG",value:characteristics[2]},{name:"VOL",value:characteristics[3]}])
+    let characteristicTranslated = $state([{name:"DES",value:character.characteristics[0]},{name:"INT",value:character.characteristics[1]},{name:"VIG",value:character.characteristics[2]},{name:"VOL",value:character.characteristics[3]}])
      
     function handleAffinitySliderChange(input:any){
         switch(input.name){
@@ -84,7 +87,7 @@
         characterAffinitiesRaw.light = reverseMap[6];
         characterAffinitiesRaw.dark = reverseMap[7];
         characterAffinitiesRaw.poison = reverseMap[8];
-     }
+    }
     
     //Terza Box
     let statusArray = $state([
