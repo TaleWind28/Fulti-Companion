@@ -7,12 +7,12 @@
     import { type Character, retrieveUserCharacter } from "$lib/characterUtils";
     import CharacterSheet from '../../../components/sheets/characterSheet.svelte';
     import RunesTab from '../../../components/customHTMLElements/runesTab.svelte';
-    import InfoTab from '../../../components/charachterComps/InfoTab.svelte';
-    import StatTab from '../../../components/charachterComps/statTab.svelte';
-    import NotesTab from '../../../components/charachterComps/notesTab.svelte';
-    import ClassTab from '../../../components/charachterComps/classTab.svelte';
-    import SpellTab from '../../../components/charachterComps/spellTab.svelte';
-    import EquipTab from '../../../components/charachterComps/equipTab.svelte';
+    import InfoTab from '../../../components/charachterComps/tabs/InfoTab.svelte';
+    import StatTab from '../../../components/charachterComps/tabs/statTab.svelte';
+    import NotesTab from '../../../components/charachterComps/tabs/notesTab.svelte';
+    import ClassTab from '../../../components/charachterComps/tabs/classTab.svelte';
+    import SpellTab from '../../../components/charachterComps/tabs/spellTab.svelte';
+    import EquipTab from '../../../components/charachterComps/tabs/equipTab.svelte';
     
     // Recupera l'ID dell'auto dal parametro di query
     const id = page.url.searchParams.get('id');
@@ -73,7 +73,8 @@
                     props:{
                         characterName:character.name,
                         characterLevel:character.level,
-                        bondArray:character.bonds
+                        bondArray:character.bonds,
+                        imageStringUrl:character.pic
                     }
                 }
                 const statTab:Tab = {

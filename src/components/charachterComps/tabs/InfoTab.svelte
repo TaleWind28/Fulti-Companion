@@ -1,13 +1,23 @@
 <script lang="ts">
-    import RunesButton from "../customHTMLElements/runesButton.svelte";
-    import GeneratorBox from "../Generators/generatorBox.svelte";
+    import RunesButton from "../../customHTMLElements/runesButton.svelte";
+    import GeneratorBox from "../../Generators/generatorBox.svelte";
     import { faCoins, faFeather, faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
-    import ModalSelector from "../customHTMLElements/modalSelector.svelte";
-    import RunesInput from "../customHTMLElements/runesInput.svelte";
-    import Bond from "./bond.svelte";
+    import ModalSelector from "../../customHTMLElements/modalSelector.svelte";
+    import RunesInput from "../../customHTMLElements/runesInput.svelte";
+    import Bond from "../bond.svelte";
 
     //prop reattivi
-    let {characterName = "", characterGender = "", characterLevel = 0, characterDescription = "Nessuna Descrizione", zenit = 0, exp = 0, fabulaPoints = 0, imageStringUrl="",bondArray = $bindable([])} = $props();
+    let {
+        characterName = "", 
+        characterGender = "",
+        characterLevel = 0,
+        characterDescription = "Nessuna Descrizione",
+        zenit = 0,
+        exp = 0,
+        fabulaPoints = 0,
+        imageStringUrl="",
+        bondArray = $bindable([])
+    } = $props();
 
     //Prima Box
     //controllare se alla fine ci piace ma sembra funzionare a scanso di warning

@@ -1,10 +1,10 @@
 <script lang="ts">
     import { elementalista, entropista, spiritista, type CharacterClass } from "$lib/characterClasses.svelte";
     import { spellLists, type Spell } from "$lib/spells";
-    import ModalSelector from "../customHTMLElements/modalSelector.svelte";
-    import GeneratorBox from "../Generators/generatorBox.svelte";
-    import RunesButton from "../customHTMLElements/runesButton.svelte";
-  import Modal from "../customHTMLElements/modal.svelte";
+    import ModalSelector from "../../customHTMLElements/modalSelector.svelte";
+    import GeneratorBox from "../../Generators/generatorBox.svelte";
+    import RunesButton from "../../customHTMLElements/runesButton.svelte";
+  import Modal from "../../customHTMLElements/modal.svelte";
 
     let {spellsKnown = $bindable([]),classes = [entropista,elementalista,spiritista]} = $props();
     

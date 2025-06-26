@@ -1,8 +1,8 @@
 <script lang="ts">
     import { faCancel, faPlus } from "@fortawesome/free-solid-svg-icons";
-    import RunesButton from "../customHTMLElements/runesButton.svelte";
-    import GeneratorBox from "../Generators/generatorBox.svelte";
-    import Note from "./note.svelte";
+    import RunesButton from "../../customHTMLElements/runesButton.svelte";
+    import GeneratorBox from "../../Generators/generatorBox.svelte";
+    import Note from "../note.svelte";
 
 
 let {charactherNotes = $bindable([{id:0,name:"",description:""}])} = $props();

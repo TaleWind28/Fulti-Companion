@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import GeneratorBox from "../Generators/generatorBox.svelte";
+    import GeneratorBox from "../../Generators/generatorBox.svelte";
     import { elemGlams } from "$lib/characterUtils";
     import Fa from "svelte-fa";
 

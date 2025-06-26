@@ -1,11 +1,11 @@
 <script lang="ts">
   import { damageFormula } from "$lib/combatUtility";
-  import Modal from "../customHTMLElements/modal.svelte";
-    import RunesButton from "../customHTMLElements/runesButton.svelte";
-  import AccessoryGenerator from "../Generators/accessoryGenerator.svelte";
-    import GeneratorBox from "../Generators/generatorBox.svelte";
-  import ShieldGenerator from "../Generators/shieldGenerator.svelte";
-  import WeaponGenerator from "../Generators/weaponGenerator.svelte";
+  import Modal from "../../customHTMLElements/modal.svelte";
+    import RunesButton from "../../customHTMLElements/runesButton.svelte";
+  import AccessoryGenerator from "../../Generators/accessoryGenerator.svelte";
+    import GeneratorBox from "../../Generators/generatorBox.svelte";
+  import ShieldGenerator from "../../Generators/shieldGenerator.svelte";
+  import WeaponGenerator from "../../Generators/weaponGenerator.svelte";
 
     let { weaponList = $bindable([]), accessoryList = $bindable([]),shieldList = $bindable([])} = $props(); 
     let createWeapon = $state(false);

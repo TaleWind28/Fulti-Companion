@@ -1,12 +1,12 @@
 <script lang="ts">
-    import ModalSelector from "../customHTMLElements/modalSelector.svelte";
-    import GeneratorBox from "../Generators/generatorBox.svelte";
+    import ModalSelector from "../../customHTMLElements/modalSelector.svelte";
+    import GeneratorBox from "../../Generators/generatorBox.svelte";
   
     import {baseBookClasses} from "$lib/characterClasses.svelte";
-    import ClassDescriptor from "./classDescriptor.svelte";
-    import RunesButton from "../customHTMLElements/runesButton.svelte";
-  import Modal from "../customHTMLElements/modal.svelte";
-  import RunesInput from "../customHTMLElements/runesInput.svelte";
+    import ClassDescriptor from "../classDescriptor.svelte";
+    import RunesButton from "../../customHTMLElements/runesButton.svelte";
+  import Modal from "../../customHTMLElements/modal.svelte";
+  import RunesInput from "../../customHTMLElements/runesInput.svelte";
 
     //debug
     //[createClassRune(furia),createClassRune(arcanista),createClassRune(entropista),createClassRune(lama_oscura),createClassRune(elementalista),createClassRune(guardiano),createClassRune(sapiente),createClassRune(oratore),createClassRune(canaglia),createClassRune(tiratore),createClassRune(spiritista),createClassRune(viandante),createClassRune(maestro_armi),createClassRune(artefice)]
