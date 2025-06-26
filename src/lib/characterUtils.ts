@@ -29,6 +29,7 @@ export interface Character{
     id:string
     bonds:any[]|null;
     shields:any[]|null;
+    spell: any[] | null;
 }
 
 export interface FultimatorJson{
@@ -234,13 +235,14 @@ if (original.info.bonds!== null) {
   elementalAffinity: elementalAffinity,
   pic: original.info.imgurl || "",
   id: id, // Converti id da numero a stringa
-  classes: [],
-  weapons: [],
-  armor: [],
+  classes: original.classes,
+  weapons: original.weapons,
+  armor: original.armor,
   notes: original.notes,
   modifiers: [],
   bonds: bonds,
-  shields: null
+  shields: null,
+  spell:null
 };
 }
 
